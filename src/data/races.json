@@ -1,0 +1,166 @@
+[
+  {
+    "id": "s1-r1",
+    "season": 1,
+    "round": 1,
+    "grandPrix": "Australia",
+    "trackMapUrl": "https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Australia_Circuit.webp",
+    "stats": {
+      "winner": "HX4P1",
+      "pole": "Stefan",
+      "fastestLap": "HX4P1",
+      "driverOfDay": "HX4P1"
+    },
+    "incidents": [
+      "Lap 1 - Aniestube BMW (Inters -> Softs)",
+      "Lap 2 - Vozzy Crash (1/5)",
+      "Lap 11 - GGGF Crash (2/5)",
+      "Other 3 crashed after 1st pitstops"
+    ],
+    "raceResults": [
+      { "pos": 1, "driver": "Happi", "gap": "Winner", "status": "finished", "points": 25 },
+      { "pos": 2, "driver": "Stefan", "gap": "+5 Sec", "status": "finished", "points": 18 },
+      { "pos": 3, "driver": "Ky", "gap": "+7 Sec", "status": "finished", "points": 15 },
+      { "pos": 4, "driver": "LAX", "gap": "+11.149 Sec", "status": "finished", "points": 12 },
+      { "pos": 5, "driver": "DRXP", "gap": "+18.909 Sec", "status": "finished", "points": 10 },
+      { "pos": 6, "driver": "Tristan", "gap": "+20.529 Sec", "status": "finished", "points": 8 },
+      { "pos": 7, "driver": "KsDoom", "gap": "+33.331 Sec", "status": "finished", "points": 6 },
+      { "pos": 8, "driver": "Chop/sticks", "gap": "+01:12.235 Sec", "status": "finished", "points": 4 },
+      { "pos": 9, "driver": "Sport_Beast", "gap": "+01:41.169 Sec", "status": "finished", "points": 2 },
+      { "pos": 10, "driver": "Teit", "gap": "+2 Laps", "status": "finished", "points": 1 },
+      { "pos": 11, "driver": "GEME", "gap": "+6 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 12, "driver": "Triple", "gap": "+9 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 13, "driver": "Ethan", "gap": "+13 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 14, "driver": "GGGF", "gap": "+21 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 15, "driver": "Vozzy", "gap": "+29 Laps DNF", "status": "dnf", "points": 0 }
+    ],
+    "qualiResults": [
+      { "pos": 1, "driver": "Stefan", "time": "1:20.722" },
+      { "pos": 2, "driver": "Trip", "time": "1:23.882" },
+      { "pos": 3, "driver": "Thec", "time": "1:24.365" },
+      { "pos": 4, "driver": "Ecto", "time": "1:25.737" },
+      { "pos": 5, "driver": "Geme", "time": "1:26.203" },
+      { "pos": 6, "driver": "KsDoom", "time": "1:26.276" },
+      { "pos": 7, "driver": "Ethan", "time": "1:26.328" },
+      { "pos": 8, "driver": "Anie", "time": "1:26.562" },
+      { "pos": 9, "driver": "Notu", "time": "1:26.893" },
+      { "pos": 10, "driver": "Bray", "time": "1:27.843" },
+      { "pos": 11, "driver": "Sport_beast", "time": "1:28.330" },
+      { "pos": 12, "driver": "GGGf", "time": "1:32.071" },
+      { "pos": 13, "driver": "JAJC", "time": "No Time" },
+      { "pos": 14, "driver": "VOZZ", "time": "No Time" },
+      { "pos": 15, "driver": "HAPPI", "time": "No Time" },
+      { "pos": 16, "driver": "TRISTAN", "time": "No Time" }
+    ],
+    "strategies": [
+      {
+        "driver": "Notu",
+        "stints": [
+          { "compound": "med", "percent": 46.6, "label": "Medium (L1-14)" },
+          { "compound": "hard", "percent": 53.4, "label": "Hard (L15-30)" }
+        ]
+      },
+      {
+        "driver": "Hx4pi",
+        "stints": [
+          { "compound": "med", "percent": 53.3, "label": "Medium (L1-16)" },
+          { "compound": "soft", "percent": 23.3, "label": "Soft (L17-23)" },
+          { "compound": "soft", "percent": 23.4, "label": "Soft (L24-30)" }
+        ]
+      },
+      {
+        "driver": "Stefan",
+        "stints": [
+          { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
+          { "compound": "hard", "percent": 60, "label": "Hard (L13-30)" }
+        ]
+      },
+      {
+        "driver": "Thec",
+        "stints": [
+          { "compound": "soft", "percent": 36.6, "label": "Soft (L1-11)" },
+          { "compound": "med", "percent": 63.4, "label": "Medium (L12-30)" }
+        ]
+      },
+      {
+        "driver": "Bray",
+        "stints": [
+          { "compound": "soft", "percent": 43.3, "label": "Soft (L1-13)" },
+          { "compound": "med", "percent": 56.7, "label": "Medium (L14-30)" }
+        ]
+      },
+      {
+        "driver": "Tristan",
+        "stints": [
+          { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
+          { "compound": "hard", "percent": 60, "label": "Hard (L13-30)" }
+        ]
+      },
+      {
+        "driver": "KsDoom",
+        "stints": [
+          { "compound": "med", "percent": 63.3, "label": "Medium (L1-19)" },
+          { "compound": "soft", "percent": 36.7, "label": "Soft (L20-30)" }
+        ]
+      },
+      {
+        "driver": "Geme",
+        "stints": [
+          { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
+          { "compound": "med", "percent": 60, "label": "Medium (L13-30)" }
+        ]
+      },
+      {
+        "driver": "SportBeast",
+        "stints": [
+          { "compound": "soft", "percent": 53.3, "label": "Soft (L1-16)" },
+          { "compound": "med", "percent": 46.7, "label": "Medium (L17-30)" }
+        ]
+      },
+      {
+        "driver": "JAJC",
+        "stints": [
+          { "compound": "hard", "percent": 76.6, "label": "Hard (L1-23)" },
+          { "compound": "soft", "percent": 23.4, "label": "Soft (L24-30)" }
+        ]
+      },
+      {
+        "driver": "Ethan",
+        "stints": [
+          { "compound": "soft", "percent": 36.6, "label": "Soft (L1-11)" },
+          { "compound": "hard", "percent": 10, "label": "Hard (DNF)" },
+          { "compound": "dnf", "percent": 5, "label": "Crash" }
+        ]
+      },
+      {
+        "driver": "Triple",
+        "stints": [
+          { "compound": "soft", "percent": 26.6, "label": "Soft (L1-8)" },
+          { "compound": "hard", "percent": 15, "label": "Hard (DNF)" },
+          { "compound": "dnf", "percent": 5, "label": "Crash" }
+        ]
+      },
+      {
+        "driver": "Anie",
+        "stints": [
+          { "compound": "inter", "percent": 3.3, "label": "Inter (L1)" },
+          { "compound": "soft", "percent": 96.7, "label": "Soft (L2-30)" }
+        ]
+      },
+      {
+        "driver": "GGGF",
+        "stints": [
+          { "compound": "med", "percent": 36.6, "label": "Medium (L1-11)" },
+          { "compound": "dnf", "percent": 5, "label": "Crash" }
+        ]
+      },
+      {
+        "driver": "Vozzy",
+        "stints": [
+          { "compound": "med", "percent": 6.6, "label": "Medium (L1-2)" },
+          { "compound": "dnf", "percent": 5, "label": "Crash" }
+        ]
+      }
+    ]
+  }
+]

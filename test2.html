@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia GP | PMA Results</title>
+    <style>
+        :root {
+            --bg-color: #101010;
+            --card-bg: #1f1f1f;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent: #e10600; /* F1 Red */
+            --soft: #ff3333;
+            --med: #ffe045;
+            --hard: #ffffff;
+            --inter: #36c756;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h1 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        h2 { color: var(--text-dim); margin-top: 5px; font-weight: 400; }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        td, th { padding: 8px; text-align: left; border-bottom: 1px solid #333; }
+        th { color: var(--text-dim); font-size: 0.8rem; }
+        
+        .pos-1 { color: #ffd700; font-weight: bold; }
+        .pos-2 { color: #c0c0c0; font-weight: bold; }
+        .pos-3 { color: #cd7f32; font-weight: bold; }
+        .dnf { color: #ff3333; font-style: italic; }
+
+        /* Tyre Badges */
+        .tyre {
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.75rem;
+            margin-right: 4px;
+        }
+        .t-soft { background-color: var(--soft); }
+        .t-med { background-color: var(--med); }
+        .t-hard { background-color: var(--hard); }
+        .t-inter { background-color: var(--inter); }
+
+        .highlight-box {
+            display: flex;
+            justify-content: space-between;
+            background: #2a2a2a;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .highlight-label { color: var(--text-dim); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Round 1 - Australia GP</h1>
+        <h2>PMA League</h2>
+    </div>
+
+    <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+        <div class="card" style="flex: 1;">
+            <div class="highlight-label">RACE WINNER</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">HX4P1</div>
+        </div>
+        <div class="card" style="flex: 1;">
+            <div class="highlight-label">POLE POSITION</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">Stefan</div>
+            <div style="color: var(--accent)">1:20.722</div>
+        </div>
+        <div class="card" style="flex: 1;">
+            <div class="highlight-label">FASTEST LAP</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">HX4P1</div>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        
+        <div class="card">
+            <div class="card-title">Race Classification</div>
+            <table>
+                <tr><th>Pos</th><th>Driver</th><th>Status</th></tr>
+                <tr><td class="pos-1">1</td><td>Happi (HX4P1)</td><td>Finished</td></tr>
+                <tr><td class="pos-2">2</td><td>Stefan</td><td>Finished</td></tr>
+                <tr><td class="pos-3">3</td><td>Ky (Thec)</td><td>Finished</td></tr>
+                <tr><td>4</td><td>LAX (Ecto)</td><td>Finished</td></tr>
+                <tr><td>5</td><td>DRXP (Bray)</td><td>Finished</td></tr>
+                <tr><td>6</td><td>Tristan</td><td>Finished</td></tr>
+                <tr><td>7</td><td>KsDoom</td><td>Finished</td></tr>
+                <tr><td>8</td><td>Chop/sticks</td><td>Finished</td></tr>
+                <tr><td>9</td><td>Sport_Beast</td><td>Finished</td></tr>
+                <tr><td>10</td><td>Teit</td><td>Finished</td></tr>
+                <tr><td>11</td><td>GEME</td><td class="dnf">DNF</td></tr>
+                <tr><td>12</td><td>Triple</td><td class="dnf">DNF</td></tr>
+                <tr><td>13</td><td>Ethan</td><td class="dnf">DNF</td></tr>
+                <tr><td>14</td><td>GGGF</td><td class="dnf">DNF</td></tr>
+                <tr><td>15</td><td>Vozzy</td><td class="dnf">DNF</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Qualifying Results</div>
+            <table>
+                <tr><th>Pos</th><th>Driver</th><th>Time</th></tr>
+                <tr><td class="pos-1">1</td><td>Stefan</td><td>1:20.722</td></tr>
+                <tr><td class="pos-2">2</td><td>Trip</td><td>1:23.882</td></tr>
+                <tr><td class="pos-3">3</td><td>Thec</td><td>1:24.365</td></tr>
+                <tr><td>4</td><td>Ecto</td><td>1:25.737</td></tr>
+                <tr><td>5</td><td>Geme</td><td>1:26.203</td></tr>
+                <tr><td>6</td><td>KsDoom</td><td>1:26.276</td></tr>
+                <tr><td>7</td><td>Ethan</td><td>1:26.328</td></tr>
+                <tr><td>8</td><td>Anie</td><td>1:26.562</td></tr>
+                <tr><td>9</td><td>Notu</td><td>1:26.893</td></tr>
+                <tr><td>10</td><td>Bray</td><td>1:27.843</td></tr>
+                <tr><td>11</td><td>Sport_Beast</td><td>1:28.330</td></tr>
+                <tr><td>12</td><td>GGGF</td><td>1:32.071</td></tr>
+                <tr><td>13</td><td>JAJC</td><td>No Time</td></tr>
+                <tr><td>14</td><td>VOZZ</td><td>No Time</td></tr>
+                <tr><td>15</td><td>HAPPI</td><td>No Time</td></tr>
+                <tr><td>16</td><td>Tristan</td><td>No Time</td></tr>
+            </table>
+        </div>
+
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-title">Tyre Strategy & Stints</div>
+            <table>
+                <tr><th>Driver</th><th>Stint 1</th><th>Stint 2</th><th>Stint 3</th></tr>
+                <tr><td>Notu</td><td><span class="tyre t-med">M</span></td><td><span class="tyre t-hard">H</span> (L14)</td><td></td></tr>
+                <tr><td>Hx4pi</td><td><span class="tyre t-med">M</span></td><td><span class="tyre t-soft">S</span> (L16)</td><td><span class="tyre t-soft">S</span> (L23)</td></tr>
+                <tr><td>Stefan</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-hard">H</span> (L12)</td><td></td></tr>
+                <tr><td>Thec</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-med">M</span> (L11)</td><td></td></tr>
+                <tr><td>Bray</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-med">M</span> (L13)</td><td></td></tr>
+                <tr><td>Tristan</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-hard">H</span> (L12)</td><td></td></tr>
+                <tr><td>KSDooms</td><td><span class="tyre t-med">M</span></td><td><span class="tyre t-soft">S</span> (L19)</td><td></td></tr>
+                <tr><td>Geme</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-med">M</span> (L12)</td><td></td></tr>
+                <tr><td>SportBeast</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-med">M</span> (L16)</td><td></td></tr>
+                <tr><td>JAJC</td><td><span class="tyre t-hard">H</span></td><td><span class="tyre t-soft">S</span> (L23)</td><td></td></tr>
+                <tr><td>Ethan</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-hard">H</span> (L11)</td><td class="dnf">Crash</td></tr>
+                <tr><td>Triple</td><td><span class="tyre t-soft">S</span></td><td><span class="tyre t-hard">H</span> (L8)</td><td class="dnf">Crash</td></tr>
+                <tr><td>Anie</td><td><span class="tyre t-inter">I</span></td><td><span class="tyre t-soft">S</span> (L1)</td><td></td></tr>
+                <tr><td>GGGF</td><td><span class="tyre t-med">M</span></td><td class="dnf">Crash (L11)</td><td></td></tr>
+                <tr><td>Vozzy</td><td><span class="tyre t-med">M</span></td><td class="dnf">Crash (L2)</td><td></td></tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

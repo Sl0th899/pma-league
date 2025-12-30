@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMA League | Round 1 - Australia</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --panel-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #b0b0b0;
+            --accent: #e10600; 
+            
+            --soft: #ff3333;
+            --med: #ffd700;
+            --hard: #f0f0f0;
+            --inter: #36c756;
+            --wet: #007aff;
+            
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --dnf: #ff4d4d;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        
+        h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .subtitle { color: var(--accent); font-weight: bold; font-size: 18px; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1100px) {
+            .grid-container { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .panel-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { text-align: left; color: var(--text-muted); font-weight: normal; padding: 8px 4px; border-bottom: 1px solid #333; }
+        td { padding: 8px 4px; border-bottom: 1px solid #2a2a2a; }
+        
+        .p1 { color: var(--gold); font-weight: bold; }
+        .p2 { color: var(--silver); font-weight: bold; }
+        .p3 { color: var(--bronze); font-weight: bold; }
+        .dnf { color: var(--dnf); font-style: italic; }
+        .pole-time { color: #a679e0; font-weight: bold; }
+
+        .stat-box {
+            background: #252525;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        .stat-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
+        .stat-value { font-size: 16px; font-weight: bold; margin-top: 2px; }
+
+        .incident-list { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+        .incident-list li { margin-bottom: 8px; padding-left: 10px; border-left: 2px solid var(--dnf); }
+
+        .track-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #111;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .track-placeholder img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            /* filter: invert(1); */
+        }
+
+        .tyre-badge {
+            width: 12px; height: 12px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .strat-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .strat-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .strat-driver {
+            width: 80px;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: right;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .strat-track {
+            flex-grow: 1;
+            height: 24px;
+            background-color: #2a2a2a;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+        }
+
+        .stint-bar {
+            height: 100%;
+            transition: opacity 0.2s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .stint-bar:hover {
+            opacity: 0.8;
+        }
+
+        .bg-soft { background-color: var(--soft); }
+        .bg-med { background-color: var(--med); }
+        .bg-hard { background-color: var(--hard); }
+        .bg-inter { background-color: var(--inter); }
+        .bg-wet { background-color: var(--wet); }
+        .bg-dnf { 
+            background: repeating-linear-gradient(
+                45deg,
+                #444,
+                #444 5px,
+                #555 5px,
+                #555 10px
+            );
+        }
+
+        .stint-bar:hover::after {
+            content: attr(data-info);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 10;
+            pointer-events: none;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+
+        .lap-axis {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            padding-left: 95px;
+            color: #555;
+            font-size: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Round 1 - Australia GP</h1>
+        </div>
+        <div class="subtitle">PMA LEAGUE</div>
+    </header>
+
+    <div class="grid-container">
+        <div class="panel">
+            <div class="panel-header">Track & Highlights</div>
+            
+            <div class="track-placeholder">
+                <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Australia_Circuit.webp" alt="Albert Park Track Map">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <div class="stat-box">
+                    <div class="stat-label">Winner</div>
+                    <div class="stat-value">HX4P1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Pole Position</div>
+                    <div class="stat-value">Stefan</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Fastest Lap</div>
+                    <div class="stat-value">HX4P1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Driver of Day</div>
+                    <div class="stat-value">HX4P1</div>
+                </div>
+            </div>
+
+            <div class="panel-header" style="font-size: 14px;">Incident Report</div>
+            <ul class="incident-list">
+                <li>Lap 1 - Aniestube BMW (Inters -> Softs)</li>
+                <li>Lap 2 - Vozzy Crash (1/5)</li>
+                <li>Lap 11 - GGGF Crash (2/5)</li>
+                <li>Other 3 crashed after 1st pitstops</li>
+            </ul>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">Race Classification</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="10%">Pos</th>
+                        <th>Driver</th>
+                        <th width="25%">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="p1">1</td><td>Happi</td><td>Winner</td></tr>
+                    <tr><td class="p2">2</td><td>Stefan</td><td>+5 Sec</td></tr>
+                    <tr><td class="p3">3</td><td>Ky</td><td>+7 Sec</td></tr>
+                    <tr><td>4</td><td>LAX</td><td>+11.149 Sec</td></tr>
+                    <tr><td>5</td><td>DRXP</td><td>+18.909 Sec</td></tr>
+                    <tr><td>6</td><td>Tristan</td><td>+20.529 Sec</td></tr>
+                    <tr><td>7</td><td>KsDoom</td><td>+33.331 Sec</td></tr>
+                    <tr><td>8</td><td>Chop/sticks</td><td>+01:12.235 Sec</td></tr>
+                    <tr><td>9</td><td>Sport_Beast</td><td>+01:41.169 Sec</td></tr>
+                    <tr><td>10</td><td>Teit</td><td>+2 Laps</td></tr>
+                    <tr><td>11</td><td>GEME</td><td class="dnf">+6 Laps DNF</td></tr>
+                    <tr><td>12</td><td>Triple</td><td class="dnf">+9 Laps DNF</td></tr>
+                    <tr><td>13</td><td>Ethan</td><td class="dnf">+13 Laps DNF</td></tr>
+                    <tr><td>14</td><td>GGGF</td><td class="dnf">+21 Laps DNF</td></tr>
+                    <tr><td>15</td><td>Vozzy</td><td class="dnf">+29 Laps DNF</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">Qualifying Results</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="10%">Pos</th>
+                        <th>Driver</th>
+                        <th width="30%">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="p1">1</td><td>Stefan</td><td class="pole-time">1:20.722</td></tr>
+                    <tr><td class="p2">2</td><td>Trip</td><td>1:23.882</td></tr>
+                    <tr><td class="p3">3</td><td>Thec</td><td>1:24.365</td></tr>
+                    <tr><td>4</td><td>Ecto</td><td>1:25.737</td></tr>
+                    <tr><td>5</td><td>Geme</td><td>1:26.203</td></tr>
+                    <tr><td>6</td><td>KsDoom</td><td>1:26.276</td></tr>
+                    <tr><td>7</td><td>Ethan</td><td>1:26.328</td></tr>
+                    <tr><td>8</td><td>Anie</td><td>1:26.562</td></tr>
+                    <tr><td>9</td><td>Notu</td><td>1:26.893</td></tr>
+                    <tr><td>10</td><td>Bray</td><td>1:27.843</td></tr>
+                    <tr><td>11</td><td>Sport_beast</td><td>1:28.330</td></tr>
+                    <tr><td>12</td><td>GGGf</td><td>1:32.071</td></tr>
+                    <tr><td>13</td><td>JAJC</td><td>No Time</td></tr>
+                    <tr><td>14</td><td>VOZZ</td><td>No Time</td></tr>
+                    <tr><td>15</td><td>HAPPI</td><td>No Time</td></tr>
+                    <tr><td>16</td><td>TRISTAN</td><td>No Time</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            Tyre Strategy Analysis
+            <div style="font-size: 11px; font-weight: normal; display: flex; align-items: center; gap: 8px;">
+                <div style="display:flex; align-items:center; gap:4px;"><span class="tyre-badge bg-soft"></span> S</div>
+                <div style="display:flex; align-items:center; gap:4px;"><span class="tyre-badge bg-med"></span> M</div>
+                <div style="display:flex; align-items:center; gap:4px;"><span class="tyre-badge bg-hard"></span> H</div>
+                <div style="display:flex; align-items:center; gap:4px;"><span class="tyre-badge bg-inter"></span> I</div>
+            </div>
+        </div>
+        
+        <div class="strat-grid">
+            
+            <div class="strat-row">
+                <div class="strat-driver">Notu</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-med" style="width: 46.6%;" data-info="Medium (L1-14)"></div>
+                    <div class="stint-bar bg-hard" style="width: 53.4%;" data-info="Hard (L15-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Hx4pi</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-med" style="width: 53.3%;" data-info="Medium (L1-16)"></div>
+                    <div class="stint-bar bg-soft" style="width: 23.3%;" data-info="Soft (L17-23)"></div>
+                    <div class="stint-bar bg-soft" style="width: 23.4%; border-left: 1px solid rgba(0,0,0,0.2);" data-info="Soft (L24-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Stefan</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 40%;" data-info="Soft (L1-12)"></div>
+                    <div class="stint-bar bg-hard" style="width: 60%;" data-info="Hard (L13-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Thec</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 36.6%;" data-info="Soft (L1-11)"></div>
+                    <div class="stint-bar bg-med" style="width: 63.4%;" data-info="Medium (L12-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Bray</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 43.3%;" data-info="Soft (L1-13)"></div>
+                    <div class="stint-bar bg-med" style="width: 56.7%;" data-info="Medium (L14-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Tristan</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 40%;" data-info="Soft (L1-12)"></div>
+                    <div class="stint-bar bg-hard" style="width: 60%;" data-info="Hard (L13-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">KsDoom</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-med" style="width: 63.3%;" data-info="Medium (L1-19)"></div>
+                    <div class="stint-bar bg-soft" style="width: 36.7%;" data-info="Soft (L20-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Geme</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 40%;" data-info="Soft (L1-12)"></div>
+                    <div class="stint-bar bg-med" style="width: 60%;" data-info="Medium (L13-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">SportBeast</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 53.3%;" data-info="Soft (L1-16)"></div>
+                    <div class="stint-bar bg-med" style="width: 46.7%;" data-info="Medium (L17-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">JAJC</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-hard" style="width: 76.6%;" data-info="Hard (L1-23)"></div>
+                    <div class="stint-bar bg-soft" style="width: 23.4%;" data-info="Soft (L24-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Ethan</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 36.6%;" data-info="Soft (L1-11)"></div>
+                    <div class="stint-bar bg-hard" style="width: 10%;" data-info="Hard (DNF)"></div>
+                    <div class="stint-bar bg-dnf" style="width: 5%;" data-info="Crash"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Triple</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-soft" style="width: 26.6%;" data-info="Soft (L1-8)"></div>
+                    <div class="stint-bar bg-hard" style="width: 15%;" data-info="Hard (DNF)"></div>
+                    <div class="stint-bar bg-dnf" style="width: 5%;" data-info="Crash"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Anie</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-inter" style="width: 3.3%;" data-info="Inter (L1)"></div>
+                    <div class="stint-bar bg-soft" style="width: 96.7%;" data-info="Soft (L2-30)"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">GGGF</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-med" style="width: 36.6%;" data-info="Medium (L1-11)"></div>
+                    <div class="stint-bar bg-dnf" style="width: 5%;" data-info="Crash"></div>
+                </div>
+            </div>
+
+            <div class="strat-row">
+                <div class="strat-driver">Vozzy</div>
+                <div class="strat-track">
+                    <div class="stint-bar bg-med" style="width: 6.6%;" data-info="Medium (L1-2)"></div>
+                    <div class="stint-bar bg-dnf" style="width: 5%;" data-info="Crash"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="lap-axis">
+            <span>Start</span>
+            <span>L15</span>
+            <span>Finish</span>
+        </div>
+    </div>
+
+</body>
+</html>
