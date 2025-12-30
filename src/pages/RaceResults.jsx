@@ -3,10 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import raceData from '../data/races.json';
 
 // Import our new components
-import TrackStats from 'C:\Users\prana\Desktop\Wheels\PMA-MAIN\src\components\race\trackstats.jsx';
-import ResultTable from 'C:\Users\prana\Desktop\Wheels\PMA-MAIN\src\components\race\ResultTable.jsx';
-import QualiTable from 'C:\Users\prana\Desktop\Wheels\PMA-MAIN\src\components\race\qualitable.jsx';
-import StrategyChart from 'C:\Users\prana\Desktop\Wheels\PMA-MAIN\src\components\race\tyreStrat.jsx';
+import TrackStats from '../components/race/trackstats.jsx';
+import ResultTable from '../components/race/ResultTable.jsx';
+import QualiTable from '../components/race/qualitable.jsx';
+import StrategyChart from '../components/race/tyreStrat.jsx';
 
 const RaceResults = () => {
   const { roundId } = useParams(); // Grabs 's1-r1' from the URL

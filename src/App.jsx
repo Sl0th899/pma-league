@@ -1,27 +1,30 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import RaceResults from './pages/RaceResults';
+import Navbar from './components/layout/navbar';
 
-// Placeholder Home component (we can build a real dashboard later)
-const Home = () => (
-  <div style={{color: 'white', textAlign: 'center', marginTop: '50px'}}>
-    <h1>Welcome to PMA League Dashboard</h1>
-    <p>Select a round:</p>
-    <a href="/race/s1-r1" style={{color: '#e10600', fontWeight:'bold', fontSize:'20px'}}>View Round 1 (Australia)</a>
-  </div>
-);
+// Import Pages
+import Home from './pages/home';
+import RaceResults from './pages/RaceResults';
+import Dashboard from './pages/Dashboard';
+import News from './pages/News';
+import NotFound from './pages/notfound';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        
-        {/* This :roundId is the magic part that lets us switch rounds dynamically */}
-        <Route path="/race/:roundId" element={<RaceResults />} />
-        
-        {/* Catch all 404s and send home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      {/* Navbar sits outside Routes so it's visible on EVERY page */}
+      <Navbar />
+      
+      {/* The main content area */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/race/:roundId" element={<RaceResults />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
