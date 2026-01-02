@@ -7,7 +7,7 @@ const Home = () => {
     <div>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
         <h1 style={{ fontSize: '3rem', color: 'var(--accent)' }}>PMA League</h1>
-        <p style={{ color: 'var(--text-muted)' }}>Season 1 - Official Results Portal</p>
+        <p style={{ color: 'var(--text-muted)' }}>Season 4 of the PMA Season 1 with the site :pray:</p>
       </header>
 
       <div className="panel">
