@@ -3,13 +3,17 @@ import driversList from '../../data/drivers.json';
 
 const ResultTable = ({ data }) => {
   
-  // New Helper: Find driver by their UNIQUE ID
   const getDriverDetails = (id) => {
     const found = driversList.find(d => d.id === id);
     if (found) return found;
-    
-    // Fallback if ID is wrong or missing
     return { name: id, team: "Unknown", "Driver Number": "-" };
+  };
+
+  // Helper to turn "Red Bull" into "/teams/red-bull.png"
+  const getTeamLogo = (teamName) => {
+    if (!teamName) return null;
+    const filename = teamName.toLowerCase().replace(/ /g, "-");
+    return `/teams/${filename}.png`;
   };
 
   const getPosClass = (pos, status) => {
@@ -28,28 +32,45 @@ const ResultTable = ({ data }) => {
           <tr>
             <th width="5%">Pos</th>
             <th>Driver</th>
-            <th width="20%">Team</th>
+            <th width="15%">Team</th>
             <th width="20%">Gap</th>
             <th width="5%">Pts</th>
           </tr>
         </thead>
         <tbody>
           {data.map((row) => {
-            // MAGIC HAPPENS HERE: We use the ID to get the full info
             const driverInfo = getDriverDetails(row.driverId);
             
             return (
               <tr key={row.driverId}>
                 <td className={getPosClass(row.pos, row.status)}>{row.pos}</td>
                 
-                {/* Driver Name + Number */}
+                {/* Driver Name + BIGGER Number */}
                 <td>
-                  <div style={{fontWeight:'bold'}}>{driverInfo.name}</div>
-                  <div style={{fontSize:'11px', color:'#666'}}>#{driverInfo["Driver Number"]}</div>
+                  <div style={{fontWeight:'bold', fontSize: '15px'}}>{driverInfo.name}</div>
+                  <div style={{
+                      fontSize:'14px', /* Increased size */
+                      fontWeight: 'bold', 
+                      color:'var(--accent)', 
+                      marginTop: '2px'
+                  }}>
+                    #{driverInfo["Driver Number"]}
+                  </div>
                 </td>
                 
-                {/* Team Name */}
-                <td style={{fontSize:'12px', color:'#aaa'}}>{driverInfo.team}</td>
+                {/* Team Logo instead of Text */}
+                <td>
+                  <img 
+                    src={getTeamLogo(driverInfo.team)} 
+                    alt={driverInfo.team} 
+                    style={{ maxHeight: '25px', maxWidth: '40px', objectFit: 'contain' }}
+                    onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.style.display = 'none'; // Hide if image missing
+                        e.target.parentNode.innerText = driverInfo.team; // Show text fallback
+                    }}
+                  />
+                </td>
                 
                 <td className={row.status === 'dnf' ? 'dnf' : ''}>{row.gap}</td>
                 <td>{row.points > 0 ? `+${row.points}` : '-'}</td>

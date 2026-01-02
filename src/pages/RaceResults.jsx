@@ -9,7 +9,7 @@ import QualiTable from '../components/race/QualiTable';
 import StrategyChart from '../components/race/StrategyChart';
 
 const RaceResults = () => {
-  const { roundId } = useParams(); // Grabs 's1-r1' from the URL
+  const { roundId } = useParams();
   const race = raceData.find((r) => r.id === roundId);
 
   if (!race) {
@@ -25,19 +25,27 @@ const RaceResults = () => {
         <div className="subtitle">PMA LEAGUE (S{race.season})</div>
       </header>
 
-      <div className="grid-container">
-        {/* Left Column: Track Info + Incidents */}
-        <TrackStats 
-          mapUrl={race.trackMapUrl} 
-          stats={race.stats} 
-          incidents={race.incidents} 
-        />
+      {/* CHANGED: Inline style for 2-column layout */}
+      <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginBottom: '20px' }}>
+        
+        {/* Left Column: Track Info (Sticky so it stays visible as you scroll) */}
+        <div style={{ position: 'sticky', top: '20px', height: 'fit-content' }}>
+          <TrackStats 
+            mapUrl={race.trackMapUrl} 
+            stats={race.stats} 
+            incidents={race.incidents} 
+          />
+        </div>
 
-        {/* Middle Column: Race Results */}
-        <ResultTable data={race.raceResults} />
+        {/* Right Column: Stacked Tables */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* Quali on TOP */}
+          <QualiTable data={race.qualiResults} />
+          
+          {/* Race Results BELOW */}
+          <ResultTable data={race.raceResults} />
+        </div>
 
-        {/* Right Column: Qualifying */}
-        <QualiTable data={race.qualiResults} />
       </div>
 
       {/* Bottom Full Width: Strategy */}

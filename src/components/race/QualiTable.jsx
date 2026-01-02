@@ -8,6 +8,12 @@ const QualiTable = ({ data }) => {
     return found ? found : { name: id, team: "Unknown", "Driver Number": "-" };
   };
 
+  const getTeamLogo = (teamName) => {
+    if (!teamName) return null;
+    const filename = teamName.toLowerCase().replace(/ /g, "-");
+    return `/teams/${filename}.png`;
+  };
+
   return (
     <div className="panel">
       <div className="panel-header">Qualifying Results</div>
@@ -28,14 +34,32 @@ const QualiTable = ({ data }) => {
               <tr key={row.driverId}>
                 <td className={row.pos <= 3 ? `p${row.pos}` : ''}>{row.pos}</td>
                 
-                {/* Driver & Number */}
+                {/* Driver & BIG Number */}
                 <td>
-                  <span style={{fontWeight:'bold'}}>{driverInfo.name}</span>
-                  <span style={{fontSize:'10px', color:'#666', marginLeft:'5px'}}>#{driverInfo["Driver Number"]}</span>
+                  <span style={{fontWeight:'bold', fontSize:'15px'}}>{driverInfo.name}</span>
+                  <span style={{
+                      fontSize:'14px', /* Increased size */
+                      fontWeight: 'bold',
+                      color:'var(--accent)', 
+                      marginLeft:'8px'
+                  }}>
+                      #{driverInfo["Driver Number"]}
+                  </span>
                 </td>
 
-                {/* Team */}
-                <td style={{fontSize:'12px', color:'#aaa'}}>{driverInfo.team}</td>
+                {/* Team Logo */}
+                <td>
+                  <img 
+                    src={getTeamLogo(driverInfo.team)} 
+                    alt={driverInfo.team} 
+                    style={{ maxHeight: '25px', maxWidth: '40px', objectFit: 'contain' }}
+                    onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.style.display = 'none'; 
+                        e.target.parentNode.innerText = driverInfo.team;
+                    }}
+                  />
+                </td>
 
                 <td className={row.pos === 1 ? 'pole-time' : ''}>{row.time}</td>
               </tr>
