@@ -3,7 +3,8 @@
    ========================================= */
 @font-face {
     font-family: 'Against';
-    src: url('../assets/fonts/against-regular.ttf') format('truetype');
+    /* The leading slash '/' points to the public folder root */
+    src: url('/fonts/against-regular.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
