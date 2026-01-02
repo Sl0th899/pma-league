@@ -462,3 +462,46 @@ td {
     letter-spacing: 1px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
+
+
+/* =========================================
+   12. NAVBAR ANIMATIONS (please send help)
+   ========================================= */
+.nav-item {
+    position: relative;
+    color: var(--text-muted); /* Default */
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+/* On Hover: Turn White */
+.nav-item:hover,
+.nav-item.active {
+    color: white;
+}
+
+/* The "Line"  */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0); /* Hidden by default */
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent); /* Red Line */
+    transform-origin: bottom right; /* Slide out to right */
+    transition: transform 0.25s ease-out;
+}
+
+/* Slide line in on Hover */
+.nav-item:hover::after,
+.nav-item.active::after {
+    transform: scaleX(1); /* Full width */
+    transform-origin: bottom left; /* Slide in from left */
+}

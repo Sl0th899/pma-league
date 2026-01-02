@@ -14,32 +14,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 2. Dynamic Variables based on scroll state
-  const navPadding = isScrolled ? '10px 20px' : '25px 40px';
+  // 2. Dynamic Variables
+  const navPadding = isScrolled ? '15px 40px' : '30px 40px';
   const logoSize = isScrolled ? '24px' : '32px';
-  const linkSize = isScrolled ? '14px' : '16px';
-  const blockPadding = isScrolled ? '8px 16px' : '12px 24px';
-
-  // 3. Helper for the Link Blocks
-  const getLinkStyle = (path) => {
-    const isActive = location.pathname === path;
-    return {
-      fontSize: linkSize,
-      color: 'white',
-      textDecoration: 'none',
-      backgroundColor: isActive ? 'var(--accent)' : '#2a2a2a', // Blocks!
-      padding: blockPadding,
-      borderRadius: '4px', // Slight rounded corners
-      transition: 'all 0.3s ease',
-      fontWeight: 'bold',
-      textTransform: 'uppercase',
-      letterSpacing: '1px'
-    };
-  };
 
   return (
     <nav style={{ 
-      backgroundColor: '#1e1e1e', 
+      backgroundColor: 'transparent', /* Completely Transparent */
       padding: navPadding, 
       display: 'flex',
       alignItems: 'center',
@@ -47,9 +28,9 @@ const Navbar = () => {
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      transition: 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)', // Smooth "Apple-like" transition
-      boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.6)' : 'none', // Shadow only when scrolled
-      marginBottom: '20px' 
+      transition: 'padding 0.4s ease', 
+      /* Optional: Add a subtle blur if you want text readable over content */
+      backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
       
       {/* LEFT: Logo */}
@@ -66,11 +47,28 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Block Links */}
-      <div style={{ display: 'flex', gap: '15px' }}>
-        <Link to="/" style={getLinkStyle('/')}>Home</Link>
-        <Link to="/dashboard" style={getLinkStyle('/dashboard')}>Dashboard</Link>
-        <Link to="/news" style={getLinkStyle('/news')}>News</Link>
+      {/* RIGHT: Animated Text Links */}
+      <div style={{ display: 'flex', gap: '30px' }}>
+        <Link 
+            to="/" 
+            className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
+        >
+            Home
+        </Link>
+        
+        <Link 
+            to="/dashboard" 
+            className={`nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
+        >
+            Dashboard
+        </Link>
+        
+        <Link 
+            to="/news" 
+            className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`}
+        >
+            News
+        </Link>
       </div>
     </nav>
   );
