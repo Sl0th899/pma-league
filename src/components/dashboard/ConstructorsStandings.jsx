@@ -5,32 +5,67 @@ import driversList from '../../data/drivers.json';
 const ConstructorsStandings = () => {
 
   const standings = useMemo(() => {
-    const teamScores = {};
+    // 1. Define all teams you want to appear (even if 0 points)
+    const INITIAL_TEAMS = {
+        "Mercedes": 0,
+        "Ferrari": 0,
+        "Red Bull": 0,
+        "McLaren": 0,
+        "Aston Martin": 0,
+        "Alpine": 0,
+        "Williams": 0,
+        "Haas": 0,
+        "Sauber": 0,
+        "Racing Bulls": 0,
+        "BMW": 0,
+        "Audi": 0,
+        "Porsche": 0  // <--- Added Porsche here!
+    };
 
-    // Helper to add points to a specific team
-    const addPoints = (driverId, amount) => {
-        if (!driverId) return;
-        const driver = driversList.find(d => d.id === driverId);
-        if (driver && driver.team && driver.team !== "Unknown") {
-            if (!teamScores[driver.team]) teamScores[driver.team] = 0;
-            teamScores[driver.team] += amount;
+    // Copy initial state so we don't mutate it
+    const teamScores = { ...INITIAL_TEAMS };
+
+    // Helper to add points
+    const addPointsToTeam = (teamName, amount) => {
+        if (!teamName || teamName === "Unknown") return;
+        
+        if (teamScores[teamName] === undefined) {
+            teamScores[teamName] = 0; // Initialize if it's a new team we missed
         }
+        teamScores[teamName] += amount;
+    };
+
+    // Helper to resolve which team gets the points
+    const resolveTeam = (driverId, resultRow = null) => {
+        // Priority 1: Did we manually override the team in races.json? (e.g. Sport_Beast in Haas)
+        if (resultRow && resultRow.team) {
+            return resultRow.team;
+        }
+
+        // Priority 2: Look up the current team in drivers.json
+        const driver = driversList.find(d => d.id === driverId);
+        if (driver) return driver.team;
+
+        return null;
     };
 
     raceData.forEach(race => {
       // 1. Race Result Points
       race.raceResults.forEach(result => {
-        addPoints(result.driverId, result.points || 0);
+        const team = resolveTeam(result.driverId, result);
+        addPointsToTeam(team, result.points || 0);
       });
 
       // 2. Bonus Points (+1 for Pole)
       if (race.stats.poleId) {
-          addPoints(race.stats.poleId, 1);
+          const team = resolveTeam(race.stats.poleId);
+          addPointsToTeam(team, 1);
       }
 
       // 3. Bonus Points (+1 for Fastest Lap)
       if (race.stats.fastestLapId) {
-          addPoints(race.stats.fastestLapId, 1);
+          const team = resolveTeam(race.stats.fastestLapId);
+          addPointsToTeam(team, 1);
       }
     });
 
