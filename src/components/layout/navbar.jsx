@@ -12,22 +12,25 @@ const Navbar = () => {
       alignItems: 'center',
       justifyContent: 'space-between'
     }}>
-      <Link to="/" style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', display:'flex', alignItems:'center', gap:'10px' }}>
+      {/* LEFT SIDE: New Logo Design */}
+      <Link to="/" style={{ 
+          fontSize: '24px',  /* Made slightly bigger */
+          color: 'white', 
+          display:'flex', 
+          alignItems:'center', 
+          gap:'10px',
+          textDecoration: 'none'
+      }}>
         <span style={{ 
-            backgroundColor: 'var(--accent)', 
-            padding: '2px 8px', 
-            borderRadius: '4px',
-            /* --- FONT CHANGES START HERE --- */
             fontFamily: 'Against', 
-            fontWeight: 'normal', /* Important: resets bold so the font shows */
+            fontWeight: 'normal', 
             letterSpacing: '1px'
-            /* --- FONT CHANGES END HERE --- */
         }}>
-            PMA
+            PMA | FATE
         </span>
-        LEAGUE
       </Link>
       
+      {/* RIGHT SIDE: Links */}
       <div style={{ display: 'flex', gap: '20px' }}>
         <Link to="/" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Home</Link>
         <Link to="/dashboard" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Dashboard</Link>

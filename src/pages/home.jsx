@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
-import driversList from '../data/drivers.json'; // <--- Added Import
+import driversList from '../data/drivers.json';
 
 const Home = () => {
 
-  // Helper to resolve ID to Name
   const getDriverName = (id) => {
     const driver = driversList.find(d => d.id === id);
     return driver ? driver.name : "Unknown";
@@ -13,13 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <header style={{ marginBottom: '40px', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '3rem', color: 'var(--accent)' }}>
-            <span style={{ fontFamily: 'Against', fontWeight: 'normal', marginRight: '10px' }}>PMA</span>
-            LEAGUE
-        </h1>
-        <p style={{ color: 'var(--text-muted)' }}>Season 1 - Official Results Portal</p>
-      </header>
+      {/* Removed the big Header/Banner here */}
 
       <div className="panel">
         <div className="panel-header">Race Calendar</div>
@@ -41,7 +34,6 @@ const Home = () => {
                 onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
                 onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                {/* Image Swap Container */}
                 <div className="poster-wrapper">
                     <img src={race.imgWeek} alt="Race Week" className="poster-img poster-default" />
                     <img src={race.imgDay} alt="Race Results" className="poster-img poster-hover" />
@@ -51,7 +43,6 @@ const Home = () => {
                 <div style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: '18px' }}>{race.grandPrix} GP</div>
                 
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '10px', borderTop:'1px solid #444', paddingTop:'10px' }}>
-                  {/* UPDATED: Uses winnerId to look up the name */}
                   Winner: <span style={{ color: 'var(--gold)', fontWeight:'bold' }}>{getDriverName(race.stats.winnerId)}</span>
                 </div>
               </div>
