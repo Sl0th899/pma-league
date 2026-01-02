@@ -18,87 +18,85 @@
       "KSDOOM - DNF, Later restarted the race (Bug)",
       "Omar - DNF (Crash)",
       "Sport_Beast - DNF (Crash)",
-      "Cuci - DNF (Crash)",
       "------------ Red Flag ------------",
       "JAJC - DNF (Crash)",
       "GGGF - DNF (Crash)",
       "Trip - DNF (Crash)",
       "Sport - DNF (Crash)",
-      "Hoenkie - DNF (Crash)"
+      "The_ - DNF (Crash)"
     ],
     "raceResults": [
-      { "pos": 1, "driver": "Stefan", "gap": "Winner", "status": "finished", "points": 25 },
-      { "pos": 2, "driver": "Holi", "gap": "+02.027", "status": "finished", "points": 18 },
-      { "pos": 3, "driver": "Syph", "gap": "+39.592", "status": "finished", "points": 15 },
-      { "pos": 4, "driver": "Skoder", "gap": "+43.801", "status": "finished", "points": 12 },
-      { "pos": 5, "driver": "Anies", "gap": "+58.862", "status": "finished", "points": 10 },
-      { "pos": 6, "driver": "Taiyomo", "gap": "+59.446", "status": "finished", "points": 8 },
-      { "pos": 7, "driver": "Ethan", "gap": "+47.778", "status": "finished", "points": 6 },
-      { "pos": 8, "driver": "KsDoom", "gap": "+2 Laps", "status": "finished", "points": 4 },
-      { "pos": 9, "driver": "JAJC", "gap": "+10 Laps", "status": "dnf", "points": 2 },
-      { "pos": 10, "driver": "Hoenkie", "gap": "+13 Laps", "status": "dnf", "points": 1 },
-      { "pos": 11, "driver": "GGGF", "gap": "+13 Laps", "status": "dnf", "points": 0 },
-      { "pos": 12, "driver": "Sport", "gap": "+17 Laps", "status": "dnf", "points": 0 },
-      { "pos": 13, "driver": "Trip", "gap": "+17 Laps", "status": "dnf", "points": 0 },
-      { "pos": 14, "driver": "Omar", "gap": "DNF", "status": "dnf", "points": 0 },
-      { "pos": 15, "driver": "Cucivictor", "gap": "DNF", "status": "dnf", "points": 0 },
-      { "pos": 16, "driver": "Wadan", "gap": "DNF", "status": "dnf", "points": 0 }
+      { "pos": 1, "driverId": "drv_stef", "gap": "Winner", "status": "finished", "points": 25 },
+      { "pos": 2, "driverId": "drv_holi", "gap": "+02.027", "status": "finished", "points": 18 },
+      { "pos": 3, "driverId": "drv_syph", "gap": "+39.592", "status": "finished", "points": 15 },
+      { "pos": 4, "driverId": "drv_true", "gap": "+43.801", "status": "finished", "points": 12 },
+      { "pos": 5, "driverId": "drv_anie", "gap": "+58.862", "status": "finished", "points": 10 },
+      { "pos": 6, "driverId": "drv_bray", "gap": "+59.446", "status": "finished", "points": 8 },
+      { "pos": 7, "driverId": "drv_etha", "gap": "+47.778", "status": "finished", "points": 6 },
+      { "pos": 8, "driverId": "drv_ksdo", "gap": "+2 Laps", "status": "finished", "points": 4 },
+      { "pos": 9, "driverId": "drv_jajc", "gap": "+10 Laps", "status": "dnf", "points": 2 },
+      { "pos": 10, "driverId": "drv_the_", "gap": "+13 Laps", "status": "dnf", "points": 1 },
+      { "pos": 11, "driverId": "drv_gggf", "gap": "+13 Laps", "status": "dnf", "points": 0 },
+      { "pos": 12, "driverId": "drv_spor", "gap": "+17 Laps", "status": "dnf", "points": 0 },
+      { "pos": 13, "driverId": "drv_trip", "gap": "+17 Laps", "status": "dnf", "points": 0 },
+      { "pos": 14, "driverId": "drv_omar", "gap": "DNF", "status": "dnf", "points": 0 },
+      { "pos": 15, "driverId": "drv_wada", "gap": "DNF", "status": "dnf", "points": 0 }
     ],
     "qualiResults": [
-      { "pos": 1, "driver": "Stefan", "time": "1:14.487" },
-      { "pos": 2, "driver": "KSDOOM", "time": "1:15.200" },
-      { "pos": 3, "driver": "JAJC2010", "time": "1:15.397" },
-      { "pos": 4, "driver": "Holi", "time": "1:15.409" },
-      { "pos": 5, "driver": "Sport_Beast", "time": "1:16.131" },
-      { "pos": 6, "driver": "Ethan", "time": "1:16.447" },
-      { "pos": 7, "driver": "Snow", "time": "1:16.448" },
-      { "pos": 8, "driver": "Thecrdprivv", "time": "1:16.523" },
-      { "pos": 9, "driver": "Omar", "time": "1:16.900" },
-      { "pos": 10, "driver": "Skoder", "time": "1:17.013" },
-      { "pos": 11, "driver": "Wadan", "time": "1:17.349" },
-      { "pos": 12, "driver": "Syph", "time": "1:17.379" },
-      { "pos": 13, "driver": "Anie", "time": "1:18.131" },
-      { "pos": 14, "driver": "Lill", "time": "1:19.109" },
-      { "pos": 15, "driver": "GGGF", "time": "1:19.570" }
+      { "pos": 1, "driverId": "drv_stef", "time": "1:14.487" },
+      { "pos": 2, "driverId": "drv_ksdo", "time": "1:15.200" },
+      { "pos": 3, "driverId": "drv_jajc", "time": "1:15.397" },
+      { "pos": 4, "driverId": "drv_holi", "time": "1:15.409" },
+      { "pos": 5, "driverId": "drv_spor", "time": "1:16.131" },
+      { "pos": 6, "driverId": "drv_etha", "time": "1:16.447" },
+      { "pos": 7, "driverId": "Snow", "time": "1:16.448" },
+      { "pos": 8, "driverId": "drv_thec", "time": "1:16.523" },
+      { "pos": 9, "driverId": "drv_omar", "time": "1:16.900" },
+      { "pos": 10, "driverId": "drv_true", "time": "1:17.013" },
+      { "pos": 11, "driverId": "drv_wada", "time": "1:17.349" },
+      { "pos": 12, "driverId": "drv_syph", "time": "1:17.379" },
+      { "pos": 13, "driverId": "drv_anie", "time": "1:18.131" },
+      { "pos": 14, "driverId": "drv_lill", "time": "1:19.109" },
+      { "pos": 15, "driverId": "drv_gggf", "time": "1:19.570" }
     ],
     "strategies": [
       {
-        "driver": "Stefan",
+        "driverId": "drv_stef",
         "stints": [
           { "compound": "soft", "percent": 50, "label": "Soft" },
           { "compound": "med", "percent": 50, "label": "Medium" }
         ]
       },
       {
-        "driver": "Holi",
+        "driverId": "drv_holi",
         "stints": [
           { "compound": "soft", "percent": 40, "label": "Soft" },
           { "compound": "hard", "percent": 60, "label": "Hard" }
         ]
       },
       {
-        "driver": "Syph",
+        "driverId": "drv_syph",
         "stints": [
           { "compound": "hard", "percent": 60, "label": "Hard" },
           { "compound": "soft", "percent": 40, "label": "Soft" }
         ]
       },
       {
-        "driver": "True",
+        "driverId": "True",
         "stints": [
           { "compound": "hard", "percent": 50, "label": "Hard" },
           { "compound": "med", "percent": 50, "label": "Medium" }
         ]
       },
       {
-        "driver": "Anie",
+        "driverId": "drv_anie",
         "stints": [
           { "compound": "soft", "percent": 50, "label": "Soft" },
           { "compound": "med", "percent": 50, "label": "Medium" }
         ]
       },
       {
-        "driver": "Ethan",
+        "driverId": "drv_etha",
         "stints": [
           { "compound": "hard", "percent": 33, "label": "Hard" },
           { "compound": "med", "percent": 33, "label": "Med" },
@@ -106,7 +104,7 @@
         ]
       },
       {
-        "driver": "KsDoom",
+        "driverId": "drv_ksdo",
         "stints": [
           { "compound": "med", "percent": 30, "label": "Med" },
           { "compound": "hard", "percent": 30, "label": "Hard" },
@@ -114,7 +112,7 @@
         ]
       },
       {
-        "driver": "JAJC",
+        "driverId": "drv_jajc",
         "stints": [
           { "compound": "med", "percent": 25, "label": "Med" },
           { "compound": "soft", "percent": 25, "label": "Soft" },
@@ -123,21 +121,21 @@
         ]
       },
       {
-        "driver": "Thec",
+        "driverId": "drv_thec",
         "stints": [
           { "compound": "med", "percent": 15, "label": "Med (L1-3)" },
           { "compound": "soft", "percent": 85, "label": "Soft (L4-18)" }
         ]
       },
       {
-        "driver": "GGGF",
+        "driverId": "drv_gggf",
         "stints": [
           { "compound": "soft", "percent": 40, "label": "Soft" },
           { "compound": "med", "percent": 60, "label": "Med" }
         ]
       },
       {
-        "driver": "Sport",
+        "driverId": "drv_spor",
         "stints": [
           { "compound": "soft", "percent": 30, "label": "Soft" },
           { "compound": "med", "percent": 20, "label": "Med" },
@@ -145,17 +143,10 @@
         ]
       },
       {
-        "driver": "Omar",
+        "driverId": "drv_omar",
         "stints": [
           { "compound": "soft", "percent": 20, "label": "Soft" },
           { "compound": "dnf", "percent": 80, "label": "Crash" }
-        ]
-      },
-      {
-        "driver": "Cuci",
-        "stints": [
-          { "compound": "med", "percent": 10, "label": "Med" },
-          { "compound": "dnf", "percent": 90, "label": "Crash" }
         ]
       }
     ]
@@ -181,50 +172,50 @@
       "Other 3 crashed after 1st pitstops"
     ],
     "raceResults": [
-      { "pos": 1, "driver": "Happi", "gap": "Winner", "status": "finished", "points": 25 },
-      { "pos": 2, "driver": "Stefan", "gap": "+5 Sec", "status": "finished", "points": 18 },
-      { "pos": 3, "driver": "Ky", "gap": "+7 Sec", "status": "finished", "points": 15 },
-      { "pos": 4, "driver": "LAX", "gap": "+11.149 Sec", "status": "finished", "points": 12 },
-      { "pos": 5, "driver": "DRXP", "gap": "+18.909 Sec", "status": "finished", "points": 10 },
-      { "pos": 6, "driver": "Tristan", "gap": "+20.529 Sec", "status": "finished", "points": 8 },
-      { "pos": 7, "driver": "KsDoom", "gap": "+33.331 Sec", "status": "finished", "points": 6 },
-      { "pos": 8, "driver": "Chop/sticks", "gap": "+01:12.235 Sec", "status": "finished", "points": 4 },
-      { "pos": 9, "driver": "Sport_Beast", "gap": "+01:41.169 Sec", "status": "finished", "points": 2 },
-      { "pos": 10, "driver": "Teit", "gap": "+2 Laps", "status": "finished", "points": 1 },
-      { "pos": 11, "driver": "GEME", "gap": "+6 Laps DNF", "status": "dnf", "points": 0 },
-      { "pos": 12, "driver": "Triple", "gap": "+9 Laps DNF", "status": "dnf", "points": 0 },
-      { "pos": 13, "driver": "Ethan", "gap": "+13 Laps DNF", "status": "dnf", "points": 0 },
-      { "pos": 14, "driver": "GGGF", "gap": "+21 Laps DNF", "status": "dnf", "points": 0 },
-      { "pos": 15, "driver": "Vozzy", "gap": "+29 Laps DNF", "status": "dnf", "points": 0 }
+      { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 25 },
+      { "pos": 2, "driverId": "drv_stef", "gap": "+5 Sec", "status": "finished", "points": 18 },
+      { "pos": 3, "driverId": "drv_notu", "gap": "+7 Sec", "status": "finished", "points": 15 },
+      { "pos": 4, "driverId": "LAX", "gap": "+11.149 Sec", "status": "finished", "points": 12 },
+      { "pos": 5, "driverId": "drv_jajc", "gap": "+18.909 Sec", "status": "finished", "points": 10 },
+      { "pos": 6, "driverId": "drv_holi", "gap": "+20.529 Sec", "status": "finished", "points": 8 },
+      { "pos": 7, "driverId": "drv_ksdo", "gap": "+33.331 Sec", "status": "finished", "points": 6 },
+      { "pos": 8, "driverId": "Chop/sticks", "gap": "+01:12.235 Sec", "status": "finished", "points": 4 },
+      { "pos": 9, "driverId": "drv_spor", "gap": "+01:41.169 Sec", "status": "finished", "points": 2 },
+      { "pos": 10, "driverId": "Teit", "gap": "+2 Laps", "status": "finished", "points": 1 },
+      { "pos": 11, "driverId": "drv_geme", "gap": "+6 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 12, "driverId": "drv_trip", "gap": "+9 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 13, "driverId": "drv_etha", "gap": "+13 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 14, "driverId": "drv_gggf", "gap": "+21 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 15, "driverId": "drv_vozz", "gap": "+29 Laps DNF", "status": "dnf", "points": 0 }
     ],
     "qualiResults": [
-      { "pos": 1, "driver": "Stefan", "time": "1:20.722" },
-      { "pos": 2, "driver": "Trip", "time": "1:23.882" },
-      { "pos": 3, "driver": "Thec", "time": "1:24.365" },
-      { "pos": 4, "driver": "Ecto", "time": "1:25.737" },
-      { "pos": 5, "driver": "Geme", "time": "1:26.203" },
-      { "pos": 6, "driver": "KsDoom", "time": "1:26.276" },
-      { "pos": 7, "driver": "Ethan", "time": "1:26.328" },
-      { "pos": 8, "driver": "Anie", "time": "1:26.562" },
-      { "pos": 9, "driver": "Notu", "time": "1:26.893" },
-      { "pos": 10, "driver": "Bray", "time": "1:27.843" },
-      { "pos": 11, "driver": "Sport_beast", "time": "1:28.330" },
-      { "pos": 12, "driver": "GGGf", "time": "1:32.071" },
-      { "pos": 13, "driver": "JAJC", "time": "No Time" },
-      { "pos": 14, "driver": "VOZZ", "time": "No Time" },
-      { "pos": 15, "driver": "HAPPI", "time": "No Time" },
-      { "pos": 16, "driver": "TRISTAN", "time": "No Time" }
+      { "pos": 1, "driverId": "drv_stef", "time": "1:20.722" },
+      { "pos": 2, "driverId": "drv_trip", "time": "1:23.882" },
+      { "pos": 3, "driverId": "drv_thec", "time": "1:24.365" },
+      { "pos": 4, "driverId": "drv_ecto", "time": "1:25.737" },
+      { "pos": 5, "driverId": "drv_geme", "time": "1:26.203" },
+      { "pos": 6, "driverId": "drv_ksdo", "time": "1:26.276" },
+      { "pos": 7, "driverId": "drv_etha", "time": "1:26.328" },
+      { "pos": 8, "driverId": "drv_anie", "time": "1:26.562" },
+      { "pos": 9, "driverId": "drv_notu", "time": "1:26.893" },
+      { "pos": 10, "driverId": "drv_bray", "time": "1:27.843" },
+      { "pos": 11, "driverId": "drv_spor", "time": "1:28.330" },
+      { "pos": 12, "driverId": "drv_gggf", "time": "1:32.071" },
+      { "pos": 13, "driverId": "drv_jajc", "time": "No Time" },
+      { "pos": 14, "driverId": "drv_vozz", "time": "No Time" },
+      { "pos": 15, "driverId": "drv_hx4p", "time": "No Time" },
+      { "pos": 16, "driverId": "drv_holi", "time": "No Time" }
     ],
     "strategies": [
       {
-        "driver": "Notu",
+        "driverId": "drv_notu",
         "stints": [
           { "compound": "med", "percent": 46.6, "label": "Medium (L1-14)" },
           { "compound": "hard", "percent": 53.4, "label": "Hard (L15-30)" }
         ]
       },
       {
-        "driver": "Hx4pi",
+        "driverId": "drv_hx4p",
         "stints": [
           { "compound": "med", "percent": 53.3, "label": "Medium (L1-16)" },
           { "compound": "soft", "percent": 23.3, "label": "Soft (L17-23)" },
@@ -232,63 +223,63 @@
         ]
       },
       {
-        "driver": "Stefan",
+        "driverId": "drv_stef",
         "stints": [
           { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
           { "compound": "hard", "percent": 60, "label": "Hard (L13-30)" }
         ]
       },
       {
-        "driver": "Thec",
+        "driverId": "drv_thec",
         "stints": [
           { "compound": "soft", "percent": 36.6, "label": "Soft (L1-11)" },
           { "compound": "med", "percent": 63.4, "label": "Medium (L12-30)" }
         ]
       },
       {
-        "driver": "Bray",
+        "driverId": "drv_bray",
         "stints": [
           { "compound": "soft", "percent": 43.3, "label": "Soft (L1-13)" },
           { "compound": "med", "percent": 56.7, "label": "Medium (L14-30)" }
         ]
       },
       {
-        "driver": "Tristan",
+        "driverId": "drv_holi",
         "stints": [
           { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
           { "compound": "hard", "percent": 60, "label": "Hard (L13-30)" }
         ]
       },
       {
-        "driver": "KsDoom",
+        "driverId": "drv_ksdo",
         "stints": [
           { "compound": "med", "percent": 63.3, "label": "Medium (L1-19)" },
           { "compound": "soft", "percent": 36.7, "label": "Soft (L20-30)" }
         ]
       },
       {
-        "driver": "Geme",
+        "driverId": "drv_geme",
         "stints": [
           { "compound": "soft", "percent": 40, "label": "Soft (L1-12)" },
           { "compound": "med", "percent": 60, "label": "Medium (L13-30)" }
         ]
       },
       {
-        "driver": "SportBeast",
+        "driverId": "drv_spor",
         "stints": [
           { "compound": "soft", "percent": 53.3, "label": "Soft (L1-16)" },
           { "compound": "med", "percent": 46.7, "label": "Medium (L17-30)" }
         ]
       },
       {
-        "driver": "JAJC",
+        "driverId": "drv_jajc",
         "stints": [
           { "compound": "hard", "percent": 76.6, "label": "Hard (L1-23)" },
           { "compound": "soft", "percent": 23.4, "label": "Soft (L24-30)" }
         ]
       },
       {
-        "driver": "Ethan",
+        "driverId": "drv_etha",
         "stints": [
           { "compound": "soft", "percent": 36.6, "label": "Soft (L1-11)" },
           { "compound": "hard", "percent": 10, "label": "Hard (DNF)" },
@@ -296,7 +287,7 @@
         ]
       },
       {
-        "driver": "Triple",
+        "driverId": "drv_trip",
         "stints": [
           { "compound": "soft", "percent": 26.6, "label": "Soft (L1-8)" },
           { "compound": "hard", "percent": 15, "label": "Hard (DNF)" },
@@ -304,21 +295,21 @@
         ]
       },
       {
-        "driver": "Anie",
+        "driverId": "drv_anie",
         "stints": [
           { "compound": "inter", "percent": 3.3, "label": "Inter (L1)" },
           { "compound": "soft", "percent": 96.7, "label": "Soft (L2-30)" }
         ]
       },
       {
-        "driver": "GGGF",
+        "driverId": "drv_gggf",
         "stints": [
           { "compound": "med", "percent": 36.6, "label": "Medium (L1-11)" },
           { "compound": "dnf", "percent": 5, "label": "Crash" }
         ]
       },
       {
-        "driver": "Vozzy",
+        "driverId": "drv_vozz",
         "stints": [
           { "compound": "med", "percent": 6.6, "label": "Medium (L1-2)" },
           { "compound": "dnf", "percent": 5, "label": "Crash" }

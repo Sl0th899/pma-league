@@ -3,17 +3,13 @@ import driversList from '../../data/drivers.json';
 
 const ResultTable = ({ data }) => {
   
-  // Helper function to find driver details
-  const getDriverInfo = (nameInResult) => {
-    const found = driversList.find(d => 
-      d.name.toLowerCase().includes(nameInResult.toLowerCase()) || 
-      d.id.includes(nameInResult.toLowerCase())
-    );
-
-    return found ? { 
-      team: found.team, 
-      number: found["Driver Number"] 
-    } : { team: "-", number: "-" };
+  // New Helper: Find driver by their UNIQUE ID
+  const getDriverDetails = (id) => {
+    const found = driversList.find(d => d.id === id);
+    if (found) return found;
+    
+    // Fallback if ID is wrong or missing
+    return { name: id, team: "Unknown", "Driver Number": "-" };
   };
 
   const getPosClass = (pos, status) => {
@@ -39,20 +35,21 @@ const ResultTable = ({ data }) => {
         </thead>
         <tbody>
           {data.map((row) => {
-            const info = getDriverInfo(row.driver);
+            // MAGIC HAPPENS HERE: We use the ID to get the full info
+            const driverInfo = getDriverDetails(row.driverId);
             
             return (
-              <tr key={row.driver}>
+              <tr key={row.driverId}>
                 <td className={getPosClass(row.pos, row.status)}>{row.pos}</td>
                 
                 {/* Driver Name + Number */}
                 <td>
-                  <div style={{fontWeight:'bold'}}>{row.driver}</div>
-                  <div style={{fontSize:'11px', color:'#666'}}>#{info.number}</div>
+                  <div style={{fontWeight:'bold'}}>{driverInfo.name}</div>
+                  <div style={{fontSize:'11px', color:'#666'}}>#{driverInfo["Driver Number"]}</div>
                 </td>
                 
                 {/* Team Name */}
-                <td style={{fontSize:'12px', color:'#aaa'}}>{info.team}</td>
+                <td style={{fontSize:'12px', color:'#aaa'}}>{driverInfo.team}</td>
                 
                 <td className={row.status === 'dnf' ? 'dnf' : ''}>{row.gap}</td>
                 <td>{row.points > 0 ? `+${row.points}` : '-'}</td>

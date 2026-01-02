@@ -22,7 +22,8 @@
   { "id": "drv_syph", "name": "Linen (@Sypher)", "team": "Haas", "Driver Number": "72" },
   { "id": "drv_stef", "name": "Muffin (@Stefan)", "team": "Mercedes", "Driver Number": "85" },
   { "id": "drv_cenn", "name": "Cennicus", "team": "Williams", "Driver Number": "99" },
-  { "id": "drv_skod", "name": "Skoder", "team": "Ferrari", "Driver Number": "NA" },
+  { "id": "drv_true", "name": "Skoder", "team": "Ferrari", "Driver Number": "NA" },
   { "id": "drv_the_", "name": "Hoenkie(@The_)", "team": "Haas", "Driver Number": "52" },
-  {"id": "drv_spor", "name": "Xavier(@sportbeast)", "team": "Aston Martin", "Driver Number": "NA" }
+  {"id": "drv_spor", "name": "Xavier(@sportbeast)", "team": "Aston Martin", "Driver Number": "NA" },
+  {"id": "drv_vozz", "name": "Vozzy(@Vozzy)", "team": "Aston Martin", "Driver Number": "NA" }
 ]
