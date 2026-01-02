@@ -17,8 +17,11 @@ const Navbar = () => {
             backgroundColor: 'var(--accent)', 
             padding: '2px 8px', 
             borderRadius: '4px',
+            /* --- FONT CHANGES START HERE --- */
             fontFamily: 'Against', 
-            letterSpacing: '1px' 
+            fontWeight: 'normal', /* Important: resets bold so the font shows */
+            letterSpacing: '1px'
+            /* --- FONT CHANGES END HERE --- */
         }}>
             PMA
         </span>
