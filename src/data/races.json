@@ -49,8 +49,8 @@
       { "pos": 4, "driverId": "drv_holi", "time": "1:15.409" },
       { "pos": 5, "driverId": "drv_spor", "time": "1:16.131" },
       { "pos": 6, "driverId": "drv_etha", "time": "1:16.447" },
-      { "pos": 7, "driverId": "Snow", "time": "1:16.448" },
-      { "pos": 8, "driverId": "drv_thec", "time": "1:16.523" },
+      { "pos": 7, "driverId": "drv_sn0w", "time": "1:16.448" },
+      { "pos": 8, "driverId": "drv_Thec", "time": "1:16.523" },
       { "pos": 9, "driverId": "drv_omar", "time": "1:16.900" },
       { "pos": 10, "driverId": "drv_true", "time": "1:17.013" },
       { "pos": 11, "driverId": "drv_that", "time": "1:17.349" },
@@ -82,7 +82,7 @@
         ]
       },
       {
-        "driverId": "True",
+        "driverId": "drv_true",
         "stints": [
           { "compound": "hard", "percent": 50, "label": "Hard" },
           { "compound": "med", "percent": 50, "label": "Medium" }
@@ -121,7 +121,7 @@
         ]
       },
       {
-        "driverId": "drv_thec",
+        "driverId": "drv_Thec",
         "stints": [
           { "compound": "med", "percent": 15, "label": "Med (L1-3)" },
           { "compound": "soft", "percent": 85, "label": "Soft (L4-18)" }
@@ -160,10 +160,10 @@
     "imgWeek": "https://media.discordapp.net/attachments/1279558366284353567/1387420415076466840/AUS_GP_PMA.png?ex=695915f3&is=6957c473&hm=e1cd1204049e2264789d5d608765df6ad836f7438661f8576dfb3b96ed11ed73&=&format=webp&quality=lossless&width=840&height=1050",
     "imgDay": "https://media.discordapp.net/attachments/1421532039550734487/1421532041186508971/image.png?ex=69589921&is=695747a1&hm=2af87436e3a901b740c6c2ff5416752f78ec9e05fe59cff1500d80dd46eda542&=&format=webp&quality=lossless&width=493&height=438",
     "stats": {
-      "winner": "HX4P1",
+      "winner": "HAPPI",
       "pole": "Stefan",
-      "fastestLap": "HX4P1",
-      "driverOfDay": "HX4P1"
+      "fastestLap": "HAPPI",
+      "driverOfDay": "HAPPI"
     },
     "incidents": [
       "Lap 1 - Aniestube BMW (Inters -> Softs)",
@@ -175,13 +175,13 @@
       { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 25 },
       { "pos": 2, "driverId": "drv_stef", "gap": "+5 Sec", "status": "finished", "points": 18 },
       { "pos": 3, "driverId": "drv_notu", "gap": "+7 Sec", "status": "finished", "points": 15 },
-      { "pos": 4, "driverId": "LAX", "gap": "+11.149 Sec", "status": "finished", "points": 12 },
+      { "pos": 4, "driverId": "drv_Thec", "gap": "+11.149 Sec", "status": "finished", "points": 12 },
       { "pos": 5, "driverId": "drv_jajc", "gap": "+18.909 Sec", "status": "finished", "points": 10 },
       { "pos": 6, "driverId": "drv_holi", "gap": "+20.529 Sec", "status": "finished", "points": 8 },
       { "pos": 7, "driverId": "drv_ksdo", "gap": "+33.331 Sec", "status": "finished", "points": 6 },
-      { "pos": 8, "driverId": "Chop/sticks", "gap": "+01:12.235 Sec", "status": "finished", "points": 4 },
+      { "pos": 8, "driverId": "drv_bray", "gap": "+01:12.235 Sec", "status": "finished", "points": 4 },
       { "pos": 9, "driverId": "drv_spor", "gap": "+01:41.169 Sec", "status": "finished", "points": 2 },
-      { "pos": 10, "driverId": "Teit", "gap": "+2 Laps", "status": "finished", "points": 1 },
+      { "pos": 10, "driverId": "drv_anie", "gap": "+2 Laps", "status": "finished", "points": 1 },
       { "pos": 11, "driverId": "drv_geme", "gap": "+6 Laps DNF", "status": "dnf", "points": 0 },
       { "pos": 12, "driverId": "drv_trip", "gap": "+9 Laps DNF", "status": "dnf", "points": 0 },
       { "pos": 13, "driverId": "drv_etha", "gap": "+13 Laps DNF", "status": "dnf", "points": 0 },
@@ -191,7 +191,7 @@
     "qualiResults": [
       { "pos": 1, "driverId": "drv_stef", "time": "1:20.722" },
       { "pos": 2, "driverId": "drv_trip", "time": "1:23.882" },
-      { "pos": 3, "driverId": "drv_thec", "time": "1:24.365" },
+      { "pos": 3, "driverId": "drv_Thec", "time": "1:24.365" },
       { "pos": 4, "driverId": "drv_ecto", "time": "1:25.737" },
       { "pos": 5, "driverId": "drv_geme", "time": "1:26.203" },
       { "pos": 6, "driverId": "drv_ksdo", "time": "1:26.276" },
@@ -230,7 +230,7 @@
         ]
       },
       {
-        "driverId": "drv_thec",
+        "driverId": "drv_Thec",
         "stints": [
           { "compound": "soft", "percent": 36.6, "label": "Soft (L1-11)" },
           { "compound": "med", "percent": 63.4, "label": "Medium (L12-30)" }
