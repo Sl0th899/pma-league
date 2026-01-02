@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
+import driversList from '../data/drivers.json'; // <--- Added Import
 
 const Home = () => {
+
+  // Helper to resolve ID to Name
+  const getDriverName = (id) => {
+    const driver = driversList.find(d => d.id === id);
+    return driver ? driver.name : "Unknown";
+  };
+
   return (
     <div>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
@@ -22,7 +30,7 @@ const Home = () => {
           {raceData.map((race) => (
             <Link to={`/race/${race.id}`} key={race.id} style={{ textDecoration: 'none' }}>
               <div 
-                className="panel race-card" /* Added race-card class for hover logic */
+                className="panel race-card"
                 style={{ 
                   backgroundColor: '#252525', 
                   border: '1px solid #333',
@@ -43,7 +51,8 @@ const Home = () => {
                 <div style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: '18px' }}>{race.grandPrix} GP</div>
                 
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '10px', borderTop:'1px solid #444', paddingTop:'10px' }}>
-                  Winner: <span style={{ color: 'var(--gold)', fontWeight:'bold' }}>{race.stats.winner}</span>
+                  {/* UPDATED: Uses winnerId to look up the name */}
+                  Winner: <span style={{ color: 'var(--gold)', fontWeight:'bold' }}>{getDriverName(race.stats.winnerId)}</span>
                 </div>
               </div>
             </Link>
