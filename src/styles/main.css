@@ -296,3 +296,74 @@ td {
 /* When hovering the specific panel, swap them */
 .race-card:hover .poster-default { opacity: 0; }
 .race-card:hover .poster-hover   { opacity: 1; }
+
+
+
+/* =========================================
+   9. STANDINGS (DASHBOARD)
+   ========================================= */
+.standings-list {
+    background-color: #1e1e1e;
+}
+
+.team-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #333;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+/* THE HOVER EFFECT: White Background, Black Text */
+.team-row:hover {
+    background-color: #ffffff;
+    color: #000000;
+    transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border-bottom: 1px solid transparent; /* Hide border on hover for clean look */
+    position: relative;
+    z-index: 10;
+}
+
+/* Force elements to change color on hover */
+.team-row:hover .team-name { color: #000000; }
+.team-row:hover .pos { color: var(--accent); } /* Make position red on hover */
+.team-row:hover .pts-pill { background-color: #eee; color: #000; }
+
+.pos {
+    font-size: 24px;
+    font-weight: bold;
+    width: 50px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.team-logo-standings {
+    height: 40px;
+    width: 60px;
+    object-fit: contain;
+}
+
+.team-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pts-pill {
+    background-color: #333;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+    transition: background-color 0.3s;
+}

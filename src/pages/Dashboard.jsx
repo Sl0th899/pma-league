@@ -1,11 +1,15 @@
 import React from 'react';
+import ConstructorsStandings from '../components/dashboard/ConstructorsStandings';
 
 const Dashboard = () => {
   return (
-    <div className="panel" style={{ textAlign: 'center', padding: '50px' }}>
-      <h1>Driver Standings</h1>
-      <p style={{ color: 'var(--text-muted)' }}>Coming Soon in Season 2 Update...</p>
+    <div>
+       {/* will add a Drivers Championship component here later! */}
+       
+       <ConstructorsStandings />
+       
     </div>
   );
 };
+
 export default Dashboard;
