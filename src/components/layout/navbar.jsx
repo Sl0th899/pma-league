@@ -56,14 +56,15 @@ const Navbar = () => {
       transition: 'all 0.3s ease',
       boxShadow: isScrolled ? '0 4px 10px rgba(0,0,0,0.5)' : 'none'
     }}>
-      {/* LEFT SIDE: New Logo Design */}
+      {/* LEFT SIDE: Logo */}
       <Link to="/" style={{ 
-          fontSize: '24px',  /* Made slightly bigger */
+          fontSize: logoSize, 
           color: 'white', 
           display:'flex', 
           alignItems:'center', 
           gap:'10px',
-          textDecoration: 'none'
+          textDecoration: 'none',
+          transition: 'font-size 0.3s ease'
       }}>
         <span style={{ 
             fontFamily: 'Against', 
@@ -74,11 +75,11 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT SIDE: Links */}
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <Link to="/" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Home</Link>
-        <Link to="/dashboard" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Dashboard</Link>
-        <Link to="/news" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>News</Link>
+      {/* RIGHT SIDE: Block Links */}
+      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+        <Link to="/" style={getLinkStyle('/')}>Home</Link>
+        <Link to="/dashboard" style={getLinkStyle('/dashboard')}>Dashboard</Link>
+        <Link to="/news" style={getLinkStyle('/news')}>News</Link>
       </div>
     </nav>
   );
