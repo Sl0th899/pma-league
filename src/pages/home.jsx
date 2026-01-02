@@ -29,9 +29,8 @@ const Home = () => {
                 onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
                 onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                <div style={{ height: '100px', backgroundColor: '#111', marginBottom: '10px', display:'flex', alignItems:'center', justifyContent:'center', color:'#555' }}>
-                  {/* If you add track images later, put them here. For now, text. */}
-                  MAP IMG
+                <div style={{ height: '100px', backgroundColor: '#111', marginBottom: '10px', display:'flex', alignItems:'center', justifyContent:'center', color:'#555', overflow:'hidden' }}>
+                  <img src={race.trackMapUrl} alt="Track" style={{width:'80%', opacity: 0.6}} />
                 </div>
                 <h3 style={{ margin: '0 0 5px 0', color: 'white' }}>Round {race.round}</h3>
                 <div style={{ color: 'var(--accent)', fontWeight: 'bold' }}>{race.grandPrix} GP</div>

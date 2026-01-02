@@ -1,17 +1,15 @@
 import React from 'react';
-import driversList from '../../data/drivers.json'; // <--- Import the database
+import driversList from '../../data/drivers.json';
 
 const ResultTable = ({ data }) => {
   
   // Helper function to find driver details
   const getDriverInfo = (nameInResult) => {
-    // 1. Try to find an exact match or partial match
     const found = driversList.find(d => 
       d.name.toLowerCase().includes(nameInResult.toLowerCase()) || 
       d.id.includes(nameInResult.toLowerCase())
     );
 
-    // 2. Return the details or placeholders if not found
     return found ? { 
       team: found.team, 
       number: found["Driver Number"] 
@@ -41,7 +39,6 @@ const ResultTable = ({ data }) => {
         </thead>
         <tbody>
           {data.map((row) => {
-            // "Look up" the info for this row
             const info = getDriverInfo(row.driver);
             
             return (

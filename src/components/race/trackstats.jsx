@@ -1,6 +1,6 @@
 import React from 'react';
 
-const trackstats = ({ mapUrl, stats, incidents }) => {
+const TrackStats = ({ mapUrl, stats, incidents }) => {
   return (
     <div className="panel">
       <div className="panel-header">Track & Highlights</div>
@@ -38,4 +38,4 @@ const trackstats = ({ mapUrl, stats, incidents }) => {
   );
 };
 
-export default trackstats;
+export default TrackStats;

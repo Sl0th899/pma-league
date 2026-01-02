@@ -1,6 +1,6 @@
 import React from 'react';
 
-const tyreStrat = ({ data }) => {
+const StrategyChart = ({ data }) => {
   return (
     <div className="panel">
       <div className="panel-header">
@@ -41,4 +41,4 @@ const tyreStrat = ({ data }) => {
   );
 };
 
-export default tyreStrat;
+export default StrategyChart;
