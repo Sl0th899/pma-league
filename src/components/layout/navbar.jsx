@@ -13,17 +13,17 @@ const Navbar = () => {
       justifyContent: 'space-between'
     }}>
       <Link to="/" style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', display:'flex', alignItems:'center', gap:'10px' }}>
-  <span style={{ 
-      backgroundColor: 'var(--accent)', 
-      padding: '2px 8px', 
-      borderRadius: '4px',
-      fontFamily: 'Against',  // <--- The custom font
-      letterSpacing: '1px'
-  }}>
-    PMA
-  </span>
-  LEAGUE
-</Link>
+        <span style={{ 
+            backgroundColor: 'var(--accent)', 
+            padding: '2px 8px', 
+            borderRadius: '4px',
+            fontFamily: 'Against', 
+            letterSpacing: '1px' 
+        }}>
+            PMA
+        </span>
+        LEAGUE
+      </Link>
       
       <div style={{ display: 'flex', gap: '20px' }}>
         <Link to="/" style={{ color: 'var(--text-muted)', fontSize: '14px' }}>Home</Link>

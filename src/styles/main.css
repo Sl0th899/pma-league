@@ -9,7 +9,7 @@
 }
 
 /* =========================================
-   1. VARIABLES & THEME (The "DNA")
+   1. VARIABLES & THEME
    ========================================= */
 :root {
     /* Base Colors */
@@ -75,7 +75,6 @@ header {
     font-size: 18px; 
 }
 
-/* The Responsive Grid Layout */
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -114,7 +113,7 @@ header {
 }
 
 /* =========================================
-   5. DATA TABLES (Results & Quali)
+   5. DATA TABLES
    ========================================= */
 table { width: 100%; border-collapse: collapse; font-size: 14px; }
 
@@ -131,7 +130,6 @@ td {
     border-bottom: 1px solid #2a2a2a; 
 }
 
-/* Status Classes */
 .p1 { color: var(--gold); font-weight: bold; }
 .p2 { color: var(--silver); font-weight: bold; }
 .p3 { color: var(--bronze); font-weight: bold; }
@@ -143,7 +141,7 @@ td {
    ========================================= */
 .track-placeholder {
     width: 100%;
-    height: 200px; /* Kept fixed height for consistency */
+    height: 200px;
     background-color: #111;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -179,7 +177,7 @@ td {
 .incident-list li { margin-bottom: 8px; padding-left: 10px; border-left: 2px solid var(--dnf); }
 
 /* =========================================
-   7. STRATEGY CHARTS (Complex CSS)
+   7. STRATEGY CHARTS
    ========================================= */
 .tyre-badge {
     width: 12px; height: 12px;
@@ -226,7 +224,6 @@ td {
 }
 .stint-bar:hover { opacity: 0.8; }
 
-/* Tooltip Logic */
 .stint-bar:hover::after {
     content: attr(data-info);
     position: absolute;
@@ -245,7 +242,6 @@ td {
     border: 1px solid #444;
 }
 
-/* Bar Colors */
 .bg-soft { background-color: var(--soft); }
 .bg-med { background-color: var(--med); }
 .bg-hard { background-color: var(--hard); }

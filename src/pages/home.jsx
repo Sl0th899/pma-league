@@ -7,10 +7,10 @@ const Home = () => {
     <div>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
         <h1 style={{ fontSize: '3rem', color: 'var(--accent)' }}>
-    <span style={{ fontFamily: 'Against', marginRight: '10px' }}>PMA</span>
-    LEAGUE
-</h1>
-        <p style={{ color: 'var(--text-muted)' }}>Season 1 Official Result Portal</p>
+            <span style={{ fontFamily: 'Against', marginRight: '10px' }}>PMA</span>
+            LEAGUE
+        </h1>
+        <p style={{ color: 'var(--text-muted)' }}>Season 1 - Official Results Portal</p>
       </header>
 
       <div className="panel">
