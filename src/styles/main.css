@@ -367,3 +367,37 @@ td {
     text-align: center;
     transition: background-color 0.3s;
 }
+
+/* =========================================
+   10. DRIVER ROSTER ON HOVER
+   ========================================= */
+.driver-roster {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    opacity: 0;           /* Hidden by default */
+    transform: translateX(20px); /* Slightly shifted right */
+    transition: all 0.3s ease;
+}
+
+/* When hovering the ROW, show the ROSTER */
+.team-row:hover .driver-roster {
+    opacity: 1;
+    transform: translateX(0); /* Slide into place */
+}
+
+.driver-pill {
+    background-color: #333; /* Same style as points pill */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Ensure the hover effect on the row doesn't break the white text inside the pill */
+.team-row:hover .driver-pill {
+    background-color: #eee; /* Light grey when row is white */
+    color: #000;
+}
