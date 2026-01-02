@@ -1,8 +1,7 @@
-/* Race Results BELOW - Now passing qualiData too! */
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import raceData from '../data/races.json';
+import driversList from '../data/drivers.json'; // Needed to look up Fastest Lap name
 
 import TrackStats from '../components/race/TrackStats';
 import ResultTable from '../components/race/ResultTable';
@@ -16,6 +15,10 @@ const RaceResults = () => {
   if (!race) {
     return <div style={{textAlign:'center', marginTop:'50px'}}>Race not found. <Link to="/" style={{color:'red'}}>Go Home</Link></div>;
   }
+
+  // Look up Fastest Lap Driver Name
+  const flDriver = driversList.find(d => d.id === race.stats.fastestLapId);
+  const flName = flDriver ? flDriver.name : "Unknown";
 
   return (
     <div>
@@ -41,7 +44,37 @@ const RaceResults = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <QualiTable data={race.qualiResults} />
           
-          {/* UPDATED: Passing qualiData HERE!!!!! */}
+          {/* --- FASTEST LAP BLOCK --- */}
+          <div style={{ 
+              backgroundColor: '#3b0a45', /* Purple/Pinkish background */
+              borderLeft: '4px solid #d946ef', 
+              padding: '15px 20px',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+          }}>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <div style={{ 
+                    backgroundColor: '#d946ef', 
+                    color: 'white', 
+                    fontWeight: 'bold', 
+                    padding: '4px 8px', 
+                    borderRadius: '4px',
+                    fontSize: '12px'
+                }}>
+                    FASTEST LAP
+                </div>
+                <div style={{ fontWeight: 'bold', fontSize: '18px', color: 'white' }}>
+                    {flName}
+                </div>
+             </div>
+             <div style={{ color: '#d946ef', fontWeight: 'bold' }}>
+                 +1 PTS
+             </div>
+          </div>
+
           <ResultTable data={race.raceResults} qualiData={race.qualiResults} />
         </div>
 

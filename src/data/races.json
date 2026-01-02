@@ -8,10 +8,10 @@
     "imgWeek": "https://media.discordapp.net/attachments/1452291149296570463/1452291922147279030/image.png?ex=695919c0&is=6957c840&hm=af48f3bd9a1be84276da7d3544fe70adc922550138e4a5ca6dd2c6c150459494&=&format=webp&quality=lossless&width=595&height=1049",
     "imgDay": "https://media.discordapp.net/attachments/1454218673253519542/1454428625972625408/image.png?ex=6958f6b6&is=6957a536&hm=851e61e64dfe8e52e60f83487032d7ae9024993e9ab75a03088f04e0334dbca6&=&format=webp&quality=lossless&width=845&height=1050",
     "stats": {
-      "winner": "Stefan",
-      "pole": "Stefan",
-      "fastestLap": "Stefan",
-      "driverOfDay": "Stefan"
+      "winnerId": "drv_stef",
+      "poleId": "drv_stef",
+      "fastestLapId": "drv_stef",
+      "driverOfDayId": "drv_stef"
     },
     "incidents": [
       "Lap 3 - Thec Early Pit (Lost Front Wing)",
@@ -160,10 +160,10 @@
     "imgWeek": "https://media.discordapp.net/attachments/1279558366284353567/1387420415076466840/AUS_GP_PMA.png?ex=695915f3&is=6957c473&hm=e1cd1204049e2264789d5d608765df6ad836f7438661f8576dfb3b96ed11ed73&=&format=webp&quality=lossless&width=840&height=1050",
     "imgDay": "https://media.discordapp.net/attachments/1421532039550734487/1421532041186508971/image.png?ex=69589921&is=695747a1&hm=2af87436e3a901b740c6c2ff5416752f78ec9e05fe59cff1500d80dd46eda542&=&format=webp&quality=lossless&width=493&height=438",
     "stats": {
-      "winner": "HAPPI",
-      "pole": "Stefan",
-      "fastestLap": "HAPPI",
-      "driverOfDay": "HAPPI"
+      "winnerId": "drv_hx4p",
+      "poleId": "drv_stef",
+      "fastestLapId": "drv_hx4p",
+      "driverOfDayId": "drv_hx4p"
     },
     "incidents": [
       "Lap 1 - Aniestube BMW (Inters -> Softs)",
