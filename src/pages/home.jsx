@@ -6,7 +6,10 @@ const Home = () => {
   return (
     <div>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '3rem', color: 'var(--accent)' }}>PMA League</h1>
+        <h1 style={{ fontSize: '3rem', color: 'var(--accent)' }}>
+    <span style={{ fontFamily: 'Against', marginRight: '10px' }}>PMA</span>
+    LEAGUE
+</h1>
         <p style={{ color: 'var(--text-muted)' }}>Season 1 Official Result Portal</p>
       </header>
 

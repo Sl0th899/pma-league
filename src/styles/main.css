@@ -1,4 +1,14 @@
 /* =========================================
+   0. FONTS
+   ========================================= */
+@font-face {
+    font-family: 'Against';
+    src: url('../assets/fonts/against-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =========================================
    1. VARIABLES & THEME (The "DNA")
    ========================================= */
 :root {
