@@ -23,7 +23,7 @@ const ResultTable = ({ data, qualiData }) => {
     return '';
   };
 
-  // --- NEW LOGIC: Calculate Position Change ---
+  // --- Logic: Calculate Position Change ---
   const getPositionChange = (driverId, finishPos) => {
     if (!qualiData) return <span style={{color:'#444'}}>-</span>;
 
@@ -50,8 +50,12 @@ const ResultTable = ({ data, qualiData }) => {
       <table>
         <thead>
           <tr>
+            {/* 1. +/- Column (Moved First) */}
+            <th width="5%">+/-</th> 
+            
+            {/* 2. Position Column */}
             <th width="5%">Pos</th>
-            <th width="5%">+/-</th> {/* New Column Header */}
+            
             <th>Driver</th>
             <th width="15%">Team</th>
             <th width="20%">Gap</th>
@@ -64,13 +68,13 @@ const ResultTable = ({ data, qualiData }) => {
             
             return (
               <tr key={row.driverId}>
-                {/* 1. Finishing Position */}
-                <td className={getPosClass(row.pos, row.status)}>{row.pos}</td>
-
-                {/* 2. NEW: Positions Gained/Lost */}
+                {/* 1. Positions Gained/Lost (Moved First) */}
                 <td style={{ textAlign: 'center' }}>
                     {getPositionChange(row.driverId, row.pos)}
                 </td>
+
+                {/* 2. Finishing Position */}
+                <td className={getPosClass(row.pos, row.status)}>{row.pos}</td>
                 
                 {/* 3. Driver Info */}
                 <td>
