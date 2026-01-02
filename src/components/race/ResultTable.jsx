@@ -51,7 +51,7 @@ const ResultTable = ({ data }) => {
                 {/* Driver Name + Number */}
                 <td>
                   <div style={{fontWeight:'bold'}}>{row.driver}</div>
-                  <div style={{fontSize:'10px', color:'#666'}}>#{info.number}</div>
+                  <div style={{fontSize:'11px', color:'#666'}}>#{info.number}</div>
                 </td>
                 
                 {/* Team Name */}
