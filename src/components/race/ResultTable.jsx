@@ -1,7 +1,7 @@
 import React from 'react';
 import driversList from '../../data/drivers.json';
 
-const ResultTable = ({ data }) => {
+const ResultTable = ({ data, qualiData }) => {
   
   const getDriverDetails = (id) => {
     const found = driversList.find(d => d.id === id);
@@ -9,7 +9,6 @@ const ResultTable = ({ data }) => {
     return { name: id, team: "Unknown", "Driver Number": "-" };
   };
 
-  // Helper to turn "Red Bull" into "/teams/red-bull.png"
   const getTeamLogo = (teamName) => {
     if (!teamName) return null;
     const filename = teamName.toLowerCase().replace(/ /g, "-");
@@ -24,6 +23,27 @@ const ResultTable = ({ data }) => {
     return '';
   };
 
+  // --- NEW LOGIC: Calculate Position Change ---
+  const getPositionChange = (driverId, finishPos) => {
+    if (!qualiData) return <span style={{color:'#444'}}>-</span>;
+
+    const qualiRow = qualiData.find(q => q.driverId === driverId);
+    
+    // If driver didn't qualify or we can't find them, show nothing
+    if (!qualiRow) return <span style={{color:'#444'}}>-</span>;
+
+    const startPos = qualiRow.pos;
+    const diff = startPos - finishPos; // e.g. Start 10, Finish 5 = +5 (Gained)
+
+    if (diff > 0) {
+      return <span style={{color: '#36c756', fontSize:'12px'}}>▲ {diff}</span>; // Green Up Arrow
+    } else if (diff < 0) {
+      return <span style={{color: '#ff4d4d', fontSize:'12px'}}>▼ {Math.abs(diff)}</span>; // Red Down Arrow
+    } else {
+      return <span style={{color: '#666', fontSize:'16px'}}>-</span>; // Grey Dash (No change)
+    }
+  };
+
   return (
     <div className="panel">
       <div className="panel-header">Race Classification</div>
@@ -31,6 +51,7 @@ const ResultTable = ({ data }) => {
         <thead>
           <tr>
             <th width="5%">Pos</th>
+            <th width="5%">+/-</th> {/* New Column Header */}
             <th>Driver</th>
             <th width="15%">Team</th>
             <th width="20%">Gap</th>
@@ -43,13 +64,19 @@ const ResultTable = ({ data }) => {
             
             return (
               <tr key={row.driverId}>
+                {/* 1. Finishing Position */}
                 <td className={getPosClass(row.pos, row.status)}>{row.pos}</td>
+
+                {/* 2. NEW: Positions Gained/Lost */}
+                <td style={{ textAlign: 'center' }}>
+                    {getPositionChange(row.driverId, row.pos)}
+                </td>
                 
-                {/* Driver Name + BIGGER Number */}
+                {/* 3. Driver Info */}
                 <td>
                   <div style={{fontWeight:'bold', fontSize: '15px'}}>{driverInfo.name}</div>
                   <div style={{
-                      fontSize:'14px', /* Increased size */
+                      fontSize:'14px', 
                       fontWeight: 'bold', 
                       color:'var(--accent)', 
                       marginTop: '2px'
@@ -58,7 +85,7 @@ const ResultTable = ({ data }) => {
                   </div>
                 </td>
                 
-                {/* Team Logo instead of Text */}
+                {/* 4. Team Logo */}
                 <td>
                   <img 
                     src={getTeamLogo(driverInfo.team)} 
@@ -66,12 +93,13 @@ const ResultTable = ({ data }) => {
                     style={{ maxHeight: '25px', maxWidth: '40px', objectFit: 'contain' }}
                     onError={(e) => {
                         e.target.onerror = null; 
-                        e.target.style.display = 'none'; // Hide if image missing
-                        e.target.parentNode.innerText = driverInfo.team; // Show text fallback
+                        e.target.style.display = 'none'; 
+                        e.target.parentNode.innerText = driverInfo.team; 
                     }}
                   />
                 </td>
                 
+                {/* 5. Gap & Points */}
                 <td className={row.status === 'dnf' ? 'dnf' : ''}>{row.gap}</td>
                 <td>{row.points > 0 ? `+${row.points}` : '-'}</td>
               </tr>
