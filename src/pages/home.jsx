@@ -5,7 +5,7 @@ import driversList from '../data/drivers.json';
 
 const Home = () => {
 
-  // --- 1. Quick Calculation for Top 3 Only ---
+  // --- 1. Quick Calculation for Top 3 ---
   const topTeams = useMemo(() => {
     const teamScores = {};
 
@@ -17,8 +17,7 @@ const Home = () => {
 
     raceData.forEach(race => {
       race.raceResults.forEach(result => {
-        // Priority: Result override > Driver Default
-        let team = result.team;
+        let team = result.team; // Check override
         if (!team) {
             const driver = driversList.find(d => d.id === result.driverId);
             if (driver) team = driver.team;
@@ -26,7 +25,6 @@ const Home = () => {
         addPoints(team, result.points || 0);
       });
 
-      // Bonus Points (Pole/Fastest Lap)
       const addBonus = (id) => {
           if(!id) return;
           const driver = driversList.find(d => d.id === id);
@@ -55,70 +53,68 @@ const Home = () => {
   return (
     <div>
       
-      {/* --- CHAMPIONSHIP POINTER (Clickable) --- */}
+      {/* --- PODIUM WIDGET (Clickable + Blur Effect) --- */}
       <Link to="/dashboard" style={{ textDecoration: 'none' }}>
-        <div 
-            className="panel" 
-            style={{ 
-                marginBottom: '40px', 
-                background: 'linear-gradient(135deg, #1e1e1e 0%, #252525 100%)',
-                cursor: 'pointer',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                border: '1px solid #333'
-            }}
-            onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.4)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
-            }}
-            onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)';
-                e.currentTarget.style.borderColor = '#333';
-            }}
-        >
-            <div className="panel-header" style={{ borderBottomColor: 'var(--gold)', display:'flex', justifyContent:'space-between' }}>
-                <span>Championship Leaders</span>
-                <span style={{ fontSize:'12px', color:'var(--accent)' }}>View Full Standings ➜</span>
-            </div>
+        <div className="podium-widget">
             
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-around', 
-                alignItems: 'flex-end', 
-                textAlign: 'center', 
-                padding: '20px 0' 
-            }}>
-                {/* 2nd Place */}
-                {topTeams[1] && (
-                    <div style={{ opacity: 0.8 }}>
-                        <div style={{ fontSize: '12px', color: 'var(--silver)', marginBottom:'5px', fontWeight:'bold' }}>2ND</div>
-                        <img src={getTeamLogo(topTeams[1].team)} alt={topTeams[1].team} style={{ height: '50px', marginBottom: '10px' }} />
-                        <div style={{ fontWeight: 'bold', fontSize: '18px', color:'white' }}>{topTeams[1].team}</div>
-                        <div style={{ color: 'var(--text-muted)' }}>{topTeams[1].points} PTS</div>
-                    </div>
-                )}
+            {/* 1. The Content (Gets blurred on hover) */}
+            <div className="blur-content">
+                <div style={{ textAlign:'center', marginBottom:'20px', textTransform:'uppercase', letterSpacing:'2px', color:'var(--text-muted)', fontSize:'12px' }}>
+                    Constructors' Championship Top 3
+                </div>
+                
+                <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'flex-end', 
+                    gap: '40px',
+                    textAlign: 'center' 
+                }}>
+                    
+                    {/* 2nd Place (Left) */}
+                    {topTeams[1] && (
+                        <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+                            <div style={{ color:'var(--silver)', fontWeight:'bold', marginBottom:'5px' }}>2</div>
+                            <div style={{ width:'80px', height:'60px', background:'#2a2a2a', borderRadius:'8px 8px 0 0', display:'flex', alignItems:'center', justifyContent:'center', borderBottom:'4px solid var(--silver)' }}>
+                                <img src={getTeamLogo(topTeams[1].team)} alt={topTeams[1].team} style={{ maxWidth:'60%', maxHeight:'80%' }} />
+                            </div>
+                            <div style={{ marginTop:'10px', fontSize:'14px', fontWeight:'bold', color:'white' }}>{topTeams[1].team}</div>
+                            <div style={{ fontSize:'12px', color:'var(--text-muted)' }}>{topTeams[1].points} PTS</div>
+                        </div>
+                    )}
 
-                {/* 1st Place (Bigger) */}
-                {topTeams[0] && (
-                    <div style={{ transform: 'scale(1.2)', zIndex: 10 }}>
-                        <div style={{ fontSize: '12px', color: 'var(--gold)', marginBottom:'5px', fontWeight:'bold' }}>1ST</div>
-                        <img src={getTeamLogo(topTeams[0].team)} alt={topTeams[0].team} style={{ height: '60px', marginBottom: '10px' }} />
-                        <div style={{ fontWeight: 'bold', fontSize: '20px', color: 'white' }}>{topTeams[0].team}</div>
-                        <div style={{ color: 'var(--gold)', fontWeight: 'bold' }}>{topTeams[0].points} PTS</div>
-                    </div>
-                )}
+                    {/* 1st Place (Center - Biggest) */}
+                    {topTeams[0] && (
+                        <div style={{ display:'flex', flexDirection:'column', alignItems:'center', transform: 'scale(1.15)', zIndex: 2 }}>
+                            <div style={{ color:'var(--gold)', fontWeight:'bold', marginBottom:'5px' }}>1</div>
+                            <div style={{ width:'100px', height:'90px', background:'#333', borderRadius:'8px 8px 0 0', display:'flex', alignItems:'center', justifyContent:'center', borderBottom:'4px solid var(--gold)', boxShadow:'0 -4px 15px rgba(0,0,0,0.3)' }}>
+                                <img src={getTeamLogo(topTeams[0].team)} alt={topTeams[0].team} style={{ maxWidth:'70%', maxHeight:'80%' }} />
+                            </div>
+                            <div style={{ marginTop:'10px', fontSize:'14px', fontWeight:'bold', color:'white' }}>{topTeams[0].team}</div>
+                            <div style={{ fontSize:'12px', color:'var(--gold)', fontWeight:'bold' }}>{topTeams[0].points} PTS</div>
+                        </div>
+                    )}
 
-                {/* 3rd Place */}
-                {topTeams[2] && (
-                    <div style={{ opacity: 0.8 }}>
-                        <div style={{ fontSize: '12px', color: 'var(--bronze)', marginBottom:'5px', fontWeight:'bold' }}>3RD</div>
-                        <img src={getTeamLogo(topTeams[2].team)} alt={topTeams[2].team} style={{ height: '50px', marginBottom: '10px' }} />
-                        <div style={{ fontWeight: 'bold', fontSize: '18px', color:'white' }}>{topTeams[2].team}</div>
-                        <div style={{ color: 'var(--text-muted)' }}>{topTeams[2].points} PTS</div>
-                    </div>
-                )}
+                    {/* 3rd Place (Right) */}
+                    {topTeams[2] && (
+                        <div style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+                            <div style={{ color:'var(--bronze)', fontWeight:'bold', marginBottom:'5px' }}>3</div>
+                            <div style={{ width:'80px', height:'50px', background:'#2a2a2a', borderRadius:'8px 8px 0 0', display:'flex', alignItems:'center', justifyContent:'center', borderBottom:'4px solid var(--bronze)' }}>
+                                <img src={getTeamLogo(topTeams[2].team)} alt={topTeams[2].team} style={{ maxWidth:'60%', maxHeight:'80%' }} />
+                            </div>
+                            <div style={{ marginTop:'10px', fontSize:'14px', fontWeight:'bold', color:'white' }}>{topTeams[2].team}</div>
+                            <div style={{ fontSize:'12px', color:'var(--text-muted)' }}>{topTeams[2].points} PTS</div>
+                        </div>
+                    )}
+
+                </div>
             </div>
+
+            {/* 2. The Overlay (Appears on hover) */}
+            <div className="blur-overlay">
+                <div className="view-btn">View Full Standings ➜</div>
+            </div>
+
         </div>
       </Link>
 

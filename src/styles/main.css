@@ -401,3 +401,64 @@ td {
     background-color: #eee; /* Light grey when row is white */
     color: #000;
 }
+
+/* =========================================
+   11. PODIUM WIDGET (HOME PAGE)
+   ========================================= */
+.podium-widget {
+    background: linear-gradient(135deg, #181818 0%, #222 100%);
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 40px;
+}
+
+.podium-widget:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(225, 6, 0, 0.2);
+}
+
+.blur-content {
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    padding: 30px 20px;
+}
+
+/* Blur the content when hovering the widget */
+.podium-widget:hover .blur-content {
+    filter: blur(8px);
+    opacity: 0.4;
+}
+
+.blur-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.podium-widget:hover .blur-overlay {
+    opacity: 1; /* Show on hover */
+}
+
+.view-btn {
+    background-color: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}

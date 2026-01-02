@@ -5,39 +5,35 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Detect Scrolling
+  // 1. Detect Scroll Position
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Dynamic Styles based on Scroll
-  const navPadding = isScrolled ? '15px 20px' : '30px 40px';
+  // 2. Dynamic Variables based on scroll state
+  const navPadding = isScrolled ? '10px 20px' : '25px 40px';
   const logoSize = isScrolled ? '24px' : '32px';
   const linkSize = isScrolled ? '14px' : '16px';
-  const blockPadding = isScrolled ? '6px 12px' : '10px 20px';
+  const blockPadding = isScrolled ? '8px 16px' : '12px 24px';
 
-  // Helper for Block Style
+  // 3. Helper for the Link Blocks
   const getLinkStyle = (path) => {
     const isActive = location.pathname === path;
     return {
       fontSize: linkSize,
       color: 'white',
       textDecoration: 'none',
-      backgroundColor: isActive ? 'var(--accent)' : '#333', // Active = Red, Inactive = Dark Grey
+      backgroundColor: isActive ? 'var(--accent)' : '#2a2a2a', // Blocks!
       padding: blockPadding,
-      borderRadius: '6px',
+      borderRadius: '4px', // Slight rounded corners
       transition: 'all 0.3s ease',
       fontWeight: 'bold',
-      display: 'inline-block'
+      textTransform: 'uppercase',
+      letterSpacing: '1px'
     };
   };
 
@@ -45,38 +41,33 @@ const Navbar = () => {
     <nav style={{ 
       backgroundColor: '#1e1e1e', 
       padding: navPadding, 
-      marginBottom: '20px', 
-      // Removed the red border-bottom line as requested
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      transition: 'all 0.3s ease',
-      boxShadow: isScrolled ? '0 4px 10px rgba(0,0,0,0.5)' : 'none'
+      transition: 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)', // Smooth "Apple-like" transition
+      boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.6)' : 'none', // Shadow only when scrolled
+      marginBottom: '20px' 
     }}>
-      {/* LEFT SIDE: Logo */}
-      <Link to="/" style={{ 
-          fontSize: logoSize, 
-          color: 'white', 
-          display:'flex', 
-          alignItems:'center', 
-          gap:'10px',
-          textDecoration: 'none',
-          transition: 'font-size 0.3s ease'
-      }}>
+      
+      {/* LEFT: Logo */}
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <span style={{ 
             fontFamily: 'Against', 
             fontWeight: 'normal', 
-            letterSpacing: '1px'
+            fontSize: logoSize,
+            color: 'white',
+            letterSpacing: '2px',
+            transition: 'font-size 0.4s ease'
         }}>
             PMA | FATE
         </span>
       </Link>
       
-      {/* RIGHT SIDE: Block Links */}
-      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+      {/* RIGHT: Block Links */}
+      <div style={{ display: 'flex', gap: '15px' }}>
         <Link to="/" style={getLinkStyle('/')}>Home</Link>
         <Link to="/dashboard" style={getLinkStyle('/dashboard')}>Dashboard</Link>
         <Link to="/news" style={getLinkStyle('/news')}>News</Link>
