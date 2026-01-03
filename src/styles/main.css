@@ -505,3 +505,125 @@ td {
     transform: scaleX(1); /* Full width */
     transform-origin: bottom left; /* Slide in from left */
 }
+
+
+/* =========================================
+   13. SCHEDULE LIST (HOME BOTTOM)
+   ========================================= */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-header {
+    display: flex;
+    padding: 15px 20px;
+    border-bottom: 2px solid #444;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.schedule-row {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    transition: background-color 0.2s;
+    position: relative; /* Needed for popup positioning */
+}
+
+.schedule-row:hover {
+    background-color: #2a2a2a;
+}
+
+.schedule-rnd {
+    width: 10%;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-muted); /* Darker number */
+    font-family: 'Arial Black', sans-serif;
+    opacity: 0.5;
+}
+.schedule-row:hover .schedule-rnd {
+    color: var(--accent); /* Highlight on hover */
+    opacity: 1;
+}
+
+.schedule-name {
+    width: 35%;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.schedule-date {
+    width: 25%;
+    font-size: 14px;
+    color: #ccc;
+    font-weight: bold;
+}
+
+.schedule-laps {
+    width: 20%;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.sprint-badge {
+    background-color: white;
+    color: black;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* --- THE HOVER POPUP (Map) --- */
+.track-popup {
+    position: absolute;
+    right: 40px; /* Position to the right side of the row */
+    bottom: 50%; /* Center vertically... */
+    transform: translateY(50%) scale(0.8); /* ...and shrink slightly */
+    
+    width: 200px;
+    height: 140px;
+    background-color: #1a1a1a;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.schedule-row:hover .track-popup {
+    opacity: 1;
+    transform: translateY(50%) scale(1); /* Pop up to full size */
+}
+
+.track-popup img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    filter: invert(1); /* Invert F1 maps (usually black) to be White */
+}
+
+.popup-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    text-transform: uppercase;
+}
