@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
 import driversList from '../data/drivers.json';
 
-// --- DATA: Full Schedule (Needed to find the next race) ---
 const SEASON_SCHEDULE = [
   { round: 1, country: 'AUSTRALIA', flag: '🇦🇺', date: '20-21 DEC', laps: 30, sprint: false, map: 'australia.avif' },
   { round: 2, country: 'AZERBAIJAN', flag: '🇦🇿', date: '27-28 DEC', laps: 30, sprint: true, map: 'azerbaijan.avif' },
@@ -21,10 +20,10 @@ const SEASON_SCHEDULE = [
 
 const Home = () => {
   // --- 1. Find the Upcoming Race ---
-  // We look at the latest race result to figure out what round is next.
+
   const lastCompletedRound = Math.max(...raceData.map(r => r.round), 0);
   const nextRoundNumber = lastCompletedRound + 1;
-  const nextRace = SEASON_SCHEDULE.find(r => r.round === nextRoundNumber) || SEASON_SCHEDULE[0]; // Fallback to R1 if season done
+  const nextRace = SEASON_SCHEDULE.find(r => r.round === nextRoundNumber) || SEASON_SCHEDULE[0]; 
 
   // --- 2. Constructors Logic (Same as before) ---
   const topTeams = useMemo(() => {
