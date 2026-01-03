@@ -1,26 +1,35 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react'; // Added useState
 import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
 import driversList from '../data/drivers.json';
 
-// --- DATA: Full Season Schedule (Updated for Local AVIF Maps) ---
+// --- DATA: Updated with Flags & Uppercase Names ---
 const SEASON_SCHEDULE = [
-  { round: '01', name: 'Australia GP', date: '20-21 Dec', laps: 30, sprint: false, map: 'australia.avif' },
-  { round: '02', name: 'Azerbaijan GP', date: '27-28 Dec', laps: 30, sprint: true, map: 'azerbaijan.avif' },
-  { round: '03', name: 'Russian GP', date: '3-4 Jan', laps: 25, sprint: false, map: 'russia.avif' },
-  { round: '04', name: 'German GP', date: '10-11 Jan', laps: 35, sprint: false, map: 'germany.avif' },
-  { round: '05', name: 'French GP', date: '17-18 Jan', laps: 32, sprint: false, map: 'france.avif' },
-  { round: '06', name: 'British GP', date: '24-25 Jan', laps: 25, sprint: true, map: 'britain.avif' },
-  { round: '07', name: 'Italian GP', date: '7-8 Feb', laps: 30, sprint: false, map: 'italy.avif' },
-  { round: '08', name: 'Miami GP', date: '14-15 Feb', laps: 28, sprint: false, map: 'miami.avif' },
-  { round: '09', name: 'Mexico GP', date: '21-22 Feb', laps: 30, sprint: false, map: 'mexico.avif' },
-  { round: '10', name: 'Japan GP', date: '28-1 Mar', laps: 33, sprint: false, map: 'japan.avif' },
-  { round: '11', name: 'Qatar GP', date: '7-8 Mar', laps: 28, sprint: true, map: 'qatar.avif' },
-  { round: '12', name: 'United States GP', date: '14-15 Mar', laps: 30, sprint: false, map: 'usa.avif' },
+  { round: '01', country: 'AUSTRALIA', flag: '🇦🇺', date: '20-21 DEC', laps: 30, sprint: false, map: 'australia.avif' },
+  { round: '02', country: 'AZERBAIJAN', flag: '🇦🇿', date: '27-28 DEC', laps: 30, sprint: true, map: 'azerbaijan.avif' },
+  { round: '03', country: 'RUSSIA', flag: '🇷🇺', date: '3-4 JAN', laps: 25, sprint: false, map: 'russia.avif' },
+  { round: '04', country: 'GERMANY', flag: '🇩🇪', date: '10-11 JAN', laps: 35, sprint: false, map: 'germany.avif' },
+  { round: '05', country: 'FRANCE', flag: '🇫🇷', date: '17-18 JAN', laps: 32, sprint: false, map: 'france.avif' },
+  { round: '06', country: 'BRITAIN', flag: '🇬🇧', date: '24-25 JAN', laps: 25, sprint: true, map: 'britain.avif' },
+  { round: '07', country: 'ITALY', flag: '🇮🇹', date: '7-8 FEB', laps: 30, sprint: false, map: 'italy.avif' },
+  { round: '08', country: 'MIAMI', flag: '🇺🇸', date: '14-15 FEB', laps: 28, sprint: false, map: 'miami.avif' },
+  { round: '09', country: 'MEXICO', flag: '🇲🇽', date: '21-22 FEB', laps: 30, sprint: false, map: 'mexico.avif' },
+  { round: '10', country: 'JAPAN', flag: '🇯🇵', date: '28-1 MAR', laps: 33, sprint: false, map: 'japan.avif' },
+  { round: '11', country: 'QATAR', flag: '🇶🇦', date: '7-8 MAR', laps: 28, sprint: true, map: 'qatar.avif' },
+  { round: '12', country: 'USA', flag: '🇺🇸', date: '14-15 MAR', laps: 30, sprint: false, map: 'usa.avif' },
 ];
 
 const Home = () => {
+  // --- State for the Floating Map ---
+  const [hoveredMap, setHoveredMap] = useState(null);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
+  // Update cursor position when moving mouse over the list
+  const handleMouseMove = (e) => {
+    setCursorPos({ x: e.clientX, y: e.clientY });
+  };
+
+  // --- Existing Logic (Keep unchanged) ---
   const topTeams = useMemo(() => {
     const teamScores = {};
     const addPoints = (team, amount) => {
@@ -55,13 +64,10 @@ const Home = () => {
     const driver = driversList.find(d => d.id === id);
     return driver ? driver.name : "Unknown";
   };
-
   const getTeamLogo = (teamName) => {
     const filename = teamName.toLowerCase().replace(/ /g, "-");
     return `/teams/${filename}.png`;
   };
-
-  // UPDATED: Now points to your local 'public/tracks' folder
   const getMapUrl = (filename) => {
       return `/tracks/${filename}`;
   };
@@ -69,7 +75,7 @@ const Home = () => {
   return (
     <div>
       
-      {/* 1. CHAMPIONSHIP LEADER WIDGET */}
+      {/* 1. CHAMPIONSHIP LEADER WIDGET (Keep unchanged) */}
       <Link to="/dashboard" style={{ textDecoration: 'none' }}>
         <div className="podium-widget">
             <div className="blur-content">
@@ -115,7 +121,7 @@ const Home = () => {
         </div>
       </Link>
 
-      {/* 2. RACE CALENDAR GRID */}
+      {/* 2. RACE CALENDAR GRID (Keep unchanged) */}
       <div className="panel" style={{ marginBottom: '40px' }}>
         <div className="panel-header">Latest Results</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '30px' }}>
@@ -142,40 +148,66 @@ const Home = () => {
         </div>
       </div>
 
-      {/* 3. SEASON SCHEDULE LIST */}
+      {/* 3. SEASON SCHEDULE LIST (UPDATED) */}
       <div className="panel">
           <div className="panel-header">Season 1 Schedule</div>
           
-          <div className="schedule-list">
+          <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
               <div className="schedule-header">
                   <span style={{ width: '10%' }}>Rnd</span>
-                  <span style={{ width: '35%' }}>Grand Prix</span>
-                  <span style={{ width: '25%' }}>Date</span>
-                  <span style={{ width: '20%' }}>Distance</span>
+                  <span style={{ width: '35%' }}>Location</span>
+                  <span style={{ width: '25%' }}>When</span>
+                  <span style={{ width: '20%' }}>Laps</span>
                   <span style={{ width: '10%' }}></span>
               </div>
 
               {SEASON_SCHEDULE.map((race) => (
-                  <div key={race.round} className="schedule-row">
+                  <div 
+                    key={race.round} 
+                    className="schedule-row"
+                    onMouseEnter={() => setHoveredMap(race)}
+                    onMouseLeave={() => setHoveredMap(null)}
+                  >
+                      {/* Round */}
                       <div className="schedule-rnd">{race.round}</div>
+                      
+                      {/* Name + Flag */}
                       <div className="schedule-name">
-                          {race.name}
+                          {race.country}
+                          <span className="country-flag">{race.flag}</span>
                           {race.sprint && <span className="sprint-badge">SPRINT</span>}
                       </div>
+
+                      {/* Date */}
                       <div className="schedule-date">{race.date}</div>
-                      <div className="schedule-laps">{race.laps} Laps</div>
-                      
-                      {/* Hover Popup using Local Maps */}
-                      <div className="track-popup">
-                          <img 
-                            src={getMapUrl(race.map)} 
-                            alt={race.name} 
-                            onError={(e) => e.target.style.display = 'none'} 
-                          />
-                          <div className="popup-label">{race.name} Layout</div>
-                      </div>
+
+                      {/* Laps (Just the number) */}
+                      <div className="schedule-laps">{race.laps}</div>
                   </div>
               ))}
+
+              {/* FLOATING MAP POPUP */}
+              <div 
+                className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
+                style={{
+                    /* Position relative to cursor. 
+                       +20px offset prevents it from being stuck under the pointer */
+                    top: `${cursorPos.y + 20}px`, 
+                    left: `${cursorPos.x + 20}px`
+                }}
+              >
+                 {hoveredMap && (
+                    <>
+                        <img 
+                            src={getMapUrl(hoveredMap.map)} 
+                            alt={hoveredMap.country} 
+                            onError={(e) => e.target.style.display = 'none'} 
+                        />
+                        <div className="popup-label">{hoveredMap.country} Layout</div>
+                    </>
+                 )}
+              </div>
+
           </div>
       </div>
 

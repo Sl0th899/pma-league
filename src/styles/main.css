@@ -513,6 +513,7 @@ td {
 .schedule-list {
     display: flex;
     flex-direction: column;
+    position: relative; /* Context for cursor tracking */
 }
 
 .schedule-header {
@@ -532,7 +533,7 @@ td {
     padding: 20px;
     border-bottom: 1px solid #333;
     transition: background-color 0.2s;
-    position: relative; /* Needed for popup positioning */
+    cursor: default;
 }
 
 .schedule-row:hover {
@@ -541,38 +542,49 @@ td {
 
 .schedule-rnd {
     width: 10%;
-    font-size: 24px;
+    font-size: 32px; /* Bigger like the image */
     font-weight: bold;
-    color: var(--text-muted); /* Darker number */
+    color: var(--text-muted);
     font-family: 'Arial Black', sans-serif;
-    opacity: 0.5;
+    opacity: 0.4;
+    line-height: 1;
 }
 .schedule-row:hover .schedule-rnd {
-    color: var(--accent); /* Highlight on hover */
+    color: var(--accent);
     opacity: 1;
 }
 
 .schedule-name {
     width: 35%;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 24px; /* Bigger & Bolder */
+    font-weight: 900; /* Extra Bold */
     text-transform: uppercase;
+    color: white;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start; /* Align flag to top */
+    gap: 8px;
+    line-height: 1;
+}
+
+.country-flag {
+    font-size: 14px; /* Small flag size */
+    margin-top: -2px; /* Slight lift to look like an exponent */
 }
 
 .schedule-date {
     width: 25%;
-    font-size: 14px;
+    font-size: 24px;
     color: #ccc;
     font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Arial Narrow', sans-serif; /* Condensed look */
 }
 
 .schedule-laps {
     width: 20%;
-    font-size: 14px;
-    color: var(--text-muted);
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
 }
 
 .sprint-badge {
@@ -582,48 +594,49 @@ td {
     padding: 2px 6px;
     border-radius: 4px;
     font-weight: bold;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
-/* --- THE HOVER POPUP (Map) --- */
-.track-popup {
-    position: absolute;
-    right: 40px; /* Position to the right side of the row */
-    bottom: 50%; /* Center vertically... */
-    transform: translateY(50%) scale(0.8); /* ...and shrink slightly */
-    
-    width: 200px;
-    height: 140px;
-    background-color: #1a1a1a;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
+/* --- THE FLOATING CURSOR MAP --- */
+.cursor-map-popup {
+    position: fixed; /* Floats relative to screen */
+    width: 280px;
+    height: 180px;
+    background-color: #1a1a1a; /* Dark Card */
+    border: 2px solid var(--accent); /* Red Border */
+    border-radius: 12px;
+    z-index: 9999; /* Always on top */
+    pointer-events: none; /* Let mouse clicks pass through */
     
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     
-    opacity: 0; /* Hidden by default */
-    pointer-events: none;
-    z-index: 100;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.schedule-row:hover .track-popup {
+.cursor-map-popup.visible {
     opacity: 1;
-    transform: translateY(50%) scale(1); /* Pop up to full size */
+    transform: scale(1);
 }
 
-.track-popup img {
-    width: 80%;
-    height: 80%;
+.cursor-map-popup img {
+    width: 85%;
+    height: 85%;
     object-fit: contain;
-    filter: invert(1); /* Invert F1 maps (usually black) to be White */
+    /* REMOVED filter: invert(1) - Images are now untouched */
 }
 
 .popup-label {
+    position: absolute;
+    bottom: 10px;
     font-size: 10px;
     color: var(--text-muted);
-    margin-top: 5px;
     text-transform: uppercase;
+    letter-spacing: 2px;
 }
