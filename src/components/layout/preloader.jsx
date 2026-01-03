@@ -13,13 +13,17 @@ const Preloader = ({ onFinish }) => {
           setTimeout(onFinish, 800); 
           return 100;
         }
-        // Random increment to make it look "real"
         return prev + Math.floor(Math.random() * 5) + 1; 
       });
-    }, 40); // Speed of loading
+    }, 40);
 
     return () => clearInterval(interval);
   }, [onFinish]);
+
+  // Calculate the vertical position for the text to follow the bar
+  // The bar starts at 15% from bottom and ends at 15% from top.
+  // So the total active area is 70% of the screen height.
+  const textBottomPosition = 15 + (progress * 0.7); 
 
   return (
     <div style={{
@@ -31,60 +35,64 @@ const Preloader = ({ onFinish }) => {
         backgroundColor: '#121212',
         zIndex: 9999,
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'center', // This centers contents horizontally if needed
+        justifyContent: 'flex-start', // Align to left
         opacity: isFading ? 0 : 1,
         pointerEvents: isFading ? 'none' : 'all',
         transition: 'opacity 0.8s ease-in-out'
     }}>
-      {/* 1. Left Vertical Progress Bar */}
+      
+      {/* 1. The Track (Background Line) - Fixed Margins */}
       <div style={{
           position: 'absolute',
           left: '40px',
-          top: 0,
-          bottom: 0,
+          top: '15%',    /* Margin from Top */
+          bottom: '15%', /* Margin from Bottom */
           width: '2px',
           backgroundColor: '#333'
       }}>
+        {/* 2. The Progress Fill (Red Line) */}
         <div style={{
             width: '100%',
             height: `${progress}%`,
-            backgroundColor: 'var(--accent)',
+            backgroundColor: 'var(--accent)', 
             position: 'absolute',
             bottom: 0,
             transition: 'height 0.1s linear'
         }} />
       </div>
 
-      {/* 2. Percentage Text & Icon (Follows the image style) */}
+      {/* 3. Percentage Text & Icon - Moves with the bar! */}
       <div style={{
           position: 'absolute',
-          left: '55px', /* Next to the bar */
-          top: '40px', /* Near top like the image */
+          left: '55px', 
+          bottom: `${textBottomPosition}%`, /* Follows the progress */
+          transform: 'translateY(50%)', /* Center text vertically relative to the tip */
           color: 'white',
-          fontSize: '48px',
-          fontFamily: 'Against, sans-serif', 
+          fontSize: '20px', /* Smaller size */
+          fontFamily: 'Arial, Helvetica, sans-serif', /* Standard clean font */
           fontWeight: 'bold',
           display: 'flex',
           alignItems: 'center',
-          gap: '10px'
+          gap: '8px',
+          transition: 'bottom 0.1s linear'
       }}>
         {Math.min(progress, 100)}
         
-        {/* Simple CSS Checkered Flag Icon */}
+        {/* Static Black & White Checkered Flag */}
         <div style={{ 
-            width: '24px', 
-            height: '24px', 
-            background: `
-                conic-gradient(
-                    white 90deg, 
-                    var(--accent) 90deg 180deg, 
-                    white 180deg 270deg, 
-                    var(--accent) 270deg
-                )`,
-            borderRadius: '2px',
-            transform: `rotate(${progress * 2}deg)`, // Spin effect while loading
-            transition: 'transform 0.1s linear'
+            width: '14px', 
+            height: '14px', 
+            // Simple CSS Checkered pattern (Black & White)
+            backgroundImage: `
+              linear-gradient(45deg, #fff 25%, transparent 25%), 
+              linear-gradient(-45deg, #fff 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, #fff 75%), 
+              linear-gradient(-45deg, transparent 75%, #fff 75%)
+            `,
+            backgroundColor: 'black', // The "Black" squares
+            backgroundSize: '7px 7px', // Size of checks
+            backgroundPosition: '0 0, 0 3.5px, 3.5px -3.5px, -3.5px 0px'
         }} />
       </div>
 
