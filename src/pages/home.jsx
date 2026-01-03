@@ -1,35 +1,32 @@
-import React, { useMemo, useState } from 'react'; // Added useState
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
 import driversList from '../data/drivers.json';
 
-// --- DATA: Updated with Flags & Uppercase Names ---
+// --- DATA: Full Schedule (Needed to find the next race) ---
 const SEASON_SCHEDULE = [
-  { round: '01', country: 'AUSTRALIA', flag: '🇦🇺', date: '20-21 DEC', laps: 30, sprint: false, map: 'australia.avif' },
-  { round: '02', country: 'AZERBAIJAN', flag: '🇦🇿', date: '27-28 DEC', laps: 30, sprint: true, map: 'azerbaijan.avif' },
-  { round: '03', country: 'RUSSIA', flag: '🇷🇺', date: '3-4 JAN', laps: 25, sprint: false, map: 'russia.avif' },
-  { round: '04', country: 'GERMANY', flag: '🇩🇪', date: '10-11 JAN', laps: 35, sprint: false, map: 'germany.avif' },
-  { round: '05', country: 'FRANCE', flag: '🇫🇷', date: '17-18 JAN', laps: 32, sprint: false, map: 'france.avif' },
-  { round: '06', country: 'BRITAIN', flag: '🇬🇧', date: '24-25 JAN', laps: 25, sprint: true, map: 'britain.avif' },
-  { round: '07', country: 'ITALY', flag: '🇮🇹', date: '7-8 FEB', laps: 30, sprint: false, map: 'italy.avif' },
-  { round: '08', country: 'MIAMI', flag: '🇺🇸', date: '14-15 FEB', laps: 28, sprint: false, map: 'miami.avif' },
-  { round: '09', country: 'MEXICO', flag: '🇲🇽', date: '21-22 FEB', laps: 30, sprint: false, map: 'mexico.avif' },
-  { round: '10', country: 'JAPAN', flag: '🇯🇵', date: '28-1 MAR', laps: 33, sprint: false, map: 'japan.avif' },
-  { round: '11', country: 'QATAR', flag: '🇶🇦', date: '7-8 MAR', laps: 28, sprint: true, map: 'qatar.avif' },
-  { round: '12', country: 'USA', flag: '🇺🇸', date: '14-15 MAR', laps: 30, sprint: false, map: 'usa.avif' },
+  { round: 1, country: 'AUSTRALIA', flag: '🇦🇺', date: '20-21 DEC', laps: 30, sprint: false, map: 'australia.avif' },
+  { round: 2, country: 'AZERBAIJAN', flag: '🇦🇿', date: '27-28 DEC', laps: 30, sprint: true, map: 'azerbaijan.avif' },
+  { round: 3, country: 'RUSSIA', flag: '🇷🇺', date: '3-4 JAN', laps: 25, sprint: false, map: 'russia.avif' },
+  { round: 4, country: 'GERMANY', flag: '🇩🇪', date: '10-11 JAN', laps: 35, sprint: false, map: 'germany.avif' },
+  { round: 5, country: 'FRANCE', flag: '🇫🇷', date: '17-18 JAN', laps: 32, sprint: false, map: 'france.avif' },
+  { round: 6, country: 'BRITAIN', flag: '🇬🇧', date: '24-25 JAN', laps: 25, sprint: true, map: 'britain.avif' },
+  { round: 7, country: 'ITALY', flag: '🇮🇹', date: '7-8 FEB', laps: 30, sprint: false, map: 'italy.avif' },
+  { round: 8, country: 'MIAMI', flag: '🇺🇸', date: '14-15 FEB', laps: 28, sprint: false, map: 'miami.avif' },
+  { round: 9, country: 'MEXICO', flag: '🇲🇽', date: '21-22 FEB', laps: 30, sprint: false, map: 'mexico.avif' },
+  { round: 10, country: 'JAPAN', flag: '🇯🇵', date: '28-1 MAR', laps: 33, sprint: false, map: 'japan.avif' },
+  { round: 11, country: 'QATAR', flag: '🇶🇦', date: '7-8 MAR', laps: 28, sprint: true, map: 'qatar.avif' },
+  { round: 12, country: 'USA', flag: '🇺🇸', date: '14-15 MAR', laps: 30, sprint: false, map: 'usa.avif' },
 ];
 
 const Home = () => {
-  // --- State for the Floating Map ---
-  const [hoveredMap, setHoveredMap] = useState(null);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  // --- 1. Find the Upcoming Race ---
+  // We look at the latest race result to figure out what round is next.
+  const lastCompletedRound = Math.max(...raceData.map(r => r.round), 0);
+  const nextRoundNumber = lastCompletedRound + 1;
+  const nextRace = SEASON_SCHEDULE.find(r => r.round === nextRoundNumber) || SEASON_SCHEDULE[0]; // Fallback to R1 if season done
 
-  // Update cursor position when moving mouse over the list
-  const handleMouseMove = (e) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
-  };
-
-  // --- Existing Logic (Keep unchanged) ---
+  // --- 2. Constructors Logic (Same as before) ---
   const topTeams = useMemo(() => {
     const teamScores = {};
     const addPoints = (team, amount) => {
@@ -68,15 +65,13 @@ const Home = () => {
     const filename = teamName.toLowerCase().replace(/ /g, "-");
     return `/teams/${filename}.png`;
   };
-  const getMapUrl = (filename) => {
-      return `/tracks/${filename}`;
-  };
+  const getMapUrl = (filename) => `/tracks/${filename}`;
 
   return (
     <div>
       
-      {/* 1. CHAMPIONSHIP LEADER WIDGET (Keep unchanged) */}
-      <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+      {/* 1. CHAMPIONSHIP LEADER WIDGET */}
+      <Link to="/championship" style={{ textDecoration: 'none' }}>
         <div className="podium-widget">
             <div className="blur-content">
                 <div style={{ textAlign:'center', marginBottom:'20px', textTransform:'uppercase', letterSpacing:'2px', color:'var(--text-muted)', fontSize:'12px' }}>
@@ -121,7 +116,102 @@ const Home = () => {
         </div>
       </Link>
 
-      {/* 2. RACE CALENDAR GRID (Keep unchanged) */}
+      {/* 2. UPCOMING RACE WIDGET (New!) */}
+      {nextRace && (
+        <div className="panel" style={{ 
+            marginBottom: '40px', 
+            background: 'linear-gradient(90deg, #151515 0%, #1e1e1e 100%)',
+            borderLeft: '4px solid var(--accent)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0' 
+        }}>
+            
+            {/* Left: Info */}
+            <div style={{ padding: '30px' }}>
+                <div style={{ 
+                    color: 'var(--accent)', 
+                    fontWeight: 'bold', 
+                    fontSize: '14px', 
+                    letterSpacing: '2px', 
+                    marginBottom: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                }}>
+                    <span style={{ 
+                        width: '8px', height: '8px', backgroundColor: 'var(--accent)', borderRadius: '50%', 
+                        boxShadow: '0 0 10px var(--accent)' 
+                    }}></span>
+                    UPCOMING EVENT
+                </div>
+                
+                <div style={{ fontSize: '48px', fontWeight: '900', lineHeight: '1', textTransform: 'uppercase' }}>
+                    {nextRace.country}
+                </div>
+                
+                <div style={{ 
+                    marginTop: '15px', 
+                    fontSize: '24px', 
+                    fontWeight: 'bold', 
+                    color: 'var(--text-muted)',
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '20px' 
+                }}>
+                    <span>{nextRace.date}</span>
+                    <span style={{ width: '1px', height: '20px', backgroundColor: '#444' }}></span>
+                    <span>ROUND {nextRace.round}</span>
+                    {nextRace.sprint && (
+                        <span style={{ 
+                            backgroundColor: 'white', color: 'black', fontSize: '12px', 
+                            padding: '4px 8px', borderRadius: '4px', verticalAlign: 'middle' 
+                        }}>SPRINT</span>
+                    )}
+                </div>
+            </div>
+
+            {/* Right: Map & Flag */}
+            <div style={{ 
+                position: 'relative', 
+                width: '40%', 
+                height: '200px', 
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                 {/* Big Faded Flag in Background */}
+                <div style={{ 
+                    position: 'absolute', 
+                    fontSize: '150px', 
+                    opacity: '0.1', 
+                    right: '-20px', 
+                    top: '20px', 
+                    filter: 'grayscale(100%)' 
+                }}>
+                    {nextRace.flag}
+                </div>
+
+                {/* Track Map */}
+                <img 
+                    src={getMapUrl(nextRace.map)} 
+                    alt={nextRace.country}
+                    style={{ 
+                        width: '80%', 
+                        height: '80%', 
+                        objectFit: 'contain', 
+                        zIndex: 2,
+                        filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' 
+                    }}
+                    onError={(e) => e.target.style.display = 'none'}
+                />
+            </div>
+        </div>
+      )}
+
+      {/* 3. LATEST RESULTS GRID (Renamed from Race Calendar) */}
       <div className="panel" style={{ marginBottom: '40px' }}>
         <div className="panel-header">Latest Results</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '30px' }}>
@@ -146,69 +236,6 @@ const Home = () => {
             </Link>
           ))}
         </div>
-      </div>
-
-      {/* 3. SEASON SCHEDULE LIST (UPDATED) */}
-      <div className="panel">
-          <div className="panel-header">Season 1 Schedule</div>
-          
-          <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
-              <div className="schedule-header">
-                  <span style={{ width: '10%' }}>Rnd</span>
-                  <span style={{ width: '35%' }}>Location</span>
-                  <span style={{ width: '25%' }}>When</span>
-                  <span style={{ width: '20%' }}>Laps</span>
-                  <span style={{ width: '10%' }}></span>
-              </div>
-
-              {SEASON_SCHEDULE.map((race) => (
-                  <div 
-                    key={race.round} 
-                    className="schedule-row"
-                    onMouseEnter={() => setHoveredMap(race)}
-                    onMouseLeave={() => setHoveredMap(null)}
-                  >
-                      {/* Round */}
-                      <div className="schedule-rnd">{race.round}</div>
-                      
-                      {/* Name + Flag */}
-                      <div className="schedule-name">
-                          {race.country}
-                          <span className="country-flag">{race.flag}</span>
-                          {race.sprint && <span className="sprint-badge">SPRINT</span>}
-                      </div>
-
-                      {/* Date */}
-                      <div className="schedule-date">{race.date}</div>
-
-                      {/* Laps (Just the number) */}
-                      <div className="schedule-laps">{race.laps}</div>
-                  </div>
-              ))}
-
-              {/* FLOATING MAP POPUP */}
-              <div 
-                className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
-                style={{
-                    /* Position relative to cursor. 
-                       +20px offset prevents it from being stuck under the pointer */
-                    top: `${cursorPos.y + 20}px`, 
-                    left: `${cursorPos.x + 20}px`
-                }}
-              >
-                 {hoveredMap && (
-                    <>
-                        <img 
-                            src={getMapUrl(hoveredMap.map)} 
-                            alt={hoveredMap.country} 
-                            onError={(e) => e.target.style.display = 'none'} 
-                        />
-                        <div className="popup-label">{hoveredMap.country} Layout</div>
-                    </>
-                 )}
-              </div>
-
-          </div>
       </div>
 
     </div>

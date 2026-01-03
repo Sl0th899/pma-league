@@ -5,22 +5,18 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // 1. Detect Scroll Position
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 2. Dynamic Variables
   const navPadding = isScrolled ? '15px 40px' : '30px 40px';
   const logoSize = isScrolled ? '24px' : '32px';
 
   return (
     <nav style={{ 
-      backgroundColor: 'transparent', /* Completely Transparent */
+      backgroundColor: 'transparent',
       padding: navPadding, 
       display: 'flex',
       alignItems: 'center',
@@ -29,11 +25,9 @@ const Navbar = () => {
       top: 0,
       zIndex: 1000,
       transition: 'padding 0.4s ease', 
-      /* Optional: Add a subtle blur if you want text readable over content */
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
       
-      {/* LEFT: Logo */}
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <span style={{ 
             fontFamily: 'Against', 
@@ -47,26 +41,22 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Animated Text Links */}
       <div style={{ display: 'flex', gap: '30px' }}>
-        <Link 
-            to="/" 
-            className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}
-        >
+        <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
             Home
         </Link>
         
-        <Link 
-            to="/dashboard" 
-            className={`nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
-        >
-            Dashboard
+        {/* NEW TAB */}
+        <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`}>
+            Calendar
         </Link>
         
-        <Link 
-            to="/news" 
-            className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`}
-        >
+        {/* RENAMED TAB */}
+        <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`}>
+            Championship
+        </Link>
+        
+        <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`}>
             News
         </Link>
       </div>
