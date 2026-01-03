@@ -28,7 +28,25 @@ const Navbar = () => {
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
       
-      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+      {/* LEFT: Logo with Mixed Fonts */}
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        
+        {/* 1. PMA: Clean, Bold, Standard Font */}
+        <span style={{ 
+            fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif', 
+            fontWeight: '900', 
+            fontSize: logoSize,
+            color: 'white',
+            letterSpacing: '0px',
+            transition: 'font-size 0.4s ease'
+        }}>
+            PMA
+        </span>
+
+        {/* 2. | : Simple Separator */}
+        <span style={{ fontSize: logoSize, color: '#666', fontWeight: '300' }}>|</span>
+
+        {/* 3. FATE: The "Against" Font */}
         <span style={{ 
             fontFamily: 'Against', 
             fontWeight: 'normal', 
@@ -37,25 +55,21 @@ const Navbar = () => {
             letterSpacing: '2px',
             transition: 'font-size 0.4s ease'
         }}>
-            PMA | FATE
+            FATE
         </span>
       </Link>
       
+      {/* RIGHT: Navigation Links */}
       <div style={{ display: 'flex', gap: '30px' }}>
         <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
             Home
         </Link>
-        
-        {/* NEW TAB */}
         <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`}>
             Calendar
         </Link>
-        
-        {/* RENAMED TAB */}
         <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`}>
             Championship
         </Link>
-        
         <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`}>
             News
         </Link>
