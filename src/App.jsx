@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/layout/navbar'; // Make sure this matches your actual filename (Navbar.jsx)
 
 // Import Pages
-import Home from './pages/Home';
+import Home from './pages/home';
 import RaceResults from './pages/RaceResults';
 import Dashboard from './pages/Dashboard';
 import News from './pages/News';
-import NotFound from './pages/NotFound'; // Ensure this file exists, or remove the route if not
+import NotFound from './pages/notfound'; // Ensure this file exists, or remove the route if not
 
 // Import Preloader
 import Preloader from './components/layout/preloader';
