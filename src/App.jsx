@@ -4,7 +4,7 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import RaceResults from './pages/RaceResults';
-import Preloader from './components/layout/Preloader';
+import Preloader from './components/layout/preloader';
 
 function App() {
   // State to track if loading is finished
