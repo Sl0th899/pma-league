@@ -304,31 +304,31 @@
         "driverId": "drv_anie", "stints": [
           { "compound": "hard", "percent": 72, "label": "Hard (L1-18)" }, 
           { "compound": "soft", "percent": 16, "label": "Soft (L19-22)" },
-          { "compound": "dnf", "percent": 5, "label": "Crash" }
+          { "compound": "dnf", "percent": 12, "label": "Crash" }
         ] 
       },
       { 
         "driverId": "drv_etha", "stints": [
           { "compound": "hard", "percent": 4, "label": "Hard (L1)" }, 
-          { "compound": "dnf", "percent": 5, "label": "Retired (Lack of Pace)" }
+          { "compound": "dnf", "percent": 96, "label": "Retired" }
         ] 
       },
       { 
         "driverId": "drv_that", "stints": [
            { "compound": "soft", "percent": 4, "label": "Soft (L1)" },
-           { "compound": "dnf", "percent": 5, "label": "Crash" }
+           { "compound": "dnf", "percent": 96, "label": "Crash" }
         ]
       },
       { 
         "driverId": "drv_gggf", "stints": [
            { "compound": "med", "percent": 36, "label": "Med (L1-9)" },
-           { "compound": "dnf", "percent": 5, "label": "Crash" }
+           { "compound": "dnf", "percent": 64, "label": "Crash" }
         ]
       },
       { 
         "driverId": "drv_agen", "stints": [
            { "compound": "soft", "percent": 8, "label": "Soft (L1-2)" },
-           { "compound": "dnf", "percent": 5, "label": "Crash" }
+           { "compound": "dnf", "percent": 92, "label": "Crash" }
         ]
       }
     ]
