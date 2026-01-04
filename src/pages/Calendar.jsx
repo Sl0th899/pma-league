@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import seasonSchedule from '../data/schedule.json'; // <--- Imported data
+import seasonSchedule from '../data/schedule.json';
 
 const Calendar = () => {
   const [hoveredMap, setHoveredMap] = useState(null);
@@ -10,6 +10,11 @@ const Calendar = () => {
   };
 
   const getMapUrl = (filename) => `/tracks/${filename}`;
+
+  const getFlagUrl = (countryName) => {
+      const filename = countryName.toLowerCase().replace(/ /g, '-');
+      return `/flags/${filename}.png`; 
+  };
 
   return (
     <div className="panel">
@@ -35,11 +40,26 @@ const Calendar = () => {
                     <div className="schedule-rnd">
                         {String(race.round).padStart(2, '0')}
                     </div>
-                    <div className="schedule-name">
+                    
+                    {/* LOCATION COLUMN */}
+                    <div className="schedule-name" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {race.country}
-                        <span className="country-flag">{race.flag}</span>
+                        
+                        {/* CHANGED: Replaced the emoji span with an Image tag */}
+                        <img 
+                            src={getFlagUrl(race.country)} 
+                            alt={race.country} 
+                            style={{ 
+                                height: '20px',       // Adjust height to fit text
+                                width: 'auto', 
+                                borderRadius: '2px',  // Optional: slight rounded corners
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.3)' // Optional: shadow for depth
+                            }}
+                        />
+
                         {race.sprint && <span className="sprint-badge">SPRINT</span>}
                     </div>
+
                     <div className="schedule-date">{race.date}</div>
                     <div className="schedule-laps">{race.laps}</div>
                 </div>
