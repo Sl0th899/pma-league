@@ -199,7 +199,7 @@ const Home = () => {
                             alt=""
                             style={{ 
                                 position: 'absolute', 
-                                height: '180px', 
+                                height: '67px', 
                                 width: 'auto',
                                 opacity: '0.15', // Slightly transparent watermark
                                 right: '-20px', 
