@@ -2,14 +2,12 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import raceData from '../data/races.json';
 import driversList from '../data/drivers.json';
-import seasonSchedule from '../data/schedule.json'; // <--- Now imported from the shared file
+import seasonSchedule from '../data/schedule.json';
 
 const Home = () => {
-  // State for the hover effect on the Upcoming Race widget
   const [isUpcomingHovered, setIsUpcomingHovered] = useState(false);
 
   // --- 1. Find the Upcoming Race ---
-  // Calculates the next round based on completed races in raceData
   const lastCompletedRound = Math.max(...raceData.map(r => r.round), 0);
   const nextRoundNumber = lastCompletedRound + 1;
   const nextRace = seasonSchedule.find(r => r.round === nextRoundNumber) || seasonSchedule[0]; 
@@ -55,6 +53,12 @@ const Home = () => {
     return `/teams/${filename}.png`;
   };
   const getMapUrl = (filename) => `/tracks/${filename}`;
+  
+  // NEW: Helper to get the flag image
+  const getFlagUrl = (countryName) => {
+    const filename = countryName.toLowerCase().replace(/ /g, '-');
+    return `/flags/${filename}.png`; 
+  };
 
   return (
     <div>
@@ -105,7 +109,7 @@ const Home = () => {
         </div>
       </Link>
 
-      {/* 2. UPCOMING RACE WIDGET (Interactive with Hover Blur) */}
+      {/* 2. UPCOMING RACE WIDGET */}
       {nextRace && (
         <Link to="/calendar" style={{ textDecoration: 'none', display: 'block' }}>
             <div 
@@ -117,12 +121,12 @@ const Home = () => {
                     background: 'linear-gradient(90deg, #151515 0%, #1e1e1e 100%)',
                     borderLeft: '4px solid var(--accent)',
                     padding: '0',
-                    position: 'relative', // Needed for overlay positioning
-                    overflow: 'hidden',   // Ensures blur doesn't leak
+                    position: 'relative',
+                    overflow: 'hidden',
                     cursor: 'pointer'
                 }}
             >
-                {/* CONTENT LAYER: Blurs out on hover */}
+                {/* CONTENT LAYER */}
                 <div style={{ 
                     display: 'flex', 
                     alignItems: 'center', 
@@ -134,7 +138,7 @@ const Home = () => {
                     opacity: isUpcomingHovered ? 0.4 : 1
                 }}>
                     {/* Left: Info */}
-                    <div style={{ padding: '30px' }}>
+                    <div style={{ padding: '30px', position: 'relative', zIndex: 3 }}>
                         <div style={{ 
                             color: 'var(--accent)', 
                             fontWeight: 'bold', 
@@ -187,17 +191,23 @@ const Home = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        {/* Big Faded Flag in Background */}
-                        <div style={{ 
-                            position: 'absolute', 
-                            fontSize: '150px', 
-                            opacity: '0.1', 
-                            right: '-20px', 
-                            top: '20px', 
-                            filter: 'grayscale(100%)' 
-                        }}>
-                            {nextRace.flag}
-                        </div>
+                        {/* UPDATED: Big Faded Flag in Background 
+                           Replaced emoji div with Image tag
+                        */}
+                        <img 
+                            src={getFlagUrl(nextRace.country)}
+                            alt=""
+                            style={{ 
+                                position: 'absolute', 
+                                height: '180px', 
+                                width: 'auto',
+                                opacity: '0.15', // Slightly transparent watermark
+                                right: '-20px', 
+                                top: '10px', 
+                                zIndex: 1,
+                                filter: 'grayscale(30%)' // Optional: slightly muted colors
+                            }}
+                        />
 
                         {/* Track Map */}
                         <img 
@@ -215,7 +225,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* OVERLAY LAYER: Appears on hover */}
+                {/* OVERLAY LAYER */}
                 <div style={{
                     position: 'absolute',
                     top: 0,
@@ -229,7 +239,7 @@ const Home = () => {
                     opacity: isUpcomingHovered ? 1 : 0,
                     transform: isUpcomingHovered ? 'translateY(0)' : 'translateY(10px)',
                     transition: 'all 0.3s ease',
-                    pointerEvents: 'none' // Lets clicks pass through to the Link
+                    pointerEvents: 'none'
                 }}>
                     <div className="view-btn">View Full Calendar ➜</div>
                 </div>

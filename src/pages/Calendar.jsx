@@ -52,8 +52,7 @@ const Calendar = () => {
                             style={{ 
                                 height: '20px',       // Adjust height to fit text
                                 width: 'auto', 
-                                borderRadius: '2px',  // Optional: slight rounded corners
-                                boxShadow: '0 2px 4px rgba(0,0,0,0.3)' // Optional: shadow for depth
+                                borderRadius: '4px',  // Optional: slight rounded corners
                             }}
                         />
 
