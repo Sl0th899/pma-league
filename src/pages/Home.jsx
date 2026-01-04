@@ -54,7 +54,6 @@ const Home = () => {
   };
   const getMapUrl = (filename) => `/tracks/${filename}`;
   
-  // NEW: Helper to get the flag image
   const getFlagUrl = (countryName) => {
     const filename = countryName.toLowerCase().replace(/ /g, '-');
     return `/flags/${filename}.png`; 
@@ -191,21 +190,19 @@ const Home = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        {/* UPDATED: Big Faded Flag in Background 
-                           Replaced emoji div with Image tag
-                        */}
+                        {/* UPDATED: Flag is now smaller and bottom-right */}
                         <img 
                             src={getFlagUrl(nextRace.country)}
                             alt=""
                             style={{ 
                                 position: 'absolute', 
-                                height: '67px', 
+                                height: '80px',       // Smaller size
                                 width: 'auto',
-                                opacity: '0.15', // Slightly transparent watermark
-                                right: '-20px', 
-                                top: '10px', 
+                                opacity: '0.4',       // More opaque (visible)
+                                right: '20px',        // Bottom right corner
+                                bottom: '20px',       // Bottom right corner
                                 zIndex: 1,
-                                filter: 'grayscale(30%)' // Optional: slightly muted colors
+                                borderRadius: '4px'   // Optional: nicer look
                             }}
                         />
 

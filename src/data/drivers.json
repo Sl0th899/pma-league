@@ -26,5 +26,7 @@
   { "id": "drv_the_", "name": "Hoenkie(@The_)", "team": "Haas", "Driver Number": "NA" },
   { "id": "drv_spor", "name": "Xavier(@sportbeast)", "team": "Aston Martin", "Driver Number": "NA" },
   { "id": "drv_vozz", "name": "Vozzy(@Vozzy)", "team": "Aston Martin", "Driver Number": "NA" },
-  { "id": "drv_sn0w", "name": "Snow (@Sn0wyInThaCity)", "team": "Williams", "Driver Number": "NA" }
+  { "id": "drv_sn0w", "name": "Snow (@Sn0wyInThaCity)", "team": "Williams", "Driver Number": "81" },
+  { "id": "drv_djvi", "name": "fineshyt (@DJVI)", "team": "Haas", "Driver Number": "41" },
+  { "id": "drv_agen", "name": "AgentNM001", "team": "Red Bull", "Driver Number": "NA" }
 ]
