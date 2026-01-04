@@ -1,6 +1,15 @@
 import React from 'react';
+import driversList from '../../data/drivers.json'; // 1. Import the drivers list
 
 const StrategyChart = ({ data }) => {
+
+  // 2. Helper function to find the name from the ID
+  const getDriverName = (id) => {
+    const driver = driversList.find(d => d.id === id);
+    // Returns the driver name, or falls back to the ID if not found
+    return driver ? driver.name : id; 
+  };
+
   return (
     <div className="panel">
       <div className="panel-header">
@@ -16,15 +25,21 @@ const StrategyChart = ({ data }) => {
 
       <div className="strat-grid">
         {data.map((driverStrat) => (
-          <div className="strat-row" key={driverStrat.driver}>
-            <div className="strat-driver">{driverStrat.driver}</div>
+          // 3. Changed key to use driverId
+          <div className="strat-row" key={driverStrat.driverId}>
+            
+            {/* 4. Use the helper function to display the Real Name */}
+            <div className="strat-driver">
+                {getDriverName(driverStrat.driverId)}
+            </div>
+
             <div className="strat-track">
               {driverStrat.stints.map((stint, index) => (
                 <div
                   key={index}
                   className={`stint-bar bg-${stint.compound}`}
                   style={{ width: `${stint.percent}%` }}
-                  data-info={stint.label} // This triggers the CSS tooltip
+                  data-info={stint.label}
                 ></div>
               ))}
             </div>
