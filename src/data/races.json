@@ -182,12 +182,12 @@
     },
     "incidents": [
       "False Starts: Snow(81), Ksdooom(16), Drxp(31)",
+      "Lap 1 - Ethan(9) Retired (Lack of Pace)",
       "Lap 1 - Wadan(33) Crash (SC)",
-      "Lap 2 - Agent(NA) & Ethan(9) Crash",
+      "Lap 2 - Agent(NA) Crash",
       "Lap 9 - GGGF(42) Crash",
       "Lap 11 - YungLaf(7) Crash (Pitted for repair)",
       "Lap 18 - RED FLAG (Restart)",
-      "Restart L1 - Ethan(9) Crash (Again)",
       "Restart L4 - Anie(44) Crash"
     ],
     "raceResults": [
@@ -203,7 +203,7 @@
       { "pos": 10, "driverId": "drv_djvi", "gap": "+54.698", "status": "finished", "points": 1 },
       { "pos": 11, "driverId": "drv_sn0w", "gap": "+57.656 (+5s Pen)", "status": "finished", "points": 0 },
       { "pos": 12, "driverId": "drv_anie", "gap": "DNF", "status": "dnf", "points": 0 },
-      { "pos": 13, "driverId": "drv_etha", "gap": "DNF", "status": "dnf", "points": 0 },
+      { "pos": 13, "driverId": "drv_etha", "gap": "DNF (Retired)", "status": "dnf", "points": 0 },
       { "pos": 14, "driverId": "drv_gggf", "gap": "DNF", "status": "dnf", "points": 0 },
       { "pos": 15, "driverId": "drv_that", "gap": "DNF", "status": "dnf", "points": 0 },
       { "pos": 16, "driverId": "drv_agen", "gap": "DNF", "status": "dnf", "points": 0 }
@@ -309,9 +309,8 @@
       },
       { 
         "driverId": "drv_etha", "stints": [
-          { "compound": "soft", "percent": 8, "label": "Soft (L1-2)" }, 
-          { "compound": "dnf", "percent": 64, "label": "Ret" },
-          { "compound": "soft", "percent": 5, "label": "Restart Crash" }
+          { "compound": "hard", "percent": 4, "label": "Hard (L1)" }, 
+          { "compound": "dnf", "percent": 5, "label": "Retired (Lack of Pace)" }
         ] 
       },
       { 

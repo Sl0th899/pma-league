@@ -1,12 +1,10 @@
 import React from 'react';
-import driversList from '../../data/drivers.json'; // 1. Import the drivers list
+import driversList from '../../data/drivers.json';
 
 const StrategyChart = ({ data }) => {
 
-  // 2. Helper function to find the name from the ID
   const getDriverName = (id) => {
     const driver = driversList.find(d => d.id === id);
-    // Returns the driver name, or falls back to the ID if not found
     return driver ? driver.name : id; 
   };
 
@@ -23,22 +21,48 @@ const StrategyChart = ({ data }) => {
         </div>
       </div>
 
-      <div className="strat-grid">
+      <div className="strat-grid" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {data.map((driverStrat) => (
-          // 3. Changed key to use driverId
-          <div className="strat-row" key={driverStrat.driverId}>
+          // ROW CONTAINER: Uses Flexbox to separate Name and Bar
+          <div 
+            className="strat-row" 
+            key={driverStrat.driverId} 
+            style={{ display: 'flex', alignItems: 'center', width: '100%' }}
+          >
             
-            {/* 4. Use the helper function to display the Real Name */}
-            <div className="strat-driver">
+            {/* 1. DRIVER NAME: Fixed Width (160px) so it never gets covered */}
+            <div 
+                className="strat-driver" 
+                style={{ 
+                    width: '160px',       // Reserve space for long names
+                    minWidth: '160px',    // Prevent shrinking
+                    paddingRight: '15px', // Space between text and bar
+                    fontSize: '12px',
+                    lineHeight: '1.2',
+                    wordWrap: 'break-word',
+                    color: '#ddd'
+                }}
+            >
                 {getDriverName(driverStrat.driverId)}
             </div>
 
-            <div className="strat-track">
+            {/* 2. STRATEGY BAR: Takes remaining space (flex: 1) */}
+            <div 
+                className="strat-track" 
+                style={{ 
+                    flex: 1,              // Take all remaining width
+                    height: '24px',       // Fixed height for the bar container
+                    backgroundColor: 'rgba(255,255,255,0.05)', 
+                    display: 'flex', 
+                    borderRadius: '4px', 
+                    overflow: 'hidden'    // Ensures rounded corners work
+                }}
+            >
               {driverStrat.stints.map((stint, index) => (
                 <div
                   key={index}
                   className={`stint-bar bg-${stint.compound}`}
-                  style={{ width: `${stint.percent}%` }}
+                  style={{ width: `${stint.percent}%`, height: '100%' }}
                   data-info={stint.label}
                 ></div>
               ))}
@@ -47,7 +71,8 @@ const StrategyChart = ({ data }) => {
         ))}
       </div>
 
-      <div className="lap-axis">
+      {/* Axis Labels: Adjusted margin to align with the new bars */}
+      <div className="lap-axis" style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '160px', marginTop: '10px', fontSize: '10px', color: '#666' }}>
         <span>Start</span>
         <span>Mid Race</span>
         <span>Finish</span>
