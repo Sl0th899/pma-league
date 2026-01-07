@@ -49,7 +49,7 @@ const DriversStandings = () => {
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden', marginTop: '40px' }}>
       <style>{`
-          /* Animation Keyframes */
+          /* Animation: Slide from Left to Right */
           @keyframes block-swipe-blue {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
@@ -66,6 +66,7 @@ const DriversStandings = () => {
           .reveal-row { 
               position: relative; 
               overflow: hidden; 
+              border-bottom: 1px solid #333; /* Subtle separator */
           }
           
           .reveal-content {
@@ -76,14 +77,14 @@ const DriversStandings = () => {
               width: 100%;
           }
           
-          /* The Sliding Bar (Now using your requested Blue) */
+          /* The Blue Sliding Bar */
           .reveal-block-driver {
               position: absolute; 
               top: 0; 
               left: 0; 
               width: 100%; 
               height: 100%;
-              background: #0F96C8; /* UPDATED COLOR */
+              background: #0F96C8; /* UPDATED BLUE */
               transform: translateX(-101%);
               z-index: 2;
               animation: block-swipe-blue 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
@@ -93,7 +94,7 @@ const DriversStandings = () => {
       {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
-          borderBottom: '4px solid #0F96C8', /* UPDATED COLOR */
+          borderBottom: '4px solid #0F96C8', /* UPDATED BLUE */
           background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
       }}>
         <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
@@ -132,7 +133,7 @@ const DriversStandings = () => {
                         <span style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>{driver.team}</span>
                     </div>
 
-                    {/* Points Pill (Reset to standard style) */}
+                    {/* Points Pill (Matches Constructors Style) */}
                     <div className="pts-pill" style={{ marginLeft: 'auto' }}>
                         {driver.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
                     </div>
