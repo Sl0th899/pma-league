@@ -1,36 +1,37 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import raceData from '../../data/races.json';
 import driversList from '../../data/drivers.json';
 
 const DriversStandings = () => {
-  // 1. New State to track visibility
+  // 1. State to track visibility
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef(null);
+  const domRef = useRef();
 
   // 2. Intersection Observer to trigger animation on scroll
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Run only once
+          observer.unobserve(entry.target); // Run only once
         }
-      },
-      { threshold: 0.2 } // Trigger when 20% of the element is visible
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+      });
+    });
+    
+    const currentElement = domRef.current;
+    if (currentElement) {
+      observer.observe(currentElement);
     }
-
-    return () => observer.disconnect();
+    
+    return () => {
+      if (currentElement) observer.unobserve(currentElement);
+    };
   }, []);
 
   const standings = useMemo(() => {
     const driverMap = {};
-
     driversList.forEach(d => {
-        driverMap[d.id] = { id: d.id, name: d.name, team: d.team, points: 0 };
+        driverMap[d.id] = { ...d, points: 0 };
     });
 
     raceData.forEach(race => {
@@ -56,11 +57,15 @@ const DriversStandings = () => {
 
   return (
     <div 
-        ref={containerRef} 
-        className={`panel ${isVisible ? 'is-visible' : ''}`} // Add class when visible
-        style={{ padding: '0', overflow: 'hidden', marginTop: '40px' }}
+        ref={domRef}
+        className={`panel ${isVisible ? 'is-visible' : ''}`} 
+        style={{ padding: '0', overflow: 'hidden', marginTop: '40px', opacity: 0, transition: 'opacity 0.5s ease' }}
     >
       <style>{`
+          /* Base State: Invisible */
+          .panel { opacity: 0; }
+          .panel.is-visible { opacity: 1; }
+
           /* Animation Keyframes */
           @keyframes block-swipe-blue {
               0% { transform: translateX(-101%); }
@@ -81,15 +86,16 @@ const DriversStandings = () => {
               border-bottom: 1px solid #333;
           }
           
-          /* Initially Hidden */
-          .reveal-content {
-              opacity: 0; 
+          /* Only animate when parent has .is-visible class */
+          .is-visible .reveal-content {
+              opacity: 0; /* Start hidden */
+              animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
               display: flex; 
               align-items: center; 
               width: 100%;
           }
           
-          .reveal-block-driver {
+          .is-visible .reveal-block-driver {
               position: absolute; 
               top: 0; 
               left: 0; 
@@ -98,14 +104,6 @@ const DriversStandings = () => {
               background: #0F96C8; 
               transform: translateX(-101%);
               z-index: 2;
-          }
-
-          /* --- ANIMATION TRIGGERS (Only run when .is-visible is added) --- */
-          .is-visible .reveal-content {
-              animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-          }
-          
-          .is-visible .reveal-block-driver {
               animation: block-swipe-blue 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
           }
       `}</style>
