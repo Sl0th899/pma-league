@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import seasonSchedule from '../data/schedule.json';
 
+// --- Helpers ---
 const getMapUrl = (filename) => `/tracks/${filename}`;
 const getFlagUrl = (countryName) => {
     const filename = countryName.toLowerCase().replace(/ /g, '-');
@@ -16,7 +17,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="panel">
+    <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
         <style>{`
             /* 1. Custom Font */
             @font-face {
@@ -24,13 +25,13 @@ const Calendar = () => {
                 src: url('/fonts/GR.ttf') format('truetype');
             }
 
-            /* 2. The "Efficient" Grid System */
+            /* 2. Grid Layout - Centered Alignment Approach */
             .calendar-grid {
                 display: grid;
-                /* Define your column widths HERE once. */
-                grid-template-columns: 12% 43% 25% 20%; 
+                /* Rnd (10%) | Location (40%) | When (30%) | Laps (20%) */
+                grid-template-columns: 10% 40% 30% 20%; 
                 align-items: center;
-                padding: 0 10px; /* Slight padding on sides */
+                padding: 0 20px;
             }
 
             /* Animations */
@@ -51,48 +52,69 @@ const Calendar = () => {
                 position: relative;
                 overflow: hidden;
                 border-bottom: 2px solid #111;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
             }
+            .reveal-row:hover {
+                transform: translateY(-5px);
+                background-color: #1a1a1a;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                z-index: 10;
+                border-bottom: 2px solid transparent;
+            }
+
             .reveal-content {
                 opacity: 0;
                 animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
                 font-family: 'GR', sans-serif;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
-                padding: 18px 0; /* Vertical Size of rows */
+                padding: 18px 0; 
             }
             .reveal-block {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
                 background: #0466c8;
                 transform: translateX(-101%);
                 z-index: 2;
                 animation: block-swipe 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
             }
 
-            /* Header Specific Styling */
+            /* Header Styling */
             .schedule-header {
                 font-family: sans-serif;
                 font-size: 12px;
                 color: #888;
-                padding-bottom: 10px;
+                padding: 15px 0;
                 border-bottom: 2px solid #444;
                 margin-bottom: 0;
+                background: #151515; /* Matches panel bg */
             }
         `}</style>
 
-        <div className="panel-header">Official Season 1 Calendar</div>
+        {/* --- NEW HEADER (Matches Constructors Standings) --- */}
+        <div style={{ 
+            display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
+            borderBottom: '4px solid var(--accent)',
+            background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
+        }}>
+            <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
+            <div style={{ borderLeft: '1px solid #555', paddingLeft: '20px' }}>
+                <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    PMA Formula 1 Season 1 World Championship
+                </div>
+                <div style={{ fontSize: '32px', fontWeight: 'bold', textTransform: 'uppercase', fontStyle: 'italic' }}>
+                    Official Calendar
+                </div>
+            </div>
+        </div>
         
         <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
             
-            {/* HEADER: Uses .calendar-grid to match rows perfectly */}
+            {/* Table Header */}
             <div className="schedule-header calendar-grid">
-                <span>Rnd</span>
-                <span>Location</span>
-                <span>When</span>
-                <span style={{ textAlign: 'right' }}>Laps</span>
+                <span style={{ textAlign: 'center' }}>Rnd</span>
+                <span style={{ textAlign: 'left' }}>Location</span>
+                <span style={{ textAlign: 'center' }}>When</span>
+                <span style={{ textAlign: 'center' }}>Laps</span>
             </div>
 
             {seasonSchedule.map((race, index) => (
@@ -102,32 +124,28 @@ const Calendar = () => {
                   onMouseEnter={() => setHoveredMap(race)}
                   onMouseLeave={() => setHoveredMap(null)}
                 >
-                    {/* The Swipe Animation Bar */}
                     <div 
                         className="reveal-block" 
                         style={{ animationDelay: `${index * 0.1}s` }} 
                     />
 
-                    {/* CONTENT: Also uses .calendar-grid */}
                     <div 
                         className="reveal-content calendar-grid"
                         style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                        {/* Round */}
-                        <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
+                        {/* Round (Centered) */}
+                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
                             {String(race.round).padStart(2, '0')}
                         </div>
                         
-                        {/* Location */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', fontWeight: 'bold' }}>
+                        {/* Location (Left Aligned) */}
+                        <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.country}
-                            
                             <img 
                                 src={getFlagUrl(race.country)} 
                                 alt={race.country} 
                                 style={{ height: '20px', width: 'auto', borderRadius: '2px', opacity: 0.8 }}
                             />
-
                             {race.sprint && (
                                 <span style={{ 
                                     backgroundColor: 'white', color: 'black', fontSize: '11px', 
@@ -137,20 +155,19 @@ const Calendar = () => {
                             )}
                         </div>
 
-                        {/* When */}
-                        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                        {/* When (Centered) */}
+                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.date}
                         </div>
 
-                        {/* Laps */}
-                        <div style={{ textAlign: 'right', fontSize: '24px', fontWeight: 'bold' }}>
+                        {/* Laps (Centered) */}
+                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.laps}
                         </div>
                     </div>
                 </div>
             ))}
 
-            {/* Hover Popup Logic */}
             <div 
               className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
               style={{ top: `${cursorPos.y + 20}px`, left: `${cursorPos.x + 20}px` }}

@@ -11,7 +11,7 @@
   { "id": "drv_ksdo", "name": "KSDOOM16", "team": "Williams", "Driver Number": "16" },
   { "id": "drv_trip", "name": "Triple", "team": "Mercedes", "Driver Number": "23" },
   { "id": "drv_reflex", "name": "reflexiveaim", "team": "Haas", "Driver Number": "24" },
-  { "id": "drv_arik", "name": "Scuderria_driver (@Ariko83)", "team": "Red Bull", "Driver Number": "25" },
+  { "id": "drv_arik", "name": "Ariko (@Ariko83)", "team": "Red Bull", "Driver Number": "25" },
   { "id": "drv_jajc", "name": "Drxp (@Jajc2010)", "team": "Sauber", "Driver Number": "31" },
   { "id": "drv_that", "name": "Wadan", "team": "Alpine", "Driver Number": "33" },
   { "id": "drv_gggf", "name": "gggffstf", "team": "Alpine", "Driver Number": "42" },

@@ -4,6 +4,21 @@ import raceData from '../data/races.json';
 import driversList from '../data/drivers.json';
 import seasonSchedule from '../data/schedule.json';
 
+// --- Helpers ---
+const getDriverName = (id) => {
+  const driver = driversList.find(d => d.id === id);
+  return driver ? driver.name : "Unknown";
+};
+const getTeamLogo = (teamName) => {
+  const filename = teamName.toLowerCase().replace(/ /g, "-");
+  return `/teams/${filename}.png`;
+};
+const getMapUrl = (filename) => `/tracks/${filename}`;
+const getFlagUrl = (countryName) => {
+  const filename = countryName.toLowerCase().replace(/ /g, '-');
+  return `/flags/${filename}.png`; 
+};
+
 const Home = () => {
   const [isUpcomingHovered, setIsUpcomingHovered] = useState(false);
 
@@ -43,30 +58,27 @@ const Home = () => {
       .slice(0, 3);
   }, []);
 
-  // --- Helpers ---
-  const getDriverName = (id) => {
-    const driver = driversList.find(d => d.id === id);
-    return driver ? driver.name : "Unknown";
-  };
-  const getTeamLogo = (teamName) => {
-    const filename = teamName.toLowerCase().replace(/ /g, "-");
-    return `/teams/${filename}.png`;
-  };
-  const getMapUrl = (filename) => `/tracks/${filename}`;
-  
-  const getFlagUrl = (countryName) => {
-    const filename = countryName.toLowerCase().replace(/ /g, '-');
-    return `/flags/${filename}.png`; 
-  };
-
   return (
     <div>
-      
+      {/* Internal Styles for Font & Hover consistency */}
+      <style>{`
+          @font-face {
+              font-family: 'GR';
+              src: url('/fonts/GR.ttf') format('truetype');
+          }
+          /* Apply custom font to headers */
+          .poster-font {
+              font-family: 'GR', sans-serif;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+          }
+      `}</style>
+
       {/* 1. CHAMPIONSHIP LEADER WIDGET */}
       <Link to="/championship" style={{ textDecoration: 'none' }}>
         <div className="podium-widget">
             <div className="blur-content">
-                <div style={{ textAlign:'center', marginBottom:'20px', textTransform:'uppercase', letterSpacing:'2px', color:'var(--text-muted)', fontSize:'12px' }}>
+                <div className="poster-font" style={{ textAlign:'center', marginBottom:'20px', color:'var(--text-muted)', fontSize:'12px' }}>
                     Constructors' Championship Top 3
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', gap: '40px', textAlign: 'center' }}>
@@ -138,11 +150,9 @@ const Home = () => {
                 }}>
                     {/* Left: Info */}
                     <div style={{ padding: '30px', position: 'relative', zIndex: 3 }}>
-                        <div style={{ 
+                        <div className="poster-font" style={{ 
                             color: 'var(--accent)', 
-                            fontWeight: 'bold', 
                             fontSize: '14px', 
-                            letterSpacing: '2px', 
                             marginBottom: '10px',
                             display: 'flex', 
                             alignItems: 'center', 
@@ -155,7 +165,7 @@ const Home = () => {
                             UPCOMING EVENT
                         </div>
                         
-                        <div style={{ fontSize: '48px', fontWeight: '900', lineHeight: '1', textTransform: 'uppercase', color: 'white' }}>
+                        <div className="poster-font" style={{ fontSize: '48px', fontWeight: '900', lineHeight: '1', color: 'white' }}>
                             {nextRace.country}
                         </div>
                         
@@ -190,23 +200,21 @@ const Home = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        {/* UPDATED: Flag is now smaller and bottom-right */}
                         <img 
                             src={getFlagUrl(nextRace.country)}
                             alt=""
                             style={{ 
                                 position: 'absolute', 
-                                height: '80px',       // Smaller size
+                                height: '80px', 
                                 width: 'auto',
-                                opacity: '0.4',       // More opaque (visible)
-                                right: '20px',        // Bottom right corner
-                                bottom: '20px',       // Bottom right corner
+                                opacity: '0.4', 
+                                right: '20px', 
+                                bottom: '20px', 
                                 zIndex: 1,
-                                borderRadius: '4px'   // Optional: nicer look
+                                borderRadius: '4px'
                             }}
                         />
 
-                        {/* Track Map */}
                         <img 
                             src={getMapUrl(nextRace.map)} 
                             alt={nextRace.country}
@@ -224,14 +232,8 @@ const Home = () => {
 
                 {/* OVERLAY LAYER */}
                 <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                     zIndex: 10,
                     opacity: isUpcomingHovered ? 1 : 0,
                     transform: isUpcomingHovered ? 'translateY(0)' : 'translateY(10px)',
@@ -247,7 +249,7 @@ const Home = () => {
 
       {/* 3. LATEST RESULTS GRID */}
       <div className="panel" style={{ marginBottom: '40px' }}>
-        <div className="panel-header">Latest Results</div>
+        <div className="panel-header poster-font">Latest Results</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '30px' }}>
           {raceData.map((race) => (
             <Link to={`/race/${race.id}`} key={race.id} style={{ textDecoration: 'none' }}>
@@ -261,7 +263,10 @@ const Home = () => {
                     <img src={race.imgWeek} alt="Race Week" className="poster-img poster-default" />
                     <img src={race.imgDay} alt="Race Results" className="poster-img poster-hover" />
                 </div>
-                <h3 style={{ margin: '0 0 5px 0', color: 'white' }}>Round {race.round}</h3>
+                {/* Apply Poster Font to Round Title */}
+                <h3 className="poster-font" style={{ margin: '0 0 5px 0', color: 'white', fontSize: '20px' }}>
+                    Round {race.round}
+                </h3>
                 <div style={{ color: 'var(--accent)', fontWeight: 'bold', fontSize: '18px' }}>{race.grandPrix} GP</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '10px', borderTop:'1px solid #444', paddingTop:'10px' }}>
                   Winner: <span style={{ color: 'var(--gold)', fontWeight:'bold' }}>{getDriverName(race.stats.winnerId)}</span>
