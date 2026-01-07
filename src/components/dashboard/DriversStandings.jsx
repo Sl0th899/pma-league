@@ -67,7 +67,7 @@ const DriversStandings = () => {
           .panel.is-visible { opacity: 1; }
 
           /* Animation Keyframes */
-          @keyframes block-swipe-blue {
+          @keyframes swipe-drivers {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
               60% { transform: translateX(0); }
@@ -104,7 +104,7 @@ const DriversStandings = () => {
               background: #0F96C8; 
               transform: translateX(-101%);
               z-index: 2;
-              animation: block-swipe-blue 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+              animation: swipe-drivers 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
           }
       `}</style>
 

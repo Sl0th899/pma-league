@@ -79,7 +79,7 @@ const ConstructorsStandings = () => {
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
       {/* Internal Styles */}
       <style>{`
-          @keyframes block-swipe {
+          @keyframes swipe-constructors {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
               60% { transform: translateX(0); }
@@ -104,7 +104,7 @@ const ConstructorsStandings = () => {
               background: #5fadfc;
               transform: translateX(-101%);
               z-index: 2;
-              animation: block-swipe 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+              animation: swipe-constructors 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
           }
       `}</style>
 

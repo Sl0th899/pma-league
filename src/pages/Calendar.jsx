@@ -75,7 +75,7 @@ const Calendar = () => {
                 background: #0466c8;
                 transform: translateX(-101%);
                 z-index: 2;
-                animation: block-swipe 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+                animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; 
             }
 
             /* Header Styling */
