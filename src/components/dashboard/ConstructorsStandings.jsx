@@ -5,57 +5,69 @@ import driversList from '../../data/drivers.json';
 const ConstructorsStandings = () => {
 
   const standings = useMemo(() => {
-    // 1. Define all teams
-    const INITIAL_TEAMS = {
-        "Mercedes": 0,
-        "Ferrari": 0,
-        "Red Bull": 0,
-        "McLaren": 0,
-        "Aston Martin": 0,
-        "Alpine": 0,
-        "Williams": 0,
-        "Haas": 0,
-        "Sauber": 0,
-        "Racing Bulls": 0,
-        "BMW": 0,
-        "Audi": 0,
-        "Porsche": 0 
+    const teamsMap = {
+        "Mercedes": { points: 0, drivers: [] },
+        "Ferrari": { points: 0, drivers: [] },
+        "Red Bull": { points: 0, drivers: [] },
+        "McLaren": { points: 0, drivers: [] },
+        "Aston Martin": { points: 0, drivers: [] },
+        "Alpine": { points: 0, drivers: [] },
+        "Williams": { points: 0, drivers: [] },
+        "Haas": { points: 0, drivers: [] },
+        "Sauber": { points: 0, drivers: [] },
+        "Racing Bulls": { points: 0, drivers: [] },
+        "BMW": { points: 0, drivers: [] },
+        "Audi": { points: 0, drivers: [] },
+        "Porsche": { points: 0, drivers: [] }
     };
 
-    const teamScores = { ...INITIAL_TEAMS };
-
-    const addPointsToTeam = (teamName, amount) => {
-        if (!teamName || teamName === "Unknown") return;
-        if (teamScores[teamName] === undefined) teamScores[teamName] = 0;
-        teamScores[teamName] += amount;
-    };
-
-    const resolveTeam = (driverId, resultRow = null) => {
-        if (resultRow && resultRow.team) return resultRow.team; // Override check
-        const driver = driversList.find(d => d.id === driverId);
-        if (driver) return driver.team;
-        return null;
-    };
-
-    raceData.forEach(race => {
-      race.raceResults.forEach(result => {
-        const team = resolveTeam(result.driverId, result);
-        addPointsToTeam(team, result.points || 0);
-      });
-
-      if (race.stats.poleId) {
-          const team = resolveTeam(race.stats.poleId);
-          addPointsToTeam(team, 1);
-      }
-      if (race.stats.fastestLapId) {
-          const team = resolveTeam(race.stats.fastestLapId);
-          addPointsToTeam(team, 1);
-      }
+    // Team lookup map
+    // removed looping through the array every time.
+    const driverLookup = {};
+    
+    driversList.forEach(driver => {
+        // Map ID to Team
+        driverLookup[driver.id] = driver.team;
+        
+        // Also populate the Team Roster immediately (saves filtering later)
+        if (teamsMap[driver.team]) {
+            teamsMap[driver.team].drivers.push(driver);
+        }
     });
 
-    return Object.entries(teamScores)
-      .map(([team, points]) => ({ team, points }))
+    // Helper: Instant lookup using our new map
+    const getTeam = (driverId, resultRow) => {
+        if (resultRow?.team) return resultRow.team; // Explicit team override in race result
+        return driverLookup[driverId]; // O(1) lookup
+    };
+
+    const addPoints = (team, amount) => {
+        if (team && teamsMap[team]) {
+            teamsMap[team].points += amount;
+        }
+    };
+
+    // 3. Calculate Scores
+    raceData.forEach(race => {
+      race.raceResults.forEach(result => {
+        const team = getTeam(result.driverId, result);
+        addPoints(team, result.points || 0);
+      });
+
+      // Bonus Points
+      if (race.stats.poleId) addPoints(getTeam(race.stats.poleId), 1);
+      if (race.stats.fastestLapId) addPoints(getTeam(race.stats.fastestLapId), 1);
+    });
+
+    // 4. Convert Map to Sorted Array for Rendering
+    return Object.entries(teamsMap)
+      .map(([teamName, data]) => ({
+          team: teamName,
+          points: data.points,
+          roster: data.drivers // We already built this list!
+      }))
       .sort((a, b) => b.points - a.points);
+
   }, []);
 
   const getTeamLogo = (teamName) => {
@@ -63,13 +75,39 @@ const ConstructorsStandings = () => {
     return `/teams/${filename}.png`;
   };
 
-  // NEW: Find all drivers currently listed for this team
-  const getDriversForTeam = (teamName) => {
-      return driversList.filter(d => d.team === teamName);
-  };
-
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
+      {/* Internal Styles */}
+      <style>{`
+          @keyframes block-swipe {
+              0% { transform: translateX(-101%); }
+              40% { transform: translateX(0); }
+              60% { transform: translateX(0); }
+              100% { transform: translateX(101%); }
+          }
+          @keyframes text-appear {
+              0% { opacity: 0; }
+              50% { opacity: 0; }
+              51% { opacity: 1; }
+              100% { opacity: 1; }
+          }
+          .reveal-row { position: relative; overflow: hidden; }
+          .reveal-content {
+              opacity: 0;
+              animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+              display: flex;
+              align-items: center;
+              width: 100%;
+          }
+          .reveal-block {
+              position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+              background: #5fadfc;
+              transform: translateX(-101%);
+              z-index: 2;
+              animation: block-swipe 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+          }
+      `}</style>
+
       {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
@@ -87,35 +125,50 @@ const ConstructorsStandings = () => {
         </div>
       </div>
 
-      {/* Standings */}
+      {/* Standings List */}
       <div className="standings-list">
-        {standings.map((row, index) => {
-          const teamDrivers = getDriversForTeam(row.team);
+        {standings.map((row, index) => (
+            <div 
+                key={row.team} 
+                className="team-row reveal-row"
+                style={{ padding: '0' }}
+            >
+                {/* 1. Sliding Bar */}
+                <div 
+                    className="reveal-block" 
+                    style={{ animationDelay: `${index * 0.1}s` }} 
+                />
 
-          return (
-            <div key={row.team} className="team-row">
-                <div className="pos">{index + 1}</div>
-                
-                <div className="team-info">
-                <img src={getTeamLogo(row.team)} alt={row.team} className="team-logo-standings" onError={(e) => e.target.style.display = 'none'} />
-                <span className="team-name">{row.team}</span>
-                </div>
+                {/* 2. Content */}
+                <div 
+                    className="reveal-content"
+                    style={{ 
+                        animationDelay: `${index * 0.1}s`,
+                        padding: '15px 20px'
+                    }}
+                >
+                    <div className="pos" style={{ marginRight: '20px' }}>{index + 1}</div>
+                    
+                    <div className="team-info" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <img src={getTeamLogo(row.team)} alt={row.team} className="team-logo-standings" onError={(e) => e.target.style.display = 'none'} />
+                        <span className="team-name">{row.team}</span>
+                    </div>
 
-                {/* --- NEW: Driver Roster (Hidden by default) --- */}
-                <div className="driver-roster">
-                    {teamDrivers.map(d => (
-                        <div key={d.id} className="driver-pill">
-                            {d.name.split(' ')[0]} {/* Shows First Name/Handle only to save space */}
-                        </div>
-                    ))}
-                </div>
+                    {/* Driver Roster */}
+                    <div className="driver-roster">
+                        {row.roster.map(d => (
+                            <div key={d.id} className="driver-pill">
+                                {d.name.split(' ')[0]}
+                            </div>
+                        ))}
+                    </div>
 
-                <div className="pts-pill">
-                {row.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
+                    <div className="pts-pill" style={{ marginLeft: 'auto' }}>
+                        {row.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
+                    </div>
                 </div>
             </div>
-          );
-        })}
+        ))}
       </div>
     </div>
   );
