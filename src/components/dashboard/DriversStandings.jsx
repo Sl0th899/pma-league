@@ -49,7 +49,8 @@ const DriversStandings = () => {
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden', marginTop: '40px' }}>
       <style>{`
-          @keyframes block-swipe-green {
+          /* Animation Keyframes */
+          @keyframes block-swipe-blue {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
               60% { transform: translateX(0); }
@@ -61,25 +62,38 @@ const DriversStandings = () => {
               51% { opacity: 1; }
               100% { opacity: 1; }
           }
-          .reveal-row { position: relative; overflow: hidden; }
+          
+          .reveal-row { 
+              position: relative; 
+              overflow: hidden; 
+          }
+          
           .reveal-content {
               opacity: 0;
               animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-              display: flex; align-items: center; width: 100%;
+              display: flex; 
+              align-items: center; 
+              width: 100%;
           }
-          .reveal-block-green {
-              position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-              background: #ccff00; /* Neon Green for Drivers */
+          
+          /* The Sliding Bar (Now using your requested Blue) */
+          .reveal-block-driver {
+              position: absolute; 
+              top: 0; 
+              left: 0; 
+              width: 100%; 
+              height: 100%;
+              background: #0F96C8; /* UPDATED COLOR */
               transform: translateX(-101%);
               z-index: 2;
-              animation: block-swipe-green 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+              animation: block-swipe-blue 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
           }
       `}</style>
 
       {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
-          borderBottom: '4px solid #ccff00',
+          borderBottom: '4px solid #0F96C8', /* UPDATED COLOR */
           background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
       }}>
         <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
@@ -97,9 +111,18 @@ const DriversStandings = () => {
       <div className="standings-list">
         {standings.map((driver, index) => (
             <div key={driver.id} className="team-row reveal-row" style={{ padding: '0' }}>
-                <div className="reveal-block-green" style={{ animationDelay: `${index * 0.1}s` }} />
                 
-                <div className="reveal-content" style={{ animationDelay: `${index * 0.1}s`, padding: '15px 20px' }}>
+                {/* 1. The Sliding Bar */}
+                <div 
+                    className="reveal-block-driver" 
+                    style={{ animationDelay: `${index * 0.1}s` }} 
+                />
+                
+                {/* 2. The Content */}
+                <div 
+                    className="reveal-content" 
+                    style={{ animationDelay: `${index * 0.1}s`, padding: '15px 20px' }}
+                >
                     <div className="pos" style={{ marginRight: '20px' }}>{index + 1}</div>
                     
                     {/* Driver Name & Team Logo */}
@@ -109,8 +132,9 @@ const DriversStandings = () => {
                         <span style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>{driver.team}</span>
                     </div>
 
-                    <div className="pts-pill" style={{ marginLeft: 'auto', borderColor: '#ccff00', color: '#ccff00' }}>
-                        {driver.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px', color: 'white'}}>PTS</span>
+                    {/* Points Pill (Reset to standard style) */}
+                    <div className="pts-pill" style={{ marginLeft: 'auto' }}>
+                        {driver.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
                     </div>
                 </div>
             </div>
