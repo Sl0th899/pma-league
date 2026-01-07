@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import seasonSchedule from '../data/schedule.json';
 
+const getMapUrl = (filename) => `/tracks/${filename}`;
+const getFlagUrl = (countryName) => {
+    const filename = countryName.toLowerCase().replace(/ /g, '-');
+    return `/flags/${filename}.png`; 
+};
+
 const Calendar = () => {
   const [hoveredMap, setHoveredMap] = useState(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -9,23 +15,25 @@ const Calendar = () => {
     setCursorPos({ x: e.clientX, y: e.clientY });
   };
 
-  const getMapUrl = (filename) => `/tracks/${filename}`;
-
-  const getFlagUrl = (countryName) => {
-      const filename = countryName.toLowerCase().replace(/ /g, '-');
-      return `/flags/${filename}.png`; 
-  };
-
   return (
     <div className="panel">
-        {/* Internal Styles for Animation & Fonts */}
         <style>{`
-            /* 1. Load the Custom Font */
+            /* 1. Custom Font */
             @font-face {
                 font-family: 'GR';
                 src: url('/fonts/GR.ttf') format('truetype');
             }
 
+            /* 2. The "Efficient" Grid System */
+            .calendar-grid {
+                display: grid;
+                /* Define your column widths HERE once. */
+                grid-template-columns: 12% 43% 25% 20%; 
+                align-items: center;
+                padding: 0 10px; /* Slight padding on sides */
+            }
+
+            /* Animations */
             @keyframes block-swipe {
                 0% { transform: translateX(-101%); }
                 40% { transform: translateX(0); }
@@ -38,17 +46,19 @@ const Calendar = () => {
                 51% { opacity: 1; }
                 100% { opacity: 1; }
             }
+
             .reveal-row {
                 position: relative;
                 overflow: hidden;
+                border-bottom: 2px solid #111;
             }
             .reveal-content {
                 opacity: 0;
                 animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-                
-                /* 2. Apply New Font ONLY to content */
-                font-family: 'GR', sans-serif; 
-                letter-spacing: 1px; /* Optional: Adjust if font is tight */
+                font-family: 'GR', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 18px 0; /* Vertical Size of rows */
             }
             .reveal-block {
                 position: absolute;
@@ -56,86 +66,91 @@ const Calendar = () => {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: #0466c8; /* 3. Updated Color */
+                background: #0466c8;
                 transform: translateX(-101%);
                 z-index: 2;
                 animation: block-swipe 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            }
+
+            /* Header Specific Styling */
+            .schedule-header {
+                font-family: sans-serif;
+                font-size: 12px;
+                color: #888;
+                padding-bottom: 10px;
+                border-bottom: 2px solid #444;
+                margin-bottom: 0;
             }
         `}</style>
 
         <div className="panel-header">Official Season 1 Calendar</div>
         
         <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
-            {/* HEADER: Font remains default (untouched) */}
-            <div className="schedule-header" style={{ display: 'flex', borderBottom: '1px solid #333', paddingBottom: '10px', marginBottom: '10px' }}>
-                <span style={{ width: '10%' }}>Rnd</span>
-                {/* Increased width to 45% to fill the gap */}
-                <span style={{ width: '45%' }}>Location</span> 
-                <span style={{ width: '25%' }}>When</span>
-                <span style={{ width: '20%' }}>Laps</span>
-                {/* Removed the empty 10% span here */}
+            
+            {/* HEADER: Uses .calendar-grid to match rows perfectly */}
+            <div className="schedule-header calendar-grid">
+                <span>Rnd</span>
+                <span>Location</span>
+                <span>When</span>
+                <span style={{ textAlign: 'right' }}>Laps</span>
             </div>
 
             {seasonSchedule.map((race, index) => (
                 <div 
                   key={race.round} 
-                  className="schedule-row reveal-row"
+                  className="reveal-row"
                   onMouseEnter={() => setHoveredMap(race)}
                   onMouseLeave={() => setHoveredMap(null)}
-                  style={{ marginBottom: '5px' }} // Spacing between rows
                 >
-                    {/* The Swipe Bar */}
+                    {/* The Swipe Animation Bar */}
                     <div 
                         className="reveal-block" 
                         style={{ animationDelay: `${index * 0.1}s` }} 
                     />
 
-                    {/* The Content */}
+                    {/* CONTENT: Also uses .calendar-grid */}
                     <div 
-                        className="reveal-content"
-                        style={{ 
-                            display: 'flex', 
-                            width: '100%', 
-                            alignItems: 'center', 
-                            padding: '10px 0', // Vertical padding for rows
-                            animationDelay: `${index * 0.1}s` 
-                        }}
+                        className="reveal-content calendar-grid"
+                        style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                        {/* RND: 10% */}
-                        <div className="schedule-rnd" style={{ width: '10%', fontSize: '20px', opacity: 0.5 }}>
+                        {/* Round */}
+                        <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
                             {String(race.round).padStart(2, '0')}
                         </div>
                         
-                        {/* LOCATION: 45% (Matches Header) */}
-                        <div className="schedule-name" style={{ width: '45%', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', textTransform: 'uppercase' }}>
+                        {/* Location */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.country}
                             
                             <img 
                                 src={getFlagUrl(race.country)} 
                                 alt={race.country} 
-                                style={{ 
-                                    height: '20px', 
-                                    width: 'auto', 
-                                    borderRadius: '4px',
-                                }}
+                                style={{ height: '20px', width: 'auto', borderRadius: '2px', opacity: 0.8 }}
                             />
 
-                            {race.sprint && <span className="sprint-badge">SPRINT</span>}
+                            {race.sprint && (
+                                <span style={{ 
+                                    backgroundColor: 'white', color: 'black', fontSize: '11px', 
+                                    padding: '3px 6px', borderRadius: '4px', fontWeight: 'bold', fontFamily: 'sans-serif',
+                                    verticalAlign: 'middle'
+                                }}>SPRINT</span>
+                            )}
                         </div>
 
-                        {/* DATE: 25% */}
-                        <div className="schedule-date" style={{ width: '25%', fontSize: '18px' }}>
+                        {/* When */}
+                        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
                             {race.date}
                         </div>
 
-                        {/* LAPS: 20% */}
-                        <div className="schedule-laps" style={{ width: '20%', fontSize: '18px', fontWeight: 'bold' }}>
+                        {/* Laps */}
+                        <div style={{ textAlign: 'right', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.laps}
                         </div>
                     </div>
                 </div>
             ))}
 
+            {/* Hover Popup Logic */}
             <div 
               className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
               style={{ top: `${cursorPos.y + 20}px`, left: `${cursorPos.x + 20}px` }}
