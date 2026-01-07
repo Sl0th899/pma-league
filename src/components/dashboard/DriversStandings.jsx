@@ -5,7 +5,7 @@ import driversList from '../../data/drivers.json';
 const DriversStandings = () => {
 
   const standings = useMemo(() => {
-    // 1. Create a map of all drivers: { "drv_stef": { name: "Stef", team: "Mercedes", points: 0 } }
+    // 1. Create a map of all drivers
     const driverMap = {};
 
     driversList.forEach(d => {
@@ -37,7 +37,7 @@ const DriversStandings = () => {
     // 3. Convert to Array & Sort
     return Object.values(driverMap)
         .sort((a, b) => b.points - a.points)
-        .filter(d => d.points > 0 || d.team !== "Free Agent"); // Optional: Hide inactive drivers if you want
+        .filter(d => d.points > 0 || d.team !== "Free Agent"); 
   }, []);
 
   const getTeamLogo = (teamName) => {
@@ -56,7 +56,10 @@ const DriversStandings = () => {
               100% { transform: translateX(101%); }
           }
           @keyframes text-appear {
-              0% { opacity: 0; 50% { opacity: 0; } 51% { opacity: 1; } 100% { opacity: 1; }
+              0% { opacity: 0; }
+              50% { opacity: 0; }
+              51% { opacity: 1; }
+              100% { opacity: 1; }
           }
           .reveal-row { position: relative; overflow: hidden; }
           .reveal-content {
