@@ -1,40 +1,48 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 import raceData from '../../data/races.json';
 import driversList from '../../data/drivers.json';
 
 const DriversStandings = () => {
+  // 1. New State to track visibility
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
+  // 2. Intersection Observer to trigger animation on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Run only once
+        }
+      },
+      { threshold: 0.2 } // Trigger when 20% of the element is visible
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const standings = useMemo(() => {
-    // 1. Create a map of all drivers
     const driverMap = {};
 
     driversList.forEach(d => {
-        driverMap[d.id] = {
-            id: d.id,
-            name: d.name,
-            team: d.team,
-            points: 0
-        };
+        driverMap[d.id] = { id: d.id, name: d.name, team: d.team, points: 0 };
     });
 
-    // 2. Add Points
     raceData.forEach(race => {
         race.raceResults.forEach(result => {
             if (driverMap[result.driverId]) {
                 driverMap[result.driverId].points += (result.points || 0);
             }
         });
-
-        // Bonus Points
-        if (race.stats.poleId && driverMap[race.stats.poleId]) {
-            driverMap[race.stats.poleId].points += 1;
-        }
-        if (race.stats.fastestLapId && driverMap[race.stats.fastestLapId]) {
-            driverMap[race.stats.fastestLapId].points += 1;
-        }
+        if (race.stats.poleId && driverMap[race.stats.poleId]) driverMap[race.stats.poleId].points += 1;
+        if (race.stats.fastestLapId && driverMap[race.stats.fastestLapId]) driverMap[race.stats.fastestLapId].points += 1;
     });
 
-    // 3. Convert to Array & Sort
     return Object.values(driverMap)
         .sort((a, b) => b.points - a.points)
         .filter(d => d.points > 0 || d.team !== "Free Agent"); 
@@ -47,9 +55,13 @@ const DriversStandings = () => {
   };
 
   return (
-    <div className="panel" style={{ padding: '0', overflow: 'hidden', marginTop: '40px' }}>
+    <div 
+        ref={containerRef} 
+        className={`panel ${isVisible ? 'is-visible' : ''}`} // Add class when visible
+        style={{ padding: '0', overflow: 'hidden', marginTop: '40px' }}
+    >
       <style>{`
-          /* Animation: Slide from Left to Right */
+          /* Animation Keyframes */
           @keyframes block-swipe-blue {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
@@ -66,27 +78,34 @@ const DriversStandings = () => {
           .reveal-row { 
               position: relative; 
               overflow: hidden; 
-              border-bottom: 1px solid #333; /* Subtle separator */
+              border-bottom: 1px solid #333;
           }
           
+          /* Initially Hidden */
           .reveal-content {
-              opacity: 0;
-              animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+              opacity: 0; 
               display: flex; 
               align-items: center; 
               width: 100%;
           }
           
-          /* The Blue Sliding Bar */
           .reveal-block-driver {
               position: absolute; 
               top: 0; 
               left: 0; 
               width: 100%; 
               height: 100%;
-              background: #0F96C8; /* UPDATED BLUE */
+              background: #0F96C8; 
               transform: translateX(-101%);
               z-index: 2;
+          }
+
+          /* --- ANIMATION TRIGGERS (Only run when .is-visible is added) --- */
+          .is-visible .reveal-content {
+              animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+          }
+          
+          .is-visible .reveal-block-driver {
               animation: block-swipe-blue 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
           }
       `}</style>
@@ -94,7 +113,7 @@ const DriversStandings = () => {
       {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
-          borderBottom: '4px solid #0F96C8', /* UPDATED BLUE */
+          borderBottom: '4px solid #0F96C8',
           background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
       }}>
         <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
@@ -126,14 +145,12 @@ const DriversStandings = () => {
                 >
                     <div className="pos" style={{ marginRight: '20px' }}>{index + 1}</div>
                     
-                    {/* Driver Name & Team Logo */}
                     <div className="team-info" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <img src={getTeamLogo(driver.team)} alt={driver.team} className="team-logo-standings" onError={(e) => e.target.style.display = 'none'} />
                         <span className="team-name">{driver.name}</span>
                         <span style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>{driver.team}</span>
                     </div>
 
-                    {/* Points Pill (Matches Constructors Style) */}
                     <div className="pts-pill" style={{ marginLeft: 'auto' }}>
                         {driver.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
                     </div>
