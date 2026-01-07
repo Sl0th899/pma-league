@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import seasonSchedule from '../data/schedule.json';
 
-// --- Helpers ---
 const getMapUrl = (filename) => `/tracks/${filename}`;
 const getFlagUrl = (countryName) => {
     const filename = countryName.toLowerCase().replace(/ /g, '-');
@@ -19,23 +18,17 @@ const Calendar = () => {
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
         <style>{`
-            /* 1. Custom Font */
             @font-face {
                 font-family: 'GR';
                 src: url('/fonts/GR.ttf') format('truetype');
             }
-
-            /* 2. Grid Layout - Centered Alignment Approach */
             .calendar-grid {
                 display: grid;
-                /* Rnd (10%) | Location (40%) | When (30%) | Laps (20%) */
                 grid-template-columns: 10% 40% 30% 20%; 
                 align-items: center;
                 padding: 0 20px;
             }
-
-            /* Animations */
-            @keyframes block-swipe {
+            @keyframes swipe-calendar {
                 0% { transform: translateX(-101%); }
                 40% { transform: translateX(0); }
                 60% { transform: translateX(0); }
@@ -47,7 +40,6 @@ const Calendar = () => {
                 51% { opacity: 1; }
                 100% { opacity: 1; }
             }
-
             .reveal-row {
                 position: relative;
                 overflow: hidden;
@@ -61,7 +53,6 @@ const Calendar = () => {
                 z-index: 10;
                 border-bottom: 2px solid transparent;
             }
-
             .reveal-content {
                 opacity: 0;
                 animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
@@ -70,15 +61,14 @@ const Calendar = () => {
                 letter-spacing: 0.5px;
                 padding: 18px 0; 
             }
-            .reveal-block {
+            /* Renamed to avoid conflict */
+            .reveal-block-cal {
                 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
                 background: #0466c8;
                 transform: translateX(-101%);
                 z-index: 2;
                 animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; 
             }
-
-            /* Header Styling */
             .schedule-header {
                 font-family: sans-serif;
                 font-size: 12px;
@@ -86,11 +76,10 @@ const Calendar = () => {
                 padding: 15px 0;
                 border-bottom: 2px solid #444;
                 margin-bottom: 0;
-                background: #151515; /* Matches panel bg */
+                background: #151515;
             }
         `}</style>
 
-        {/* --- NEW HEADER (Matches Constructors Standings) --- */}
         <div style={{ 
             display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
             borderBottom: '4px solid var(--accent)',
@@ -108,8 +97,6 @@ const Calendar = () => {
         </div>
         
         <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
-            
-            {/* Table Header */}
             <div className="schedule-header calendar-grid">
                 <span style={{ textAlign: 'center' }}>Rnd</span>
                 <span style={{ textAlign: 'left' }}>Location</span>
@@ -125,7 +112,7 @@ const Calendar = () => {
                   onMouseLeave={() => setHoveredMap(null)}
                 >
                     <div 
-                        className="reveal-block" 
+                        className="reveal-block-cal" 
                         style={{ animationDelay: `${index * 0.1}s` }} 
                     />
 
@@ -133,12 +120,9 @@ const Calendar = () => {
                         className="reveal-content calendar-grid"
                         style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                        {/* Round (Centered) */}
                         <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
                             {String(race.round).padStart(2, '0')}
                         </div>
-                        
-                        {/* Location (Left Aligned) */}
                         <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.country}
                             <img 
@@ -154,13 +138,9 @@ const Calendar = () => {
                                 }}>SPRINT</span>
                             )}
                         </div>
-
-                        {/* When (Centered) */}
                         <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.date}
                         </div>
-
-                        {/* Laps (Centered) */}
                         <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.laps}
                         </div>

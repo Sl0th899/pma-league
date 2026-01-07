@@ -3,29 +3,21 @@ import raceData from '../../data/races.json';
 import driversList from '../../data/drivers.json';
 
 const DriversStandings = () => {
-  // 1. State to track visibility
   const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef();
 
-  // 2. Intersection Observer to trigger animation on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target); // Run only once
+          observer.unobserve(entry.target);
         }
       });
     });
-    
     const currentElement = domRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-    
-    return () => {
-      if (currentElement) observer.unobserve(currentElement);
-    };
+    if (currentElement) observer.observe(currentElement);
+    return () => { if (currentElement) observer.unobserve(currentElement); };
   }, []);
 
   const standings = useMemo(() => {
@@ -33,17 +25,13 @@ const DriversStandings = () => {
     driversList.forEach(d => {
         driverMap[d.id] = { ...d, points: 0 };
     });
-
     raceData.forEach(race => {
         race.raceResults.forEach(result => {
-            if (driverMap[result.driverId]) {
-                driverMap[result.driverId].points += (result.points || 0);
-            }
+            if (driverMap[result.driverId]) driverMap[result.driverId].points += (result.points || 0);
         });
         if (race.stats.poleId && driverMap[race.stats.poleId]) driverMap[race.stats.poleId].points += 1;
         if (race.stats.fastestLapId && driverMap[race.stats.fastestLapId]) driverMap[race.stats.fastestLapId].points += 1;
     });
-
     return Object.values(driverMap)
         .sort((a, b) => b.points - a.points)
         .filter(d => d.points > 0 || d.team !== "Free Agent"); 
@@ -59,14 +47,11 @@ const DriversStandings = () => {
     <div 
         ref={domRef}
         className={`panel ${isVisible ? 'is-visible' : ''}`} 
-        style={{ padding: '0', overflow: 'hidden', marginTop: '40px', opacity: 0, transition: 'opacity 0.5s ease' }}
+        // FIX: opacity is now conditional. If visible = 1, else = 0.
+        style={{ padding: '0', overflow: 'hidden', marginTop: '40px', opacity: isVisible ? 1 : 0, transition: 'opacity 0.5s ease' }}
     >
       <style>{`
-          /* Base State: Invisible */
-          .panel { opacity: 0; }
           .panel.is-visible { opacity: 1; }
-
-          /* Animation Keyframes */
           @keyframes swipe-drivers {
               0% { transform: translateX(-101%); }
               40% { transform: translateX(0); }
@@ -79,28 +64,16 @@ const DriversStandings = () => {
               51% { opacity: 1; }
               100% { opacity: 1; }
           }
-          
-          .reveal-row { 
-              position: relative; 
-              overflow: hidden; 
-              border-bottom: 1px solid #333;
-          }
+          .reveal-row { position: relative; overflow: hidden; border-bottom: 1px solid #333; }
           
           /* Only animate when parent has .is-visible class */
           .is-visible .reveal-content {
-              opacity: 0; /* Start hidden */
+              opacity: 0;
               animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-              display: flex; 
-              align-items: center; 
-              width: 100%;
+              display: flex; align-items: center; width: 100%;
           }
-          
           .is-visible .reveal-block-driver {
-              position: absolute; 
-              top: 0; 
-              left: 0; 
-              width: 100%; 
-              height: 100%;
+              position: absolute; top: 0; left: 0; width: 100%; height: 100%;
               background: #0F96C8; 
               transform: translateX(-101%);
               z-index: 2;
@@ -108,7 +81,6 @@ const DriversStandings = () => {
           }
       `}</style>
 
-      {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
           borderBottom: '4px solid #0F96C8',
@@ -125,30 +97,23 @@ const DriversStandings = () => {
         </div>
       </div>
 
-      {/* List */}
       <div className="standings-list">
         {standings.map((driver, index) => (
             <div key={driver.id} className="team-row reveal-row" style={{ padding: '0' }}>
-                
-                {/* 1. The Sliding Bar */}
                 <div 
                     className="reveal-block-driver" 
                     style={{ animationDelay: `${index * 0.1}s` }} 
                 />
-                
-                {/* 2. The Content */}
                 <div 
                     className="reveal-content" 
                     style={{ animationDelay: `${index * 0.1}s`, padding: '15px 20px' }}
                 >
                     <div className="pos" style={{ marginRight: '20px' }}>{index + 1}</div>
-                    
                     <div className="team-info" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <img src={getTeamLogo(driver.team)} alt={driver.team} className="team-logo-standings" onError={(e) => e.target.style.display = 'none'} />
                         <span className="team-name">{driver.name}</span>
                         <span style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>{driver.team}</span>
                     </div>
-
                     <div className="pts-pill" style={{ marginLeft: 'auto' }}>
                         {driver.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
                     </div>

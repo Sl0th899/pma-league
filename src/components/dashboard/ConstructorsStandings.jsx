@@ -21,24 +21,17 @@ const ConstructorsStandings = () => {
         "Porsche": { points: 0, drivers: [] }
     };
 
-    // Team lookup map
-    // removed looping through the array every time.
     const driverLookup = {};
-    
     driversList.forEach(driver => {
-        // Map ID to Team
         driverLookup[driver.id] = driver.team;
-        
-        // Also populate the Team Roster immediately (saves filtering later)
         if (teamsMap[driver.team]) {
             teamsMap[driver.team].drivers.push(driver);
         }
     });
 
-    // Helper: Instant lookup using our new map
     const getTeam = (driverId, resultRow) => {
-        if (resultRow?.team) return resultRow.team; // Explicit team override in race result
-        return driverLookup[driverId]; // O(1) lookup
+        if (resultRow?.team) return resultRow.team;
+        return driverLookup[driverId];
     };
 
     const addPoints = (team, amount) => {
@@ -47,27 +40,22 @@ const ConstructorsStandings = () => {
         }
     };
 
-    // 3. Calculate Scores
     raceData.forEach(race => {
       race.raceResults.forEach(result => {
         const team = getTeam(result.driverId, result);
         addPoints(team, result.points || 0);
       });
-
-      // Bonus Points
       if (race.stats.poleId) addPoints(getTeam(race.stats.poleId), 1);
       if (race.stats.fastestLapId) addPoints(getTeam(race.stats.fastestLapId), 1);
     });
 
-    // 4. Convert Map to Sorted Array for Rendering
     return Object.entries(teamsMap)
       .map(([teamName, data]) => ({
           team: teamName,
           points: data.points,
-          roster: data.drivers // We already built this list!
+          roster: data.drivers
       }))
       .sort((a, b) => b.points - a.points);
-
   }, []);
 
   const getTeamLogo = (teamName) => {
@@ -77,7 +65,6 @@ const ConstructorsStandings = () => {
 
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
-      {/* Internal Styles */}
       <style>{`
           @keyframes swipe-constructors {
               0% { transform: translateX(-101%); }
@@ -95,11 +82,10 @@ const ConstructorsStandings = () => {
           .reveal-content {
               opacity: 0;
               animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-              display: flex;
-              align-items: center;
-              width: 100%;
+              display: flex; align-items: center; width: 100%;
           }
-          .reveal-block {
+          /* Renamed to avoid conflict with Calendar */
+          .reveal-block-const {
               position: absolute; top: 0; left: 0; width: 100%; height: 100%;
               background: #5fadfc;
               transform: translateX(-101%);
@@ -108,7 +94,6 @@ const ConstructorsStandings = () => {
           }
       `}</style>
 
-      {/* Header */}
       <div style={{ 
           display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
           borderBottom: '4px solid var(--accent)',
@@ -125,36 +110,22 @@ const ConstructorsStandings = () => {
         </div>
       </div>
 
-      {/* Standings List */}
       <div className="standings-list">
         {standings.map((row, index) => (
-            <div 
-                key={row.team} 
-                className="team-row reveal-row"
-                style={{ padding: '0' }}
-            >
-                {/* 1. Sliding Bar */}
+            <div key={row.team} className="team-row reveal-row" style={{ padding: '0' }}>
                 <div 
-                    className="reveal-block" 
+                    className="reveal-block-const" 
                     style={{ animationDelay: `${index * 0.1}s` }} 
                 />
-
-                {/* 2. Content */}
                 <div 
                     className="reveal-content"
-                    style={{ 
-                        animationDelay: `${index * 0.1}s`,
-                        padding: '15px 20px'
-                    }}
+                    style={{ animationDelay: `${index * 0.1}s`, padding: '15px 20px' }}
                 >
                     <div className="pos" style={{ marginRight: '20px' }}>{index + 1}</div>
-                    
                     <div className="team-info" style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <img src={getTeamLogo(row.team)} alt={row.team} className="team-logo-standings" onError={(e) => e.target.style.display = 'none'} />
                         <span className="team-name">{row.team}</span>
                     </div>
-
-                    {/* Driver Roster */}
                     <div className="driver-roster">
                         {row.roster.map(d => (
                             <div key={d.id} className="driver-pill">
@@ -162,7 +133,6 @@ const ConstructorsStandings = () => {
                             </div>
                         ))}
                     </div>
-
                     <div className="pts-pill" style={{ marginLeft: 'auto' }}>
                         {row.points} <span style={{fontSize:'12px', opacity:0.7, marginLeft:'4px'}}>PTS</span>
                     </div>
