@@ -21,16 +21,35 @@ const ConstructorsStandings = () => {
         "Porsche": { points: 0, drivers: [] }
     };
 
+    // 1. Create a helper map to handle case sensitivity 
+    // (e.g., maps "mclaren" -> "McLaren")
+    const normalizeTeamName = {};
+    Object.keys(teamsMap).forEach(key => {
+        normalizeTeamName[key.toLowerCase()] = key;
+    });
+
     const driverLookup = {};
+
     driversList.forEach(driver => {
-        driverLookup[driver.id] = driver.team;
-        if (teamsMap[driver.team]) {
-            teamsMap[driver.team].drivers.push(driver);
+        // Safe check: ensure driver has a team before processing
+        if (driver.team) {
+            // Find the official team name using the lowercase version
+            const officialTeamName = normalizeTeamName[driver.team.toLowerCase()];
+
+            if (officialTeamName) {
+                
+                driverLookup[driver.id] = officialTeamName;
+                teamsMap[officialTeamName].drivers.push(driver);
+            }
         }
     });
 
     const getTeam = (driverId, resultRow) => {
-        if (resultRow?.team) return resultRow.team;
+        
+        if (resultRow?.team) {
+            const normalized = normalizeTeamName[resultRow.team.toLowerCase()];
+            if (normalized) return normalized;
+        }
         return driverLookup[driverId];
     };
 
