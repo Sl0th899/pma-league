@@ -387,29 +387,44 @@
     ],
     "strategies": [
       { 
-        "driverId": "drv_jajc", "stints": [
-          { "compound": "hard", "percent": 20, "label": "Hard" }, 
-          { "compound": "med", "percent": 20, "label": "Medium" },
-          { "compound": "inter", "percent": 20, "label": "Inter" },
-          { "compound": "soft", "percent": 20, "label": "Soft" },
-          { "compound": "inter", "percent": 20, "label": "Inter" }
-        ] 
-      },
-      { 
         "driverId": "drv_hx4p", "stints": [
-          { "compound": "soft", "percent": 20, "label": "Soft" }, 
-          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "soft", "percent": 31, "label": "Soft" }, 
+          { "compound": "soft", "percent": 9, "label": "Soft" },
           { "compound": "inter", "percent": 20, "label": "Inter" },
           { "compound": "soft", "percent": 20, "label": "Soft" },
           { "compound": "inter", "percent": 20, "label": "Inter" }
         ] 
       },
       { 
-        "driverId": "drv_is_t", "stints": [
-          { "compound": "hard", "percent": 30, "label": "Hard" }, 
-          { "compound": "soft", "percent": 20, "label": "Soft (Restart)" },
-          { "compound": "inter", "percent": 40, "label": "Inter" },
-          { "compound": "dnf", "percent": 10, "label": "Crash" }
+        "driverId": "drv_stef", "stints": [
+          { "compound": "soft", "percent": 31, "label": "Soft (L1-7)" }, 
+          { "compound": "inter", "percent": 10, "label": "Inter (RF)" },
+          { "compound": "soft", "percent": 23, "label": "Soft" },
+          { "compound": "inter", "percent": 36, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_brma", "stints": [
+          { "compound": "inter", "percent": 31, "label": "Inter (L1-11)" }, 
+          { "compound": "soft", "percent": 69, "label": "Soft (Rest)" }
+        ] 
+      },
+      { 
+        "driverId": "drv_notu", "stints": [
+          { "compound": "hard", "percent": 31, "label": "Hard" }, 
+          { "compound": "med", "percent": 9, "label": "Medium" },
+          { "compound": "inter", "percent": 20, "label": "Inter" },
+          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "inter", "percent": 20, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_jajc", "stints": [
+          { "compound": "hard", "percent": 31, "label": "Hard" }, 
+          { "compound": "med", "percent": 10, "label": "Medium" },
+          { "compound": "inter", "percent": 20, "label": "Inter" },
+          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "inter", "percent": 20, "label": "Inter" }
         ] 
       },
       { 
@@ -430,24 +445,52 @@
         ] 
       },
       { 
-        "driverId": "drv_stef", "stints": [
-          { "compound": "soft", "percent": 20, "label": "Soft (L1-7)" }, 
-          { "compound": "inter", "percent": 11, "label": "Inter (RF)" },
-          { "compound": "soft", "percent": 23, "label": "Soft" },
-          { "compound": "inter", "percent": 23, "label": "Inter" },
-          { "compound": "soft", "percent": 23, "label": "Soft" }
-        ] 
-      },
-      { 
-        "driverId": "drv_brma", "stints": [
-          { "compound": "inter", "percent": 31, "label": "Inter (L1-11)" }, 
-          { "compound": "soft", "percent": 69, "label": "Soft (Rest)" }
-        ] 
-      },
-      { 
         "driverId": "drv_refl", "stints": [
-           { "compound": "inter", "percent": 31, "label": "Inter (L1-11)" }, 
-           { "compound": "soft", "percent": 69, "label": "Soft (Rest)" }
+           { "compound": "soft", "percent": 31, "label": "Soft" }, 
+           { "compound": "soft", "percent": 23, "label": "Soft" },
+           { "compound": "inter", "percent": 46, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_bray", "stints": [
+           { "compound": "soft", "percent": 31, "label": "Soft" }, 
+           { "compound": "soft", "percent": 23, "label": "Soft" },
+           { "compound": "inter", "percent": 46, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_spor", "stints": [
+           { "compound": "soft", "percent": 31, "label": "Soft" }, 
+           { "compound": "soft", "percent": 23, "label": "Soft" },
+           { "compound": "inter", "percent": 46, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_anie", "stints": [
+           { "compound": "soft", "percent": 31, "label": "Soft" }, 
+           { "compound": "soft", "percent": 23, "label": "Soft" },
+           { "compound": "inter", "percent": 46, "label": "Inter" }
+        ] 
+      },
+      {
+        "driverId": "drv_etha", "stints": [
+          { "compound": "soft", "percent": 31, "label": "Softs" }, 
+          { "compound": "soft", "percent": 23, "label": "Soft" },
+          { "compound": "inter", "percent": 46, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_is_t", "stints": [
+          { "compound": "hard", "percent": 31, "label": "Hard" }, 
+          { "compound": "soft", "percent": 20, "label": "Soft (Restart)" },
+          { "compound": "inter", "percent": 50, "label": "Inter" }
+        ] 
+      },
+      {
+        "driverId": "drv_that", "stints": [
+          { "compound": "soft", "percent": 31, "label": "Softs" }, 
+          { "compound": "soft", "percent": 15, "label": "Soft" },
+          { "compound": "dnf", "percent": 54, "label": "Crash" }
         ] 
       }
     ]
