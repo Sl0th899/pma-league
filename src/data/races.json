@@ -332,5 +332,124 @@
         ]
       }
     ] 
+  },
+  {
+    "id": "s1-r4",
+    "season": 1,
+    "round": 4,
+    "grandPrix": "Germany",
+    "trackMapUrl": "/tracks/germany.avif",
+    "imgWeek": "/posters/germany-week.png",
+    "imgDay": "/posters/germany-day.png",
+    "stats": {
+      "winnerId": "drv_hx4p",
+      "poleId": "drv_hx4p",
+      "fastestLapId": "drv_brma",
+      "driverOfDayId": "drv_hx4p"
+    },
+    "incidents": [
+      "Red Flag on Lap 11/35",
+      "IS_T - DNF (Hit Wall)",
+      "Rain Chaos: Multiple pit stops for Inters/Softs"
+    ],
+    "raceResults": [
+      { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 25 },
+      { "pos": 2, "driverId": "drv_stef", "gap": "+05.129", "status": "finished", "points": 18 },
+      { "pos": 3, "driverId": "drv_brma", "gap": "+08.429", "status": "finished", "points": 15 },
+      { "pos": 4, "driverId": "drv_notu", "gap": "+22.086", "status": "finished", "points": 12 },
+      { "pos": 5, "driverId": "drv_jajc", "gap": "+29.879", "status": "finished", "points": 10 },
+      { "pos": 6, "driverId": "drv_Thec", "gap": "+30.466", "status": "finished", "points": 8 },
+      { "pos": 7, "driverId": "drv_holi", "gap": "+51.492", "status": "finished", "points": 6 },
+      { "pos": 8, "driverId": "drv_refl", "gap": "+53.085", "status": "finished", "points": 4 },
+      { "pos": 9, "driverId": "drv_bray", "gap": "+01:05.838", "status": "finished", "points": 2 },
+      { "pos": 10, "driverId": "drv_spor", "gap": "+01:20.408", "status": "finished", "points": 1 },
+      { "pos": 11, "driverId": "drv_anie", "gap": "+57.219", "status": "finished", "points": 0 },
+      { "pos": 12, "driverId": "drv_etha", "gap": "+2 Laps", "status": "finished", "points": 0 },
+      { "pos": 13, "driverId": "drv_is_t", "gap": "+3 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 14, "driverId": "drv_that", "gap": "+15 Laps DNF", "status": "dnf", "points": 0 },
+      { "pos": 15, "driverId": "drv_trip", "gap": "+23 Laps DNF", "status": "dnf", "points": 0 }
+    ],
+    "qualiResults": [
+      { "pos": 1, "driverId": "drv_hx4p", "time": "No Time" },
+      { "pos": 2, "driverId": "drv_stef", "time": "No Time" },
+      { "pos": 3, "driverId": "drv_refl", "time": "No Time" },
+      { "pos": 4, "driverId": "drv_notu", "time": "No Time" },
+      { "pos": 5, "driverId": "drv_is_t", "time": "No Time" },
+      { "pos": 6, "driverId": "drv_Thec", "time": "No Time" },
+      { "pos": 7, "driverId": "drv_spor", "time": "No Time" },
+      { "pos": 8, "driverId": "drv_lill", "time": "No Time" },
+      { "pos": 9, "driverId": "drv_bray", "time": "No Time" },
+      { "pos": 10, "driverId": "drv_holi", "time": "No Time" },
+      { "pos": 11, "driverId": "drv_that", "time": "No Time" },
+      { "pos": 12, "driverId": "drv_anie", "time": "No Time" },
+      { "pos": 13, "driverId": "drv_etha", "time": "No Time" },
+      { "pos": 14, "driverId": "drv_brma", "time": "No Time" }
+    ],
+    "strategies": [
+      { 
+        "driverId": "drv_jajc", "stints": [
+          { "compound": "hard", "percent": 20, "label": "Hard" }, 
+          { "compound": "med", "percent": 20, "label": "Medium" },
+          { "compound": "inter", "percent": 20, "label": "Inter" },
+          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "inter", "percent": 20, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_hx4p", "stints": [
+          { "compound": "soft", "percent": 20, "label": "Soft" }, 
+          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "inter", "percent": 20, "label": "Inter" },
+          { "compound": "soft", "percent": 20, "label": "Soft" },
+          { "compound": "inter", "percent": 20, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_is_t", "stints": [
+          { "compound": "hard", "percent": 30, "label": "Hard" }, 
+          { "compound": "soft", "percent": 20, "label": "Soft (Restart)" },
+          { "compound": "inter", "percent": 40, "label": "Inter" },
+          { "compound": "dnf", "percent": 10, "label": "Crash" }
+        ] 
+      },
+      { 
+        "driverId": "drv_Thec", "stints": [
+          { "compound": "soft", "percent": 31, "label": "Soft (L1-11)" }, 
+          { "compound": "inter", "percent": 23, "label": "Inter" },
+          { "compound": "soft", "percent": 23, "label": "Soft" },
+          { "compound": "inter", "percent": 23, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_holi", "stints": [
+          { "compound": "soft", "percent": 31, "label": "Soft (L1-11)" }, 
+          { "compound": "soft", "percent": 23, "label": "Soft" },
+          { "compound": "inter", "percent": 23, "label": "Inter" },
+          { "compound": "soft", "percent": 11, "label": "Soft" },
+          { "compound": "inter", "percent": 12, "label": "Inter" }
+        ] 
+      },
+      { 
+        "driverId": "drv_stef", "stints": [
+          { "compound": "soft", "percent": 20, "label": "Soft (L1-7)" }, 
+          { "compound": "inter", "percent": 11, "label": "Inter (RF)" },
+          { "compound": "soft", "percent": 23, "label": "Soft" },
+          { "compound": "inter", "percent": 23, "label": "Inter" },
+          { "compound": "soft", "percent": 23, "label": "Soft" }
+        ] 
+      },
+      { 
+        "driverId": "drv_brma", "stints": [
+          { "compound": "inter", "percent": 31, "label": "Inter (L1-11)" }, 
+          { "compound": "soft", "percent": 69, "label": "Soft (Rest)" }
+        ] 
+      },
+      { 
+        "driverId": "drv_refl", "stints": [
+           { "compound": "inter", "percent": 31, "label": "Inter (L1-11)" }, 
+           { "compound": "soft", "percent": 69, "label": "Soft (Rest)" }
+        ] 
+      }
+    ]
   }
 ]
