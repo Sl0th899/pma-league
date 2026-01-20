@@ -501,8 +501,8 @@
     "round": 5,
     "grandPrix": "France",
     "trackMapUrl": "/tracks/france.avif",
-    "imgWeek": "/posters/france-week.png",
-    "imgDay": "/posters/france-day.png",
+    "imgWeek": "/posters/france-week.jpg",
+    "imgDay": "/posters/france-day.jpg",
     "stats": {
       "winnerId": "drv_stef",
       "poleId": "drv_stef",
