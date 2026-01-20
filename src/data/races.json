@@ -494,5 +494,53 @@
         ] 
       }
     ]
+  },
+  {
+    "id": "s1-r5",
+    "season": 1,
+    "round": 5,
+    "grandPrix": "France",
+    "trackMapUrl": "/tracks/france.avif",
+    "imgWeek": "/posters/france-week.png",
+    "imgDay": "/posters/france-day.png",
+    "stats": {
+      "winnerId": "drv_stef",
+      "poleId": "drv_stef",
+      "fastestLapId": "drv_stef",
+      "driverOfDayId": "drv_stef"
+    },
+    "incidents": [],
+    "raceResults": [
+      { "pos": 1, "driverId": "drv_stef", "gap": "Winner", "status": "finished", "points": 25 },
+      { "pos": 2, "driverId": "drv_notu", "gap": "+50.731", "status": "finished", "points": 18 },
+      { "pos": 3, "driverId": "drv_holi", "gap": "+01:00.647", "status": "finished", "points": 15 },
+      { "pos": 4, "driverId": "drv_refl", "gap": "+01:27.162", "status": "finished", "points": 12 },
+      { "pos": 5, "driverId": "drv_Thec", "gap": "+01:36.995", "status": "finished", "points": 10 },
+      { "pos": 6, "driverId": "drv_bray", "gap": "+01:42.668", "status": "finished", "points": 8 },
+      { "pos": 7, "driverId": "drv_sn0w", "gap": "+29.002", "status": "finished", "points": 6 },
+      { "pos": 8, "driverId": "drv_spor", "gap": "+2 Laps", "status": "finished", "points": 4 },
+      { "pos": 9, "driverId": "drv_anie", "gap": "+3 Laps", "status": "finished", "points": 2 },
+      { "pos": 10, "driverId": "drv_jajc", "gap": "+9 Laps", "status": "finished", "points": 1 },
+      { "pos": 11, "driverId": "drv_is_t", "gap": "+23 Laps", "status": "dnf", "points": 0 },
+      { "pos": 12, "driverId": "drv_mess", "gap": "+25 Laps", "status": "dnf", "points": 0 },
+      { "pos": 13, "driverId": "drv_chin", "gap": "+30 Laps", "status": "dnf", "points": 0 }
+    ],
+    "qualiResults": [
+      { "pos": 1, "driverId": "drv_stef", "time": "01:06.880" },
+      { "pos": 2, "driverId": "drv_notu", "time": "01:07.036" },
+      { "pos": 3, "driverId": "drv_jajc", "time": "01:07.265" },
+      { "pos": 4, "driverId": "drv_refl", "time": "01:07.547" },
+      { "pos": 5, "driverId": "drv_is_t", "time": "01:07.671" },
+      { "pos": 6, "driverId": "drv_Thec", "time": "01:07.903" },
+      { "pos": 7, "driverId": "drv_sn0w", "time": "01:07.939" },
+      { "pos": 8, "driverId": "drv_bray", "time": "01:07.965" },
+      { "pos": 9, "driverId": "drv_holi", "time": "01:08.224" },
+      { "pos": 10, "driverId": "drv_cree", "time": "01:08.620" },
+      { "pos": 11, "driverId": "drv_spor", "time": "01:09.181" },
+      { "pos": 12, "driverId": "drv_chin", "time": "01:09.813" },
+      { "pos": 13, "driverId": "drv_anie", "time": "01:10.365" },
+      { "pos": 14, "driverId": "drv_mess", "time": "-:--.---" }
+    ],
+    "strategies": []
   }
 ]
