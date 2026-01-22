@@ -18,6 +18,7 @@ const StrategyChart = ({ data }) => {
           <div style={{display:'flex', alignItems:'center', gap:'4px'}}><span className="tyre-badge bg-med"></span> M</div>
           <div style={{display:'flex', alignItems:'center', gap:'4px'}}><span className="tyre-badge bg-hard"></span> H</div>
           <div style={{display:'flex', alignItems:'center', gap:'4px'}}><span className="tyre-badge bg-inter"></span> I</div>
+          <div style={{display:'flex', alignItems:'center', gap:'4px'}}><span className="tyre-badge bg-wet"></span> W</div>
         </div>
       </div>
 
