@@ -545,13 +545,13 @@
       { 
         "driverId": "drv_mess", "stints": [
           { "compound": "soft", "percent": 25, "label": "Soft (L1-8)" },
-          { "compound": "dnf", "percent": 10, "label": "Crash" }
+          { "compound": "dnf", "percent": 75, "label": "Crash" }
         ] 
       },
       { 
         "driverId": "drv_jajc", "stints": [
           { "compound": "med", "percent": 31, "label": "Med (L1-10)" },
-          { "compound": "dnf", "percent": 10, "label": "Crash" }
+          { "compound": "dnf", "percent": 69, "label": "Crash" }
         ] 
       },
       { 
@@ -630,13 +630,13 @@
       { 
         "driverId": "drv_is_t", "stints": [
           { "compound": "med", "percent": 28, "label": "Med (L1-9)" },
-          { "compound": "dnf", "percent": 10, "label": "Crash" }
+          { "compound": "dnf", "percent": 72, "label": "Crash" }
         ] 
       },
       { 
         "driverId": "drv_chin", "stints": [
           { "compound": "soft", "percent": 6, "label": "Soft (L1-2)" },
-          { "compound": "dnf", "percent": 10, "label": "Crash" }
+          { "compound": "dnf", "percent": 94, "label": "Crash" }
         ] 
       }
     ]
