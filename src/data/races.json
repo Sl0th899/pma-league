@@ -581,8 +581,8 @@
       },
       { 
         "driverId": "drv_holi", "stints": [
-          { "compound": "soft", "percent": 28, "label": "Soft (L1-9)" },
-          { "compound": "inter", "percent": 16, "label": "Inter (L10-14)" },
+          { "compound": "med", "percent": 20, "label": "Med (L1-9)" },
+          { "compound": "inter", "percent": 24, "label": "Inter (L10-14)" },
           { "compound": "soft", "percent": 28, "label": "Soft (L15-23)" },
           { "compound": "inter", "percent": 28, "label": "Inter (L24-32)" }
         ] 
