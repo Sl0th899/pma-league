@@ -645,75 +645,81 @@
     "round": 6,
     "grandPrix": "Britain",
     "trackMapUrl": "/tracks/britain.avif",
-    "imgWeek": "/posters/britain-week.jpg",
-    "imgDay": "/posters/britain-day.png",
+    "imgWeek": "/posters/british-week.jpg",
+    "imgDay": "/posters/british-day.png",
     "hasSprint": true,
     "stats": {
-      "winnerId": "drv_hx4p",
-      "poleId": "drv_stef",
-      "fastestLapId": "drv_hx4p", 
-      "driverOfDayId": "NA"
+      "winnerId": null,
+      "poleId": null,
+      "fastestLapId": null,
+      "driverOfDayId": null
     },
     "incidents": [
-      "Lap 1 - Mass pit stops for Inters",
-      "Reflexive gambling on Wets",
-      "Spor & Syph fighting through the field"
+      "Sprint: Wet conditions reported",
+      "Sprint: Multiple stops for Inters on Lap 1"
     ],
-    "raceResults": [], 
-    "sprintResults": [
-      { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 8 },
-      { "pos": 2, "driverId": "drv_stef", "gap": "+6.785", "status": "finished", "points": 7 },
-      { "pos": 3, "driverId": "drv_holi", "gap": "+24.988", "status": "finished", "points": 6 },
-      { "pos": 4, "driverId": "drv_notu", "gap": "+35.169", "status": "finished", "points": 5 },
-      { "pos": 5, "driverId": "drv_refl", "gap": "+48.403", "status": "finished", "points": 4 },
-      { "pos": 6, "driverId": "drv_spor", "gap": "+01:05.453", "status": "finished", "points": 3 },
-      { "pos": 7, "driverId": "drv_syph", "gap": "+01:08.152", "status": "finished", "points": 2 }
-    ],
-    "qualiResults": [
+    "raceResults": [],
+    "qualiResults": [],
+    "sprintQualiResults": [
       { "pos": 1, "driverId": "drv_stef", "time": "1:23.351" },
       { "pos": 2, "driverId": "drv_hx4p", "time": "1:23.680" },
       { "pos": 3, "driverId": "drv_holi", "time": "1:24.114" },
       { "pos": 4, "driverId": "drv_refl", "time": "1:24.338" },
       { "pos": 5, "driverId": "drv_notu", "time": "1:24.645" },
       { "pos": 6, "driverId": "drv_syph", "time": "1:24.946" },
-      { "pos": 7, "driverId": "drv_skil", "time": "1:26.799" },
+      { "pos": 7, "driverId": "drv_skil", "time": "1:26.799" }, 
       { "pos": 8, "driverId": "drv_mess", "time": "1:30.363" }
+    ],
+    "sprintResults": [
+      { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 8 },
+      { "pos": 2, "driverId": "drv_stef", "gap": "+6.785", "status": "finished", "points": 7 },
+      { "pos": 3, "driverId": "drv_holi", "gap": "+24.988", "status": "finished", "points": 6 },
+      { "pos": 4, "driverId": "drv_notu", "gap": "+35.169", "status": "finished", "points": 5 },
+      { "pos": 5, "driverId": "drv_refl", "gap": "+48.403", "status": "finished", "points": 4 },
+      { "pos": 6, "driverId": "drv_spor", "gap": "+1:05.453", "status": "finished", "points": 3 },
+      { "pos": 7, "driverId": "drv_syph", "gap": "+1:08.152", "status": "finished", "points": 2 }
     ],
     "strategies": [
       { 
-        "driverId": "drv_hx4p", "stints": [
+        "driverId": "drv_hx4p", 
+        "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (L2-8)" }
+          { "compound": "inter", "percent": 87.5, "label": "Inter (Sprint)" }
         ] 
       },
       { 
-        "driverId": "drv_stef", "stints": [
+        "driverId": "drv_stef", 
+        "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (L2-8)" }
+          { "compound": "inter", "percent": 87.5, "label": "Inter (Sprint)" }
         ] 
       },
       { 
-        "driverId": "drv_notu", "stints": [
-          { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (L2-8)" }
+        "driverId": "drv_notu", 
+        "stints": [
+          { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
+          { "compound": "inter", "percent": 87.5, "label": "Inter" }
         ] 
       },
       { 
-        "driverId": "drv_refl", "stints": [
-          { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "wet", "percent": 87.5, "label": "Wet (L2-8)" }
+        "driverId": "drv_refl", 
+        "stints": [
+          { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
+          { "compound": "wet", "percent": 87.5, "label": "Wets" }
         ] 
       },
       { 
-        "driverId": "drv_spor", "stints": [
-          { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (L2-8)" }
+        "driverId": "drv_spor", 
+        "stints": [
+          { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
+          { "compound": "inter", "percent": 87.5, "label": "Inter" }
         ] 
       },
       { 
-        "driverId": "drv_syph", "stints": [
-          { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (L2-8)" }
+        "driverId": "drv_syph", 
+        "stints": [
+          { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
+          { "compound": "inter", "percent": 87.5, "label": "Inter" }
         ] 
       }
     ]
