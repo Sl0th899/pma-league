@@ -679,19 +679,20 @@
       { "pos": 6, "driverId": "drv_spor", "gap": "+1:05.453", "status": "finished", "points": 3 },
       { "pos": 7, "driverId": "drv_syph", "gap": "+1:08.152", "status": "finished", "points": 2 }
     ],
-    "strategies": [
+    "strategies": [],
+    "sprintStrategies": [
       { 
         "driverId": "drv_hx4p", 
         "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (Sprint)" }
+          { "compound": "inter", "percent": 87.5, "label": "Inter" }
         ] 
       },
       { 
         "driverId": "drv_stef", 
         "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft (L1)" }, 
-          { "compound": "inter", "percent": 87.5, "label": "Inter (Sprint)" }
+          { "compound": "inter", "percent": 87.5, "label": "Inter" }
         ] 
       },
       { 
@@ -705,7 +706,8 @@
         "driverId": "drv_refl", 
         "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
-          { "compound": "wet", "percent": 87.5, "label": "Wets" }
+          { "compound": "wet", "percent": 14.5, "label": "Wets" },
+          { "compound": "inter", "percent": 73, "label": "Inter" }
         ] 
       },
       { 
@@ -720,7 +722,7 @@
         "stints": [
           { "compound": "soft", "percent": 12.5, "label": "Soft" }, 
           { "compound": "inter", "percent": 87.5, "label": "Inter" }
-        ] 
+        ]
       }
     ]
   }

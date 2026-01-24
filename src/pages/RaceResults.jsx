@@ -99,27 +99,36 @@ const RaceResults = () => {
 
       ) : (
         
+     
         /* === NEW: SPRINT VIEW === */
-        <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginBottom: '20px' }}>
+        <div className="fade-in">
+           <div className="grid-split" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', marginBottom: '20px' }}>
            
-           {/* Left: Simplified Stats for Sprint (Or keep TrackStats) */}
-           <div style={{ position: 'sticky', top: '20px', height: 'fit-content' }}>
-              <div className="panel">
-                <div className="panel-header">Sprint Info</div>
-                <div style={{ padding: '20px', textAlign: 'center', color: '#888' }}>
-                  <div style={{ fontSize: '40px', marginBottom: '10px' }}>⚡</div>
-                  <div>Sprint Race</div>
-                  <div>No Pitstops Required</div>
+             {/* Left: Simplified Stats */}
+             <div style={{ position: 'sticky', top: '20px', height: 'fit-content' }}>
+                <div className="panel">
+                  <div className="panel-header">Sprint Info</div>
+                  <div style={{ padding: '20px', textAlign: 'center', color: '#888' }}>
+                    <div style={{ fontSize: '40px', marginBottom: '10px' }}>⚡</div>
+                    <div>Sprint Race (8 Laps)</div>
+                    <div>Wet Conditions</div>
+                  </div>
                 </div>
-              </div>
-           </div>
+             </div>
 
-           {/* Right: Sprint Results Table */}
-           <div>
-             {/* Re-using ResultTable but without Quali comparison (pass null for qualiData) */}
-             <div className="panel-header" style={{ marginTop: 0 }}>Sprint Classification</div>
-             <ResultTable data={race.sprintResults} qualiData={null} />
-           </div>
+             {/* Right: Sprint Results Table */}
+             <div>
+               <div className="panel-header" style={{ marginTop: 0 }}>Sprint Classification</div>
+               <ResultTable data={race.sprintResults} qualiData={race.sprintQualiResults} />
+             </div>
+          </div>
+
+          {/* --- NEW SPRINT STRATEGY CHART --- */}
+          {race.sprintStrategies && race.sprintStrategies.length > 0 && (
+             <div style={{ marginTop: '30px' }}>
+                <StrategyChart data={race.sprintStrategies} />
+             </div>
+          )}
         </div>
       )}
     </div>
