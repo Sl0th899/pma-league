@@ -1,22 +1,48 @@
-import React, { useState } from 'react';
+/* =========================================
+   0. IMPORTS
+   ========================================= */
+import React, { useState, useMemo } from 'react';
 import seasonSchedule from '../data/schedule.json';
+import Countdown from '../components/layout/Countdown'; 
 
+/* =========================================
+   1. HELPER FUNCTIONS
+   ========================================= */
 const getMapUrl = (filename) => `/tracks/${filename}`;
+
 const getFlagUrl = (countryName) => {
     const filename = countryName.toLowerCase().replace(/ /g, '-');
     return `/flags/${filename}.png`; 
 };
 
+/* =========================================
+   2. MAIN COMPONENT
+   ========================================= */
 const Calendar = () => {
+
+  /* --- STATE & VARIABLES --- */
   const [hoveredMap, setHoveredMap] = useState(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
+  /* --- LOGIC: FIND NEXT RACE --- */
+  // Finds the first race in the future based on the ISO timestamp
+  const nextRace = useMemo(() => {
+    const now = new Date();
+    return seasonSchedule.find(race => new Date(race.dateTime) > now);
+  }, []);
+
+  /* --- HANDLERS --- */
   const handleMouseMove = (e) => {
     setCursorPos({ x: e.clientX, y: e.clientY });
   };
 
+  /* =========================================
+     3. RENDER
+     ========================================= */
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
+        
+        {/* 3.1 INTERNAL STYLES (Specific to this page) */}
         <style>{`
             @font-face {
                 font-family: 'GR';
@@ -61,7 +87,6 @@ const Calendar = () => {
                 letter-spacing: 0.5px;
                 padding: 18px 0; 
             }
-            /* Renamed to avoid conflict */
             .reveal-block-cal {
                 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
                 background: #0466c8;
@@ -80,22 +105,40 @@ const Calendar = () => {
             }
         `}</style>
 
+        {/* 3.2 HEADER SECTION & COUNTDOWN */}
         <div style={{ 
-            display: 'flex', alignItems: 'center', gap: '20px', padding: '30px', 
+            display: 'flex', flexDirection: 'column', 
+            padding: '30px', 
             borderBottom: '4px solid var(--accent)',
             background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
         }}>
-            <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
-            <div style={{ borderLeft: '1px solid #555', paddingLeft: '20px' }}>
-                <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                    PMA Formula 1 Season 1 World Championship
-                </div>
-                <div style={{ fontSize: '32px', fontWeight: 'bold', textTransform: 'uppercase', fontStyle: 'italic' }}>
-                    Official Calendar
+            {/* Title Block */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
+                <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
+                <div style={{ borderLeft: '1px solid #555', paddingLeft: '20px' }}>
+                    <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                        PMA Formula 1 Season 1 World Championship
+                    </div>
+                    <div style={{ fontSize: '32px', fontWeight: 'bold', textTransform: 'uppercase', fontStyle: 'italic' }}>
+                        Official Calendar
+                    </div>
                 </div>
             </div>
+
+            {/* Countdown Block */}
+            {nextRace ? (
+             <div style={{ borderTop: '1px solid #444', paddingTop: '20px', textAlign: 'center' }}>
+                <div style={{ color: 'white', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '10px' }}>
+                   Next Race: <span style={{ color: 'var(--accent)', fontWeight: 'bold' }}>{nextRace.country} GP</span>
+                </div>
+                <Countdown targetDate={nextRace.dateTime} />
+             </div>
+           ) : (
+             <div style={{ textAlign: 'center', color: '#666', marginTop: '10px' }}>Season Completed</div>
+           )}
         </div>
         
+        {/* 3.3 SCHEDULE LIST */}
         <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
             <div className="schedule-header calendar-grid">
                 <span style={{ textAlign: 'center' }}>Rnd</span>
@@ -111,11 +154,13 @@ const Calendar = () => {
                   onMouseEnter={() => setHoveredMap(race)}
                   onMouseLeave={() => setHoveredMap(null)}
                 >
+                    {/* The Blue Swipe Animation Block */}
                     <div 
                         className="reveal-block-cal" 
                         style={{ animationDelay: `${index * 0.1}s` }} 
                     />
 
+                    {/* The Row Content */}
                     <div 
                         className="reveal-content calendar-grid"
                         style={{ animationDelay: `${index * 0.1}s` }}
@@ -148,6 +193,7 @@ const Calendar = () => {
                 </div>
             ))}
 
+            {/* 3.4 FLOATING MAP CURSOR */}
             <div 
               className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
               style={{ top: `${cursorPos.y + 20}px`, left: `${cursorPos.x + 20}px` }}
