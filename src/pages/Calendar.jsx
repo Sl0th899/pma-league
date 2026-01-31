@@ -20,49 +20,32 @@ const getFlagUrl = (countryName) => {
    ========================================= */
 const Calendar = () => {
 
-  /* --- STATE & VARIABLES --- */
   const [hoveredMap, setHoveredMap] = useState(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
-  /* --- LOGIC: FIND NEXT RACE --- */
   const nextRace = useMemo(() => {
     const now = new Date();
     return seasonSchedule.find(race => new Date(race.dateTime) > now);
   }, []);
 
-  /* --- HANDLERS --- */
   const handleMouseMove = (e) => {
     setCursorPos({ x: e.clientX, y: e.clientY });
   };
 
-  /* =========================================
-     3. RENDER
-     ========================================= */
   return (
-    <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
+    <div className="panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         
-        {/* 3.1 INTERNAL STYLES */}
         <style>{`
-            /* EXISTING FONTS */
             @font-face { font-family: 'GR'; src: url('/fonts/GR.ttf') format('truetype'); }
-            
-            /* --- NEW FONTS --- */
-            @font-face {
-                font-family: 'Moret';
-                src: url('/fonts/Moret-Regular.ttf') format('truetype');
-            }
-            @font-face {
-                font-family: 'Brush Script';
-                src: url('/fonts/Brush-Script-Italic.ttf') format('truetype');
-                font-style: italic;
-            }
+            @font-face { font-family: 'Moret'; src: url('/fonts/Moret-Regular.ttf') format('truetype'); }
+            @font-face { font-family: 'Against'; src: url('/fonts/against-regular.ttf') format('truetype'); }
 
-            /* EXISTING STYLES */
             .calendar-grid { display: grid; grid-template-columns: 10% 40% 30% 20%; align-items: center; padding: 0 20px; }
             @keyframes swipe-calendar { 0% { transform: translateX(-101%); } 100% { transform: translateX(101%); } }
             @keyframes text-appear { 0% { opacity: 0; } 51% { opacity: 1; } 100% { opacity: 1; } }
-            .reveal-row { position: relative; overflow: hidden; border-bottom: 2px solid #111; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; }
-            .reveal-row:hover { transform: translateY(-5px); background-color: #1a1a1a; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 10; border-bottom: 2px solid transparent; }
+            
+            .reveal-row { position: relative; overflow: hidden; border-bottom: 2px solid #111; transition: background-color 0.2s; }
+            .reveal-row:hover { background-color: #1a1a1a; z-index: 10; border-bottom: 2px solid transparent; }
             .reveal-content { opacity: 0; animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; font-family: 'GR', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; padding: 18px 0; }
             .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
@@ -71,10 +54,9 @@ const Calendar = () => {
             .countdown-wrapper {
                 position: relative;
                 text-align: center;
-                padding: 50px 0;
+                padding: 60px 0;
                 background-color: #121212; 
-                border-top: 1px solid #333;
-                /* Ensure the script doesn't get cut off if it extends slightly */
+                border-top: 4px solid var(--accent);
                 overflow: visible; 
             }
             .next-race-label {
@@ -83,42 +65,41 @@ const Calendar = () => {
                 color: #888;
                 text-transform: uppercase;
                 letter-spacing: 3px;
-                margin-bottom: 15px;
-                position: relative;
-                z-index: 2; /* Above background, below script */
+                margin-bottom: 10px;
             }
             .track-icon-small {
-                width: 40px;
+                width: 30px;
                 height: auto;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
                 filter: invert(1) opacity(0.5); 
-                position: relative;
-                z-index: 2;
             }
             .race-day-script {
                 position: absolute;
-                top: 50%; /* FIXED: Changed from 55% to 50% for dead center */
+                top: 50%;
                 left: 50%;
-                transform: translate(-50%, -50%) rotate(-8deg);
-                font-family: 'Brush Script', cursive;
-                font-size: 140px;
-                color: #ccff00; 
-                /* FIXED: Z-index increased significantly to ensure it's on top */
-                z-index: 20; 
+                transform: translate(-50%, -50%) rotate(-5deg);
+                /* CHANGED FONT TO 'Against' */
+                font-family: 'Against', sans-serif; 
+                /* SMALLER SIZE */
+                font-size: 80px; 
+                /* NEW BLUE COLOR */
+                color: #0096c7; 
+                z-index: 10; 
                 pointer-events: none; 
                 white-space: nowrap;
-                text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
-                /* FIXED: Removed mix-blend-mode: lighten; This was causing the white text to cut through */
+                opacity: 0.9;
+                /* Mix blend mode multiply helps it sit 'on' the text if desired, or normal to sit on top */
+                mix-blend-mode: normal; 
             }
         `}</style>
 
-        {/* 3.2 HEADER SECTION */}
+        {/* --- HEADER --- */}
         <div style={{ 
             display: 'flex', flexDirection: 'column', 
             padding: '30px 30px 0 30px', 
-            background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
+            background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)',
+            borderBottom: '4px solid var(--accent)'
         }}>
-            {/* Title Block */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
                 <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
                 <div style={{ borderLeft: '1px solid #555', paddingLeft: '20px' }}>
@@ -131,28 +112,9 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
-            
-        {/* 3.3 NEW COUNTDOWN SECTION */}
-        {nextRace ? (
-            <div className="countdown-wrapper">
-                {/* Track Icon */}
-                <img src={getMapUrl(nextRace.map)} alt="Track" className="track-icon-small" />
-                
-                {/* Label */}
-                <div className="next-race-label">NEXT RACE BEGINS IN...</div>
-                
-                {/* The Countdown Component */}
-                <Countdown targetDate={nextRace.dateTime} />
-
-                {/* The "Race Day" Overlay Script */}
-                <div className="race-day-script">Race Day</div>
-            </div>
-        ) : (
-            <div style={{ textAlign: 'center', color: '#666', padding: '30px', background: '#1a1a1a' }}>Season Completed</div>
-        )}
         
-        {/* 3.4 SCHEDULE LIST (No changes here) */}
-        <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative', borderTop: '4px solid var(--accent)' }}>
+        {/* --- SCHEDULE LIST (Now First) --- */}
+        <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
             <div className="schedule-header calendar-grid">
                 <span style={{ textAlign: 'center' }}>Rnd</span>
                 <span style={{ textAlign: 'left' }}>Location</span>
@@ -167,38 +129,20 @@ const Calendar = () => {
                   onMouseEnter={() => setHoveredMap(race)}
                   onMouseLeave={() => setHoveredMap(null)}
                 >
-                    <div 
-                        className="reveal-block-cal" 
-                        style={{ animationDelay: `${index * 0.1}s` }} 
-                    />
-                    <div 
-                        className="reveal-content calendar-grid"
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                    >
+                    <div className="reveal-block-cal" style={{ animationDelay: `${index * 0.1}s` }} />
+                    <div className="reveal-content calendar-grid" style={{ animationDelay: `${index * 0.1}s` }}>
                         <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
                             {String(race.round).padStart(2, '0')}
                         </div>
                         <div style={{ textAlign: 'left', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '24px', fontWeight: 'bold' }}>
                             {race.country}
-                            <img 
-                                src={getFlagUrl(race.country)} 
-                                alt={race.country} 
-                                style={{ height: '20px', width: 'auto', borderRadius: '2px', opacity: 0.8 }}
-                            />
+                            <img src={getFlagUrl(race.country)} alt={race.country} style={{ height: '20px', width: 'auto', borderRadius: '2px', opacity: 0.8 }} />
                             {race.sprint && (
-                                <span style={{ 
-                                    backgroundColor: 'white', color: 'black', fontSize: '11px', 
-                                    padding: '3px 6px', borderRadius: '4px', fontWeight: 'bold', fontFamily: 'sans-serif',
-                                    verticalAlign: 'middle'
-                                }}>SPRINT</span>
+                                <span style={{ backgroundColor: 'white', color: 'black', fontSize: '11px', padding: '3px 6px', borderRadius: '4px', fontWeight: 'bold', verticalAlign: 'middle', fontFamily: 'sans-serif' }}>SPRINT</span>
                             )}
                         </div>
-                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
-                            {race.date}
-                        </div>
-                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
-                            {race.laps}
-                        </div>
+                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>{race.date}</div>
+                        <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>{race.laps}</div>
                     </div>
                 </div>
             ))}
@@ -215,6 +159,23 @@ const Calendar = () => {
                )}
             </div>
         </div>
+
+        {/* --- NEW COUNTDOWN SECTION (Now at Bottom) --- */}
+        {nextRace ? (
+            <div className="countdown-wrapper">
+                <img src={getMapUrl(nextRace.map)} alt="Track" className="track-icon-small" />
+                <div className="next-race-label">NEXT RACE BEGINS IN...</div>
+                
+                {/* The Countdown Component */}
+                <Countdown targetDate={nextRace.dateTime} />
+
+                {/* The "Race Day" Overlay Script */}
+                <div className="race-day-script">Race Day</div>
+            </div>
+        ) : (
+            <div style={{ textAlign: 'center', color: '#666', padding: '30px', background: '#1a1a1a' }}>Season Completed</div>
+        )}
+
     </div>
   );
 };

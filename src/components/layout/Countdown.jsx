@@ -22,46 +22,32 @@ const calculateTimeLeft = (targetDate) => {
 };
 
 /* =========================================
-   2. SUB-COMPONENTS (The new design)
+   2. SUB-COMPONENTS
    ========================================= */
-const TimeBox = ({ val, label }) => (
-  <div style={{ 
-      position: 'relative', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      margin: '0 10px',
-      height: '160px',
-      width: '140px'
-  }}>
-    {/* The Background Label (D, H, M, S) */}
-    <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+const TimeGroup = ({ val, label }) => (
+  <div style={{ display: 'flex', alignItems: 'baseline', margin: '0 10px' }}>
+    {/* The Number (Bright White) */}
+    <span style={{
         fontFamily: 'Moret, sans-serif',
-        fontSize: '180px',
-        color: '#222', // Very dark grey, subtle
-        zIndex: 1,
+        fontSize: '120px', // Bigger as requested
+        color: '#f0f0f0',
         lineHeight: 1,
-        userSelect: 'none'
-    }}>
-      {label.charAt(0)}
-    </div>
-
-    {/* The Number */}
-    <div style={{
-        fontFamily: 'Moret, sans-serif',
-        fontSize: '130px',
-        color: '#f0f0f0', // Bright white/grey
-        zIndex: 5,
-        position: 'relative',
-        lineHeight: 1,
-        textShadow: '0 5px 15px rgba(0,0,0,0.5)'
+        fontWeight: 'bold'
     }}>
       {val !== undefined ? String(val).padStart(2, '0') : '00'}
-    </div>
+    </span>
+
+    {/* The Label (Dark Grey, Next to it) */}
+    <span style={{
+        fontFamily: 'Moret, sans-serif',
+        fontSize: '120px', 
+        color: '#333', // Dark grey to recede into background
+        lineHeight: 1,
+        marginLeft: '2px',
+        fontWeight: 'bold'
+    }}>
+      {label.charAt(0)}
+    </span>
   </div>
 );
 
@@ -81,11 +67,17 @@ const Countdown = ({ targetDate }) => {
   }, [targetDate]);
 
   return (
-    <div className="countdown-container" style={{ display: 'flex', justifyContent: 'center', position: 'relative', zIndex: 5 }}>
-      <TimeBox val={timeLeft.days} label="Days" />
-      <TimeBox val={timeLeft.hours} label="Hrs" />
-      <TimeBox val={timeLeft.minutes} label="Mins" />
-      <TimeBox val={timeLeft.seconds} label="Secs" />
+    <div className="countdown-container" style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        flexWrap: 'wrap',
+        position: 'relative', 
+        zIndex: 5 
+    }}>
+      <TimeGroup val={timeLeft.days} label="Days" />
+      <TimeGroup val={timeLeft.hours} label="Hours" />
+      <TimeGroup val={timeLeft.minutes} label="Minutes" />
+      <TimeGroup val={timeLeft.seconds} label="Seconds" />
     </div>
   );
 };
