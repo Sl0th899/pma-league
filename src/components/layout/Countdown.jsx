@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 
 /* =========================================
-   1. Math (Helper Functions)
+   1. HELPER LOGIC
    ========================================= */
 const calculateTimeLeft = (targetDate) => {
   const difference = +new Date(targetDate) - +new Date();
@@ -22,63 +22,66 @@ const calculateTimeLeft = (targetDate) => {
 };
 
 /* =========================================
-   2. Visuals (Sub-components)
+   2. SUB-COMPONENTS (The new design)
    ========================================= */
-// days, Hrs, etc.
 const TimeBox = ({ val, label }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 10px' }}>
-    {/* number box */}
+  <div style={{ 
+      position: 'relative', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      margin: '0 10px',
+      height: '160px',
+      width: '140px'
+  }}>
+    {/* The Background Label (D, H, M, S) */}
     <div style={{
-        background: '#222',
-        color: 'var(--accent)', 
-        fontSize: '32px',
-        fontWeight: 'bold',
-        width: '70px',
-        height: '70px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '8px',
-        boxShadow: '0 4px 10px rgba(0,0,0,0.5)',
-        fontFamily: 'monospace' 
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        fontFamily: 'Moret, sans-serif',
+        fontSize: '180px',
+        color: '#222', // Very dark grey, subtle
+        zIndex: 1,
+        lineHeight: 1,
+        userSelect: 'none'
     }}>
-      {/* "5" becomes "05") */}
-      {val !== undefined ? String(val).padStart(2, '0') : '00'}
+      {label.charAt(0)}
     </div>
 
-    {/* Labels*/}
-    <div style={{ 
-        fontSize: '12px', 
-        textTransform: 'uppercase', 
-        color: '#888', 
-        marginTop: '5px',
-        fontWeight: 'bold'
+    {/* The Number */}
+    <div style={{
+        fontFamily: 'Moret, sans-serif',
+        fontSize: '130px',
+        color: '#f0f0f0', // Bright white/grey
+        zIndex: 5,
+        position: 'relative',
+        lineHeight: 1,
+        textShadow: '0 5px 15px rgba(0,0,0,0.5)'
     }}>
-      {label}
+      {val !== undefined ? String(val).padStart(2, '0') : '00'}
     </div>
   </div>
 );
 
 /* =========================================
-   3. MAIN (state & effects)
+   3. MAIN COMPONENT
    ========================================= */
 const Countdown = ({ targetDate }) => {
-  // prevent "00" flash on load
+  
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
-  // Update the timer every 1sec 
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
-    // Cleanup interval when component leaves screen
+
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  /* =========================================
-     4. RENDER
-     ========================================= */
   return (
-    <div className="countdown-container" style={{ display: 'flex', justifyContent: 'center', padding: '20px 0' }}>
+    <div className="countdown-container" style={{ display: 'flex', justifyContent: 'center', position: 'relative', zIndex: 5 }}>
       <TimeBox val={timeLeft.days} label="Days" />
       <TimeBox val={timeLeft.hours} label="Hrs" />
       <TimeBox val={timeLeft.minutes} label="Mins" />
