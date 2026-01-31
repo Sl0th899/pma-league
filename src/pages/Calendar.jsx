@@ -72,9 +72,10 @@ const Calendar = () => {
                 position: relative;
                 text-align: center;
                 padding: 50px 0;
-                background-color: #121212; /* Match image background */
+                background-color: #121212; 
                 border-top: 1px solid #333;
-                overflow: hidden;
+                /* Ensure the script doesn't get cut off if it extends slightly */
+                overflow: visible; 
             }
             .next-race-label {
                 font-family: sans-serif;
@@ -83,26 +84,31 @@ const Calendar = () => {
                 text-transform: uppercase;
                 letter-spacing: 3px;
                 margin-bottom: 15px;
+                position: relative;
+                z-index: 2; /* Above background, below script */
             }
             .track-icon-small {
                 width: 40px;
                 height: auto;
                 margin-bottom: 15px;
-                filter: invert(1) opacity(0.5); /* Make it white and subtle */
+                filter: invert(1) opacity(0.5); 
+                position: relative;
+                z-index: 2;
             }
             .race-day-script {
                 position: absolute;
-                top: 55%;
+                top: 50%; /* FIXED: Changed from 55% to 50% for dead center */
                 left: 50%;
                 transform: translate(-50%, -50%) rotate(-8deg);
                 font-family: 'Brush Script', cursive;
                 font-size: 140px;
-                color: #ccff00; /* Neon green/yellow */
-                z-index: 10;
-                pointer-events: none; /* Let clicks pass through */
+                color: #ccff00; 
+                /* FIXED: Z-index increased significantly to ensure it's on top */
+                z-index: 20; 
+                pointer-events: none; 
                 white-space: nowrap;
-                text-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
-                mix-blend-mode: lighten; /* Helps it pop over the numbers */
+                text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+                /* FIXED: Removed mix-blend-mode: lighten; This was causing the white text to cut through */
             }
         `}</style>
 
