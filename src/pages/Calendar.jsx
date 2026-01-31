@@ -86,7 +86,7 @@ const Calendar = () => {
             .countdown-wrapper {
                 position: relative;
                 text-align: center;
-                padding: 60px 0;
+                padding: 150px 0;
                 background-color: #121212; 
                 border-top: 4px solid var(--accent);
                 overflow: hidden; 

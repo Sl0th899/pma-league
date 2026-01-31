@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/navbar';
 
 // Import Pages
@@ -11,6 +11,17 @@ import News from './pages/News';
 import NotFound from './pages/NotFound';
 import Preloader from './components/layout/preloader';
 
+// --- NEW HELPER: SCROLL TO TOP ---
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -20,6 +31,9 @@ function App() {
 
       {!loading && (
         <Router>
+          {/* This component watches for route changes and resets scroll */}
+          <ScrollToTop />
+          
           <Navbar />
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
             <Routes>
