@@ -4,7 +4,7 @@
     "country": "AUSTRALIA", 
     "flag": "🇦🇺", 
     "date": "20-21 DEC", 
-    "dateTime": "2026-12-21T05:00:00Z", 
+    "dateTime": "2025-12-21T05:00:00Z", 
     "laps": 30, 
     "sprint": false, 
     "map": "australia.avif" 
@@ -14,7 +14,7 @@
     "country": "AZERBAIJAN", 
     "flag": "🇦🇿", 
     "date": "27-28 DEC", 
-    "dateTime": "2026-12-28T13:00:00Z", 
+    "dateTime": "2025-12-28T13:00:00Z", 
     "laps": 30, 
     "sprint": true, 
     "map": "azerbaijan.avif" 
