@@ -41,23 +41,55 @@ const Calendar = () => {
             @font-face { font-family: 'Against'; src: url('/fonts/against-regular.ttf') format('truetype'); }
 
             .calendar-grid { display: grid; grid-template-columns: 10% 40% 30% 20%; align-items: center; padding: 0 20px; }
-            @keyframes swipe-calendar { 0% { transform: translateX(-101%); } 100% { transform: translateX(101%); } }
-            @keyframes text-appear { 0% { opacity: 0; } 51% { opacity: 1; } 100% { opacity: 1; } }
+            
+            /* --- ANIMATION FROM CHAMPIONSHIP --- */
+            @keyframes swipe-calendar {
+                0% { transform: translateX(-101%); }
+                40% { transform: translateX(0); }
+                60% { transform: translateX(0); }
+                100% { transform: translateX(101%); }
+            }
+            @keyframes text-appear {
+                0% { opacity: 0; }
+                50% { opacity: 0; }
+                51% { opacity: 1; }
+                100% { opacity: 1; }
+            }
             
             .reveal-row { position: relative; overflow: hidden; border-bottom: 2px solid #111; transition: background-color 0.2s; }
             .reveal-row:hover { background-color: #1a1a1a; z-index: 10; border-bottom: 2px solid transparent; }
-            .reveal-content { opacity: 0; animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; font-family: 'GR', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; padding: 18px 0; }
-            .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+            
+            /* Content Block */
+            .reveal-content { 
+                opacity: 0; 
+                animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; 
+                font-family: 'GR', sans-serif; 
+                text-transform: uppercase; 
+                letter-spacing: 0.5px; 
+                padding: 18px 0; 
+                display: grid; /* Ensuring it keeps grid layout */
+                width: 100%;
+            }
+
+            /* Swipe Block - Using correct timing */
+            .reveal-block-cal { 
+                position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                background: #0466c8; /* Calendar Theme Blue */
+                transform: translateX(-101%); 
+                z-index: 2; 
+                animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; 
+            }
+
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
 
-            /* --- NEW COUNTDOWN STYLES --- */
+            /* --- COUNTDOWN STYLES --- */
             .countdown-wrapper {
                 position: relative;
                 text-align: center;
                 padding: 60px 0;
                 background-color: #121212; 
                 border-top: 4px solid var(--accent);
-                overflow: visible; 
+                overflow: hidden; 
             }
             .next-race-label {
                 font-family: sans-serif;
@@ -65,31 +97,13 @@ const Calendar = () => {
                 color: #888;
                 text-transform: uppercase;
                 letter-spacing: 3px;
-                margin-bottom: 10px;
+                margin-bottom: 0; /* Reduced margin */
             }
             .track-icon-small {
                 width: 30px;
                 height: auto;
                 margin-bottom: 10px;
                 filter: invert(1) opacity(0.5); 
-            }
-            .race-day-script {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(-5deg);
-                /* CHANGED FONT TO 'Against' */
-                font-family: 'Against', sans-serif; 
-                /* SMALLER SIZE */
-                font-size: 80px; 
-                /* NEW BLUE COLOR */
-                color: #0096c7; 
-                z-index: 10; 
-                pointer-events: none; 
-                white-space: nowrap;
-                opacity: 0.9;
-                /* Mix blend mode multiply helps it sit 'on' the text if desired, or normal to sit on top */
-                mix-blend-mode: normal; 
             }
         `}</style>
 
@@ -113,7 +127,7 @@ const Calendar = () => {
             </div>
         </div>
         
-        {/* --- SCHEDULE LIST (Now First) --- */}
+        {/* --- SCHEDULE LIST --- */}
         <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
             <div className="schedule-header calendar-grid">
                 <span style={{ textAlign: 'center' }}>Rnd</span>
@@ -130,6 +144,8 @@ const Calendar = () => {
                   onMouseLeave={() => setHoveredMap(null)}
                 >
                     <div className="reveal-block-cal" style={{ animationDelay: `${index * 0.1}s` }} />
+                    
+                    {/* Added 'calendar-grid' class here to ensure layout inside the animation container */}
                     <div className="reveal-content calendar-grid" style={{ animationDelay: `${index * 0.1}s` }}>
                         <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: '#666' }}>
                             {String(race.round).padStart(2, '0')}
@@ -160,17 +176,14 @@ const Calendar = () => {
             </div>
         </div>
 
-        {/* --- NEW COUNTDOWN SECTION (Now at Bottom) --- */}
+        {/* --- COUNTDOWN SECTION (Updated) --- */}
         {nextRace ? (
             <div className="countdown-wrapper">
                 <img src={getMapUrl(nextRace.map)} alt="Track" className="track-icon-small" />
                 <div className="next-race-label">NEXT RACE BEGINS IN...</div>
                 
-                {/* The Countdown Component */}
+                {/* Countdown (Increased Size, No overlay text) */}
                 <Countdown targetDate={nextRace.dateTime} />
-
-                {/* The "Race Day" Overlay Script */}
-                <div className="race-day-script">Race Day</div>
             </div>
         ) : (
             <div style={{ textAlign: 'center', color: '#666', padding: '30px', background: '#1a1a1a' }}>Season Completed</div>
