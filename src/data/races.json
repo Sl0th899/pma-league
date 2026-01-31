@@ -657,9 +657,7 @@
     "incidents": [
       "Lap 11 - RED FLAG (Race Restarted)",
       "Ethanicus - DNF (Crash after RF)",
-      "GGGF - DNF (Crash after RF)",
-      "Holi - 2 Stop Strategy (Med > Soft > Hard)",
-      "Lill/Refl - Pitted before Red Flag"
+      "GGGF - DNF (Crash after RF)"
     ],
     "raceResults": [
       { "pos": 1, "driverId": "drv_hx4p", "gap": "Winner", "status": "finished", "points": 25 },
