@@ -25,7 +25,6 @@ const Calendar = () => {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
   /* --- LOGIC: FIND NEXT RACE --- */
-  // Finds the first race in the future based on the ISO timestamp
   const nextRace = useMemo(() => {
     const now = new Date();
     return seasonSchedule.find(race => new Date(race.dateTime) > now);
@@ -42,78 +41,79 @@ const Calendar = () => {
   return (
     <div className="panel" style={{ padding: '0', overflow: 'hidden' }}>
         
-        {/* 3.1 INTERNAL STYLES (Specific to this page) */}
+        {/* 3.1 INTERNAL STYLES */}
         <style>{`
+            /* EXISTING FONTS */
+            @font-face { font-family: 'GR'; src: url('/fonts/GR.ttf') format('truetype'); }
+            
+            /* --- NEW FONTS --- */
             @font-face {
-                font-family: 'GR';
-                src: url('/fonts/GR.ttf') format('truetype');
+                font-family: 'Moret';
+                src: url('/fonts/Moret-Regular.ttf') format('truetype');
             }
-            .calendar-grid {
-                display: grid;
-                grid-template-columns: 10% 40% 30% 20%; 
-                align-items: center;
-                padding: 0 20px;
+            @font-face {
+                font-family: 'Brush Script';
+                src: url('/fonts/Brush-Script-Italic.ttf') format('truetype');
+                font-style: italic;
             }
-            @keyframes swipe-calendar {
-                0% { transform: translateX(-101%); }
-                40% { transform: translateX(0); }
-                60% { transform: translateX(0); }
-                100% { transform: translateX(101%); }
-            }
-            @keyframes text-appear {
-                0% { opacity: 0; }
-                50% { opacity: 0; }
-                51% { opacity: 1; }
-                100% { opacity: 1; }
-            }
-            .reveal-row {
+
+            /* EXISTING STYLES */
+            .calendar-grid { display: grid; grid-template-columns: 10% 40% 30% 20%; align-items: center; padding: 0 20px; }
+            @keyframes swipe-calendar { 0% { transform: translateX(-101%); } 100% { transform: translateX(101%); } }
+            @keyframes text-appear { 0% { opacity: 0; } 51% { opacity: 1; } 100% { opacity: 1; } }
+            .reveal-row { position: relative; overflow: hidden; border-bottom: 2px solid #111; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; }
+            .reveal-row:hover { transform: translateY(-5px); background-color: #1a1a1a; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 10; border-bottom: 2px solid transparent; }
+            .reveal-content { opacity: 0; animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; font-family: 'GR', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; padding: 18px 0; }
+            .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+            .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
+
+            /* --- NEW COUNTDOWN STYLES --- */
+            .countdown-wrapper {
                 position: relative;
+                text-align: center;
+                padding: 50px 0;
+                background-color: #121212; /* Match image background */
+                border-top: 1px solid #333;
                 overflow: hidden;
-                border-bottom: 2px solid #111;
-                transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s;
             }
-            .reveal-row:hover {
-                transform: translateY(-5px);
-                background-color: #1a1a1a;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-                z-index: 10;
-                border-bottom: 2px solid transparent;
-            }
-            .reveal-content {
-                opacity: 0;
-                animation: text-appear 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-                font-family: 'GR', sans-serif;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                padding: 18px 0; 
-            }
-            .reveal-block-cal {
-                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                background: #0466c8;
-                transform: translateX(-101%);
-                z-index: 2;
-                animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; 
-            }
-            .schedule-header {
+            .next-race-label {
                 font-family: sans-serif;
-                font-size: 12px;
+                font-size: 10px;
                 color: #888;
-                padding: 15px 0;
-                border-bottom: 2px solid #444;
-                margin-bottom: 0;
-                background: #151515;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-bottom: 15px;
+            }
+            .track-icon-small {
+                width: 40px;
+                height: auto;
+                margin-bottom: 15px;
+                filter: invert(1) opacity(0.5); /* Make it white and subtle */
+            }
+            .race-day-script {
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-8deg);
+                font-family: 'Brush Script', cursive;
+                font-size: 140px;
+                color: #ccff00; /* Neon green/yellow */
+                z-index: 10;
+                pointer-events: none; /* Let clicks pass through */
+                white-space: nowrap;
+                text-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+                mix-blend-mode: lighten; /* Helps it pop over the numbers */
             }
         `}</style>
 
-        {/* 3.2 HEADER SECTION & COUNTDOWN */}
+        {/* 3.2 HEADER SECTION */}
         <div style={{ 
             display: 'flex', flexDirection: 'column', 
-            padding: '30px', 
-            borderBottom: '4px solid var(--accent)',
+            padding: '30px 30px 0 30px', 
             background: 'linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%)'
         }}>
             {/* Title Block */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
                 <div style={{ fontFamily: 'Against', fontSize: '40px', color: 'white', lineHeight: '1' }}>PMA</div>
                 <div style={{ borderLeft: '1px solid #555', paddingLeft: '20px' }}>
                     <div style={{ fontSize: '14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
@@ -124,22 +124,29 @@ const Calendar = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Countdown Block */}
-            {nextRace ? (
-             <div style={{ borderTop: '1px solid #444', paddingTop: '20px', textAlign: 'center' }}>
-                <div style={{ color: 'white', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '10px' }}>
-                   Next Race: <span style={{ color: 'var(--accent)', fontWeight: 'bold' }}>{nextRace.country} GP</span>
-                </div>
-                <Countdown targetDate={nextRace.dateTime} />
-             </div>
-           ) : (
-             <div style={{ textAlign: 'center', color: '#666', marginTop: '10px' }}>Season Completed</div>
-           )}
         </div>
+            
+        {/* 3.3 NEW COUNTDOWN SECTION */}
+        {nextRace ? (
+            <div className="countdown-wrapper">
+                {/* Track Icon */}
+                <img src={getMapUrl(nextRace.map)} alt="Track" className="track-icon-small" />
+                
+                {/* Label */}
+                <div className="next-race-label">NEXT RACE BEGINS IN...</div>
+                
+                {/* The Countdown Component */}
+                <Countdown targetDate={nextRace.dateTime} />
+
+                {/* The "Race Day" Overlay Script */}
+                <div className="race-day-script">Race Day</div>
+            </div>
+        ) : (
+            <div style={{ textAlign: 'center', color: '#666', padding: '30px', background: '#1a1a1a' }}>Season Completed</div>
+        )}
         
-        {/* 3.3 SCHEDULE LIST */}
-        <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
+        {/* 3.4 SCHEDULE LIST (No changes here) */}
+        <div className="schedule-list" onMouseMove={handleMouseMove} style={{ position: 'relative', borderTop: '4px solid var(--accent)' }}>
             <div className="schedule-header calendar-grid">
                 <span style={{ textAlign: 'center' }}>Rnd</span>
                 <span style={{ textAlign: 'left' }}>Location</span>
@@ -154,13 +161,10 @@ const Calendar = () => {
                   onMouseEnter={() => setHoveredMap(race)}
                   onMouseLeave={() => setHoveredMap(null)}
                 >
-                    {/* The Blue Swipe Animation Block */}
                     <div 
                         className="reveal-block-cal" 
                         style={{ animationDelay: `${index * 0.1}s` }} 
                     />
-
-                    {/* The Row Content */}
                     <div 
                         className="reveal-content calendar-grid"
                         style={{ animationDelay: `${index * 0.1}s` }}
@@ -193,7 +197,6 @@ const Calendar = () => {
                 </div>
             ))}
 
-            {/* 3.4 FLOATING MAP CURSOR */}
             <div 
               className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
               style={{ top: `${cursorPos.y + 20}px`, left: `${cursorPos.x + 20}px` }}
