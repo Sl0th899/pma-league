@@ -74,7 +74,7 @@ const Calendar = () => {
             .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
 
-            /* --- UPDATED POPUP STYLES (PAPER WHITE) --- */
+            /* --- UPDATED POPUP STYLES (Flat White, No Shadow) --- */
             .cursor-map-popup {
                 position: fixed; 
                 top: 0; 
@@ -90,7 +90,7 @@ const Calendar = () => {
                 align-items: center;
                 justify-content: center;
                 opacity: 0;
-                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                /* box-shadow removed for flat look */
                 transition: opacity 0.2s ease;
                 margin-top: 20px; 
                 margin-left: 20px;
@@ -117,19 +117,9 @@ const Calendar = () => {
                 height: 80%;
                 object-fit: contain;
                 z-index: 2;
-                /* REMOVED FILTER: Colors are now untouched */
             }
 
-            .popup-label {
-                position: absolute;
-                bottom: 15px;
-                font-size: 14px;
-                color: #000000; /* Black text on White paper */
-                font-weight: bold;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                font-family: 'Against', sans-serif;
-            }
+            /* popup-label style removed as text is gone */
 
             .countdown-wrapper { text-align: center; padding: 0; }
             .next-race-label { font-family: sans-serif; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
@@ -190,16 +180,13 @@ const Calendar = () => {
                     </div>
                 ))}
                 
-                {/* --- FLOATING POPUP (With Physics Ref) --- */}
+                {/* --- FLOATING POPUP (Physics Ref, No Text, No Shadow) --- */}
                 <div 
                   ref={popupRef}
                   className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
                 >
                    {hoveredMap && (
-                      <>
-                          <img src={getMapUrl(hoveredMap.map)} alt={hoveredMap.country} onError={(e) => e.target.style.display = 'none'} />
-                          <div className="popup-label">{hoveredMap.country}</div>
-                      </>
+                      <img src={getMapUrl(hoveredMap.map)} alt={hoveredMap.country} onError={(e) => e.target.style.display = 'none'} />
                    )}
                 </div>
             </div>
