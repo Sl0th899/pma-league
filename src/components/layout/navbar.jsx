@@ -27,17 +27,32 @@ const Navbar = () => {
       transition: 'padding 0.4s ease', 
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
+      {/* Internal Styles: Font & Hover Glow */}
       <style>{`
         @font-face {
           font-family: 'Amsterdamer';
           src: url('/fonts/Amsterdamer-Garamont-Regular.ttf') format('truetype');
         }
+
+        /* Hover Effect for Nav Links */
+        .nav-link-item {
+          font-family: 'Amsterdamer', sans-serif;
+          font-weight: normal;
+          font-size: 18px; /* Slightly bigger */
+          text-decoration: none;
+          color: rgba(255, 255, 255, 0.7); /* Default dimmed white */
+          transition: all 0.3s ease;
+        }
+
+        .nav-link-item:hover,
+        .nav-link-item.active {
+          color: white;
+          text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* The Glow Effect */
+        }
       `}</style>
       
-      {/* LEFT: Logo with Mixed Fonts */}
+      {/* LEFT: Logo */}
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-        
-        {/* 1. PMA: Clean, Bold, Standard Font */}
         <span style={{ 
             fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif', 
             fontWeight: '900', 
@@ -48,11 +63,7 @@ const Navbar = () => {
         }}>
             PMA
         </span>
-
-        {/* 2. | : Simple Separator */}
         <span style={{ fontSize: logoSize, color: '#666', fontWeight: '300' }}>|</span>
-
-        {/* 3. FATE: The "Against" Font */}
         <span style={{ 
             fontFamily: 'Against', 
             fontWeight: 'normal', 
@@ -65,33 +76,29 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Navigation Links - Amsterdamer Font, Size Increased by 5px (21px) */}
-      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Amsterdamer, sans-serif' }}>
+      {/* RIGHT: Navigation Links */}
+      <div style={{ display: 'flex', gap: '30px' }}>
         <Link 
           to="/" 
-          className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
+          className={`nav-link-item ${location.pathname === '/' ? 'active' : ''}`}
         >
             Home
         </Link>
         <Link 
           to="/calendar" 
-          className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
+          className={`nav-link-item ${location.pathname === '/calendar' ? 'active' : ''}`}
         >
             Calendar
         </Link>
         <Link 
           to="/championship" 
-          className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
+          className={`nav-link-item ${location.pathname === '/championship' ? 'active' : ''}`}
         >
             Championship
         </Link>
         <Link 
           to="/news" 
-          className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
+          className={`nav-link-item ${location.pathname === '/news' ? 'active' : ''}`}
         >
             News
         </Link>
