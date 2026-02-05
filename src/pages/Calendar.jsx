@@ -33,7 +33,9 @@ const Calendar = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
+    // --- UPDATED MAIN WRAPPER ---
+    // Added margin: '0 -20px' to counteract the global app padding
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '60px', margin: '0 -20px' }}>
         
         {/* 3.1 INTERNAL STYLES */}
         <style>{`
@@ -69,7 +71,7 @@ const Calendar = () => {
                 margin-bottom: 20px;
             }
             .track-icon-large {
-                width: 100px; /* Big increase */
+                width: 100px;
                 height: auto;
                 margin-bottom: 20px;
                 filter: invert(1) opacity(0.8); 
@@ -77,7 +79,7 @@ const Calendar = () => {
         `}</style>
 
         {/* 3.2 THE PANEL (ONLY CONTAINS HEADER & LIST NOW) */}
-        <div className="panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <div className="panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', borderRadius: 0 }}>
             {/* Header */}
             <div style={{ 
                 display: 'flex', flexDirection: 'column', 
