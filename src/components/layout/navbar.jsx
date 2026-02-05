@@ -27,11 +27,11 @@ const Navbar = () => {
       transition: 'padding 0.4s ease', 
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
-      {/* Internal Style for Moret Font */}
+      {/* Internal Style for Speltale Font */}
       <style>{`
         @font-face {
-          font-family: 'Moret';
-          src: url('/fonts/Moret-Regular.otf') format('opentype');
+          font-family: 'Speltale';
+          src: url('/fonts/speltalefont-demo-regular.otf') format('opentype');
         }
       `}</style>
       
@@ -66,18 +66,18 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Navigation Links - Font Changed to Moret */}
-      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Moret, sans-serif' }}>
-        <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+      {/* RIGHT: Navigation Links - Font Changed to Speltale */}
+      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Speltale, sans-serif' }}>
+        <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
             Home
         </Link>
-        <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+        <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
             Calendar
         </Link>
-        <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+        <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
             Championship
         </Link>
-        <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+        <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
             News
         </Link>
       </div>
