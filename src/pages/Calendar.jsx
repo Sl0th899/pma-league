@@ -74,10 +74,10 @@ const Calendar = () => {
                 margin-bottom: 10px;
             }
             .track-icon-large {
-                width: 100px;
+                width: 90px; /* CHANGED: Reduced by 10px */
                 height: auto;
                 margin-bottom: 20px;
-                filter: invert(1) opacity(0.8); 
+                /* filter: invert(1) opacity(0.8);  <--- REMOVED FILTER */
             }
         `}</style>
 
