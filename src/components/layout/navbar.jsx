@@ -27,32 +27,28 @@ const Navbar = () => {
       transition: 'padding 0.4s ease', 
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
-      {/* Internal Styles: Font & Hover Glow */}
+      {/* Internal Style: Font Definition & Glow Effect */}
       <style>{`
         @font-face {
-          font-family: 'Amsterdamer';
-          src: url('/fonts/Amsterdamer-Garamont-Regular.ttf') format('truetype');
+          font-family: 'GR';
+          src: url('/fonts/GR.ttf') format('truetype');
+        }
+        
+        /* Smooth transition for the glow */
+        .nav-item {
+          transition: text-shadow 0.3s ease;
         }
 
-        /* Hover Effect for Nav Links */
-        .nav-link-item {
-          font-family: 'Amsterdamer', sans-serif;
-          font-weight: normal;
-          font-size: 18px; /* Slightly bigger */
-          text-decoration: none;
-          color: rgba(255, 255, 255, 0.7); /* Default dimmed white */
-          transition: all 0.3s ease;
-        }
-
-        .nav-link-item:hover,
-        .nav-link-item.active {
-          color: white;
-          text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* The Glow Effect */
+        /* The Glow Effect on Hover */
+        .nav-item:hover {
+          text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
         }
       `}</style>
       
-      {/* LEFT: Logo */}
+      {/* LEFT: Logo with Mixed Fonts */}
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        
+        {/* 1. PMA */}
         <span style={{ 
             fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif', 
             fontWeight: '900', 
@@ -63,7 +59,11 @@ const Navbar = () => {
         }}>
             PMA
         </span>
+
+        {/* 2. | */}
         <span style={{ fontSize: logoSize, color: '#666', fontWeight: '300' }}>|</span>
+
+        {/* 3. FATE */}
         <span style={{ 
             fontFamily: 'Against', 
             fontWeight: 'normal', 
@@ -76,29 +76,33 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Navigation Links */}
-      <div style={{ display: 'flex', gap: '30px' }}>
+      {/* RIGHT: Navigation Links - GR Font with Glow */}
+      <div style={{ display: 'flex', gap: '30px', fontFamily: 'GR, sans-serif' }}>
         <Link 
           to="/" 
-          className={`nav-link-item ${location.pathname === '/' ? 'active' : ''}`}
+          className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} 
+          style={{ fontFamily: 'GR', fontWeight: 'normal' }}
         >
             Home
         </Link>
         <Link 
           to="/calendar" 
-          className={`nav-link-item ${location.pathname === '/calendar' ? 'active' : ''}`}
+          className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} 
+          style={{ fontFamily: 'GR', fontWeight: 'normal' }}
         >
             Calendar
         </Link>
         <Link 
           to="/championship" 
-          className={`nav-link-item ${location.pathname === '/championship' ? 'active' : ''}`}
+          className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} 
+          style={{ fontFamily: 'GR', fontWeight: 'normal' }}
         >
             Championship
         </Link>
         <Link 
           to="/news" 
-          className={`nav-link-item ${location.pathname === '/news' ? 'active' : ''}`}
+          className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} 
+          style={{ fontFamily: 'GR', fontWeight: 'normal' }}
         >
             News
         </Link>
