@@ -33,11 +33,8 @@ const Calendar = () => {
   };
 
   return (
-    // --- UPDATED MAIN WRAPPER ---
-    // Added margin: '0 -20px' to counteract the global app padding
     <div style={{ display: 'flex', flexDirection: 'column', gap: '60px', margin: '0 -20px' }}>
         
-        {/* 3.1 INTERNAL STYLES */}
         <style>{`
             @font-face { font-family: 'GR'; src: url('/fonts/GR.ttf') format('truetype'); }
             @font-face { font-family: 'Moret'; src: url('/fonts/Moret-Regular.ttf') format('truetype'); }
@@ -45,9 +42,19 @@ const Calendar = () => {
 
             .calendar-grid { display: grid; grid-template-columns: 10% 40% 30% 20%; align-items: center; padding: 0 20px; }
             
-            /* Animation from Championship */
-            @keyframes swipe-calendar { 0% { transform: translateX(-101%); } 40% { transform: translateX(0); } 60% { transform: translateX(0); } 100% { transform: translateX(101%); } }
-            @keyframes text-appear { 0% { opacity: 0; } 50% { opacity: 0; } 51% { opacity: 1; } 100% { opacity: 1; } }
+            /* SWIPE ANIMATION (Matching Championship) */
+            @keyframes swipe-calendar { 
+                0% { transform: translateX(-101%); } 
+                40% { transform: translateX(0); } 
+                60% { transform: translateX(0); } 
+                100% { transform: translateX(101%); } 
+            }
+            @keyframes text-appear { 
+                0% { opacity: 0; } 
+                50% { opacity: 0; } 
+                51% { opacity: 1; } 
+                100% { opacity: 1; } 
+            }
             
             .reveal-row { position: relative; overflow: hidden; border-bottom: 2px solid #111; transition: background-color 0.2s; }
             .reveal-row:hover { background-color: #1a1a1a; z-index: 10; border-bottom: 2px solid transparent; }
@@ -57,18 +64,14 @@ const Calendar = () => {
 
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
 
-            /* --- COUNTDOWN STYLES --- */
-            .countdown-wrapper {
-                text-align: center;
-                padding: 0;
-            }
+            /* Simplified styles - Container removed */
             .next-race-label {
                 font-family: sans-serif;
                 font-size: 12px;
                 color: #666;
                 text-transform: uppercase;
                 letter-spacing: 4px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
             .track-icon-large {
                 width: 100px;
@@ -78,7 +81,7 @@ const Calendar = () => {
             }
         `}</style>
 
-        {/* 3.2 THE PANEL (ONLY CONTAINS HEADER & LIST NOW) */}
+        {/* 3.2 CALENDAR PANEL */}
         <div className="panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', borderRadius: 0 }}>
             {/* Header */}
             <div style={{ 
@@ -148,9 +151,9 @@ const Calendar = () => {
             </div>
         </div>
 
-        {/* 3.3 COUNTDOWN (OUTSIDE THE BOX) */}
+        {/* 3.3 COUNTDOWN (NO CONTAINER) */}
         {nextRace && (
-            <div className="countdown-wrapper">
+            <div style={{ textAlign: 'center', marginBottom: '50px' }}>
                 <img src={getMapUrl(nextRace.map)} alt="Track" className="track-icon-large" />
                 <div className="next-race-label">NEXT RACE BEGINS IN...</div>
                 

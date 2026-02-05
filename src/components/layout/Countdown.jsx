@@ -25,28 +25,27 @@ const calculateTimeLeft = (targetDate) => {
    2. SUB-COMPONENTS
    ========================================= */
 const TimeGroup = ({ val, label }) => (
-  <div style={{ display: 'flex', alignItems: 'baseline' }}>
-    {/* Number - USING VW UNITS TO SCALE WITH SCREEN */}
+  <div style={{ display: 'flex', alignItems: 'baseline', margin: '0 1vw' }}>
+    {/* Number - Scaled to Viewport Width */}
     <span style={{
         fontFamily: 'Moret, sans-serif',
-        fontSize: '13vw', /* Responsive size: 13% of screen width */
+        fontSize: '12vw', 
         color: '#f0f0f0',
         lineHeight: 0.8,
         fontWeight: 'bold',
-        letterSpacing: '-0.05em' /* Tighten letters slightly */
+        letterSpacing: '-0.05em'
     }}>
       {val !== undefined ? String(val).padStart(2, '0') : '00'}
     </span>
 
-    {/* Label (D, H, M, S) */}
+    {/* Label */}
     <span style={{
         fontFamily: 'Moret, sans-serif',
-        fontSize: '13vw', /* Match the number size */
-        color: '#222',    /* Dark grey to blend with background */
+        fontSize: '12vw', 
+        color: '#333', 
         lineHeight: 0.8,
         fontWeight: 'bold',
-        marginLeft: '0.2vw', /* Tiny gap between number and letter */
-        marginRight: '2vw'   /* Gap between this group and the next */
+        marginLeft: '0.2vw'
     }}>
       {label.charAt(0)}
     </span>
@@ -69,22 +68,17 @@ const Countdown = ({ targetDate }) => {
   }, [targetDate]);
 
   return (
-    <div className="countdown-container" style={{ 
+    <div style={{ 
         display: 'flex', 
         justifyContent: 'center', 
-        alignItems: 'baseline',
+        alignItems: 'center',
         width: '100%',
-        position: 'relative', 
-        zIndex: 5,
-        marginTop: '10px',
-        whiteSpace: 'nowrap', /* Forces everything to stay on one line */
-        overflow: 'hidden'    /* Prevents horizontal scrollbars */
+        marginTop: '20px',
+        overflow: 'hidden' /* Safety net */
     }}>
       <TimeGroup val={timeLeft.days} label="Days" />
       <TimeGroup val={timeLeft.hours} label="Hours" />
       <TimeGroup val={timeLeft.minutes} label="Minutes" />
-      {/* The last group needs no right margin, but the TimeGroup component adds it. 
-          That's fine, it will just add a little spacing on the right edge. */}
       <TimeGroup val={timeLeft.seconds} label="Seconds" />
     </div>
   );
