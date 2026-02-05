@@ -66,18 +66,34 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Navigation Links - Font Changed to Speltale */}
+      {/* RIGHT: Navigation Links - Speltale Font, Explicitly Normal Weight */}
       <div style={{ display: 'flex', gap: '30px', fontFamily: 'Speltale, sans-serif' }}>
-        <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
+        <Link 
+          to="/" 
+          className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} 
+          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+        >
             Home
         </Link>
-        <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
+        <Link 
+          to="/calendar" 
+          className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} 
+          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+        >
             Calendar
         </Link>
-        <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
+        <Link 
+          to="/championship" 
+          className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} 
+          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+        >
             Championship
         </Link>
-        <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} style={{ fontFamily: 'Speltale' }}>
+        <Link 
+          to="/news" 
+          className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} 
+          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+        >
             News
         </Link>
       </div>
