@@ -87,7 +87,7 @@ const Calendar = () => {
                 left: 0;
                 width: 240px;
                 height: 220px;
-                background-color: #ccff00; /* Neon Lime */
+                background-color: #ccff0000; /* lie. */
                 border-radius: 0 16px 16px 16px; /* Round all except top-left */
                 z-index: 9999;
                 pointer-events: none; /* Mouse passes through */
@@ -111,7 +111,7 @@ const Calendar = () => {
                 left: 0;
                 width: 100px; /* Width of the tab */
                 height: 25px;
-                background-color: #ccff00;
+                background-color: #ccff0000; /* lie. */
                 border-radius: 12px 12px 0 0; /* Round top corners */
             }
 
