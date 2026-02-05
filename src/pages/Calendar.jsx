@@ -74,7 +74,7 @@ const Calendar = () => {
             .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
 
-            /* --- UPDATED POPUP STYLES (Flat White, No Shadow) --- */
+            /* --- UPDATED POPUP STYLES --- */
             .cursor-map-popup {
                 position: fixed; 
                 top: 0; 
@@ -82,6 +82,7 @@ const Calendar = () => {
                 width: 240px;
                 height: 220px;
                 background-color: #ffffff; /* Paper White */
+                border: none; 
                 border-radius: 0 16px 16px 16px;
                 z-index: 9999;
                 pointer-events: none;
@@ -90,7 +91,7 @@ const Calendar = () => {
                 align-items: center;
                 justify-content: center;
                 opacity: 0;
-                /* box-shadow removed for flat look */
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Drop shadow kept */
                 transition: opacity 0.2s ease;
                 margin-top: 20px; 
                 margin-left: 20px;
@@ -105,6 +106,7 @@ const Calendar = () => {
                 width: 100px;
                 height: 25px;
                 background-color: #ffffff; /* Paper White */
+                border: none; /* Explicitly ensure no outline */
                 border-radius: 12px 12px 0 0;
             }
 
@@ -119,14 +121,13 @@ const Calendar = () => {
                 z-index: 2;
             }
 
-            /* popup-label style removed as text is gone */
+            /* popup-label styles removed as the element is gone */
 
             .countdown-wrapper { text-align: center; padding: 0; }
             .next-race-label { font-family: sans-serif; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
             .track-icon-large { width: 90px; height: auto; margin-bottom: 20px; }
         `}</style>
 
-        {/* 3.2 CALENDAR PANEL */}
         <div className="panel" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', borderRadius: 0 }}>
             <div style={{ 
                 display: 'flex', flexDirection: 'column', 
@@ -180,7 +181,6 @@ const Calendar = () => {
                     </div>
                 ))}
                 
-                {/* --- FLOATING POPUP (Physics Ref, No Text, No Shadow) --- */}
                 <div 
                   ref={popupRef}
                   className={`cursor-map-popup ${hoveredMap ? 'visible' : ''}`}
