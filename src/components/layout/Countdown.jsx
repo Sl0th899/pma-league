@@ -25,26 +25,26 @@ const calculateTimeLeft = (targetDate) => {
    2. SUB-COMPONENTS
    ========================================= */
 const TimeGroup = ({ val, label }) => (
-  <div style={{ display: 'flex', alignItems: 'baseline', margin: '0 15px' }}>
-    {/* The Number (Bright White) - INCREASED SIZE */}
+  <div style={{ display: 'flex', alignItems: 'baseline', margin: '0 20px' }}>
+    {/* Number - MASSIVE SIZE */}
     <span style={{
         fontFamily: 'Moret, sans-serif',
-        fontSize: '160px', // Increased from 120px
+        fontSize: '220px', 
         color: '#f0f0f0',
         lineHeight: 0.8,
         fontWeight: 'bold',
-        letterSpacing: '-2px'
+        letterSpacing: '-4px'
     }}>
       {val !== undefined ? String(val).padStart(2, '0') : '00'}
     </span>
 
-    {/* The Label (Dark Grey) - INCREASED SIZE */}
+    {/* Label - NEXT TO IT */}
     <span style={{
         fontFamily: 'Moret, sans-serif',
-        fontSize: '160px', // Increased from 120px
+        fontSize: '220px', 
         color: '#333', 
         lineHeight: 0.8,
-        marginLeft: '2px',
+        marginLeft: '5px',
         fontWeight: 'bold'
     }}>
       {label.charAt(0)}
@@ -74,7 +74,7 @@ const Countdown = ({ targetDate }) => {
         flexWrap: 'wrap',
         position: 'relative', 
         zIndex: 5,
-        marginTop: '20px'
+        marginTop: '10px'
     }}>
       <TimeGroup val={timeLeft.days} label="Days" />
       <TimeGroup val={timeLeft.hours} label="Hours" />
