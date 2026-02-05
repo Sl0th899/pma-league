@@ -23,30 +23,24 @@ const Calendar = () => {
   const [hoveredMap, setHoveredMap] = useState(null);
   
   // --- PHYSICS ENGINE FOR CURSOR ---
-  // We use refs instead of state for position to avoid re-rendering the whole component 60 times a second.
   const popupRef = useRef(null);
-  const targetPos = useRef({ x: 0, y: 0 }); // Where the mouse IS
-  const currentPos = useRef({ x: 0, y: 0 }); // Where the popup IS (Lagging behind)
+  const targetPos = useRef({ x: 0, y: 0 }); 
+  const currentPos = useRef({ x: 0, y: 0 }); 
 
-  // 1. Track Mouse Instantly
+  // 1. Track Mouse
   const handleMouseMove = (e) => {
     targetPos.current = { x: e.clientX, y: e.clientY };
   };
 
-  // 2. Animation Loop (The Lag Effect)
+  // 2. Animation Loop (Lag Effect)
   useEffect(() => {
     let animationFrameId;
 
     const animate = () => {
       if (popupRef.current) {
-        // "Lerp" (Linear Interpolation) formula for smooth following
-        // The 0.1 factor determines the "heaviness" (lower = slower lag)
         const ease = 0.1;
-        
         currentPos.current.x += (targetPos.current.x - currentPos.current.x) * ease;
         currentPos.current.y += (targetPos.current.y - currentPos.current.y) * ease;
-
-        // Apply direct DOM manipulation for maximum performance
         popupRef.current.style.transform = `translate(${currentPos.current.x}px, ${currentPos.current.y}px)`;
       }
       animationFrameId = requestAnimationFrame(animate);
@@ -80,17 +74,17 @@ const Calendar = () => {
             .reveal-block-cal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0466c8; transform: translateX(-101%); z-index: 2; animation: swipe-calendar 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
             .schedule-header { font-family: sans-serif; font-size: 12px; color: #888; padding: 15px 0; border-bottom: 2px solid #444; margin-bottom: 0; background: #151515; }
 
-            /* --- NEW NEON FOLDER POPUP STYLES --- */
+            /* --- UPDATED POPUP STYLES (PAPER WHITE) --- */
             .cursor-map-popup {
                 position: fixed; 
                 top: 0; 
                 left: 0;
                 width: 240px;
                 height: 220px;
-                background-color: #ccff0000; /* lie. */
-                border-radius: 0 16px 16px 16px; /* Round all except top-left */
+                background-color: #ffffff; /* Paper White */
+                border-radius: 0 16px 16px 16px;
                 z-index: 9999;
-                pointer-events: none; /* Mouse passes through */
+                pointer-events: none;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -98,21 +92,20 @@ const Calendar = () => {
                 opacity: 0;
                 box-shadow: 0 20px 50px rgba(0,0,0,0.5);
                 transition: opacity 0.2s ease;
-                /* Important: Initially offset to align the tab with the cursor */
                 margin-top: 20px; 
                 margin-left: 20px;
             }
 
-            /* The "Tab" part of the folder */
+            /* The "Tab" matches the white background */
             .cursor-map-popup::before {
                 content: '';
                 position: absolute;
-                top: -25px; /* Height of the tab */
+                top: -25px;
                 left: 0;
-                width: 100px; /* Width of the tab */
+                width: 100px;
                 height: 25px;
-                background-color: #ccff0000; /* lie. */
-                border-radius: 12px 12px 0 0; /* Round top corners */
+                background-color: #ffffff; /* Paper White */
+                border-radius: 12px 12px 0 0;
             }
 
             .cursor-map-popup.visible {
@@ -123,16 +116,15 @@ const Calendar = () => {
                 width: 90%;
                 height: 80%;
                 object-fit: contain;
-                /* Force track map to be BLACK to contrast with Neon Yellow */
-                filter: brightness(0); 
                 z-index: 2;
+                /* REMOVED FILTER: Colors are now untouched */
             }
 
             .popup-label {
                 position: absolute;
                 bottom: 15px;
                 font-size: 14px;
-                color: black; /* Black text on Neon */
+                color: #000000; /* Black text on White paper */
                 font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 1px;
