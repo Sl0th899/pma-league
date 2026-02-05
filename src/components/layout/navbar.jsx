@@ -27,11 +27,10 @@ const Navbar = () => {
       transition: 'padding 0.4s ease', 
       backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
-      {/* Internal Style for Speltale Font */}
       <style>{`
         @font-face {
-          font-family: 'Speltale';
-          src: url('/fonts/speltalefont-demo-regular.otf') format('opentype');
+          font-family: 'Amsterdamer';
+          src: url('/fonts/Amsterdamer-Garamont-Regular.ttf') format('truetype');
         }
       `}</style>
       
@@ -66,33 +65,33 @@ const Navbar = () => {
         </span>
       </Link>
       
-      {/* RIGHT: Navigation Links - Speltale Font, Explicitly Normal Weight */}
-      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Speltale, sans-serif' }}>
+      {/* RIGHT: Navigation Links - Amsterdamer Font, Size Increased by 5px (21px) */}
+      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Amsterdamer, sans-serif' }}>
         <Link 
           to="/" 
           className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
         >
             Home
         </Link>
         <Link 
           to="/calendar" 
           className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
         >
             Calendar
         </Link>
         <Link 
           to="/championship" 
           className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
         >
             Championship
         </Link>
         <Link 
           to="/news" 
           className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} 
-          style={{ fontFamily: 'Speltale', fontWeight: 'normal' }}
+          style={{ fontFamily: 'Amsterdamer', fontWeight: 'normal', fontSize: '21px' }}
         >
             News
         </Link>
