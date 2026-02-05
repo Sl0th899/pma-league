@@ -1,83 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Helper to check if the link is active
-  const isActive = (path) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
-    return false;
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navPadding = isScrolled ? '15px 40px' : '30px 40px';
+  const logoSize = isScrolled ? '24px' : '32px';
 
   return (
     <nav style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
+      backgroundColor: 'transparent',
+      padding: navPadding, 
+      display: 'flex',
       alignItems: 'center',
-      padding: '40px 0', 
-      backgroundColor: 'transparent', 
-      zIndex: 100,
-      position: 'relative'
+      justifyContent: 'space-between',
+      position: 'sticky',
+      top: 0,
+      zIndex: 1000,
+      transition: 'padding 0.4s ease', 
+      backdropFilter: isScrolled ? 'blur(5px)' : 'none'
     }}>
+      {/* Internal Style for Moret Font */}
       <style>{`
-        /* --- FONT DEFINITION --- */
         @font-face {
-            font-family: 'Moret';
-            /* Pointing to the .otf file as requested */
-            src: url('/fonts/Moret-Regular.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            /* CHANGED FONT HERE */
-            font-family: 'Moret', sans-serif; 
-            font-size: 24px; 
-            color: #666; /* Muted grey for inactive items */
-            text-transform: uppercase;
-            margin: 0 35px; /* Spacing between links */
-            position: relative;
-            transition: color 0.3s ease;
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-
-        .nav-link:hover {
-            color: white;
-        }
-
-        .nav-link.active {
-            color: white;
-        }
-
-        /* The Red Underline for Active State */
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--accent, #e10600); /* Fallback to red if variable missing */
-            box-shadow: 0 2px 10px rgba(225, 6, 0, 0.4);
+          font-family: 'Moret';
+          src: url('/fonts/Moret-Regular.otf') format('opentype');
         }
       `}</style>
+      
+      {/* LEFT: Logo with Mixed Fonts */}
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        
+        {/* 1. PMA: Clean, Bold, Standard Font */}
+        <span style={{ 
+            fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif', 
+            fontWeight: '900', 
+            fontSize: logoSize,
+            color: 'white',
+            letterSpacing: '0px',
+            transition: 'font-size 0.4s ease'
+        }}>
+            PMA
+        </span>
 
-      <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>
-        Home
+        {/* 2. | : Simple Separator */}
+        <span style={{ fontSize: logoSize, color: '#666', fontWeight: '300' }}>|</span>
+
+        {/* 3. FATE: The "Against" Font */}
+        <span style={{ 
+            fontFamily: 'Against', 
+            fontWeight: 'normal', 
+            fontSize: logoSize,
+            color: 'white',
+            letterSpacing: '2px',
+            transition: 'font-size 0.4s ease'
+        }}>
+            FATE
+        </span>
       </Link>
-      <Link to="/calendar" className={`nav-link ${isActive('/calendar') ? 'active' : ''}`}>
-        Calendar
-      </Link>
-      <Link to="/championship" className={`nav-link ${isActive('/championship') ? 'active' : ''}`}>
-        Championship
-      </Link>
-      <Link to="/news" className={`nav-link ${isActive('/news') ? 'active' : ''}`}>
-        News
-      </Link>
+      
+      {/* RIGHT: Navigation Links - Font Changed to Moret */}
+      <div style={{ display: 'flex', gap: '30px', fontFamily: 'Moret, sans-serif' }}>
+        <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+            Home
+        </Link>
+        <Link to="/calendar" className={`nav-item ${location.pathname === '/calendar' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+            Calendar
+        </Link>
+        <Link to="/championship" className={`nav-item ${location.pathname === '/championship' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+            Championship
+        </Link>
+        <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`} style={{ fontFamily: 'Moret' }}>
+            News
+        </Link>
+      </div>
     </nav>
   );
 };
